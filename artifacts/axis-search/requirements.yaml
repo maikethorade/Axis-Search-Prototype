@@ -1,0 +1,16 @@
+packages:
+  "framer-motion": "For premium cinematic page transitions, search overlay animations, and card hover effects."
+  "use-debounce": "For debouncing the predictive search input."
+  "lucide-react": "For UI icons."
+
+images:
+  - path: "artifacts/axis-search/public/images/axis-logo.png"
+    description: "Minimalist, sleek text logo saying 'AXIS' in bold white letters on transparent background, premium streaming service style."
+    aspect_ratio: "16:9"
+  - path: "artifacts/axis-search/public/images/hero-bg.png"
+    description: "Dark cinematic background blending a glowing sports stadium with abstract neon light trails, deep blues and purples, subtle smoke."
+    aspect_ratio: "16:9"
+
+notes:
+  - "Frontend only prototype using mock data for search simulation."
+  - "Implements client-side fuzzy and pseudo-semantic search logic to demonstrate premium search capabilities."

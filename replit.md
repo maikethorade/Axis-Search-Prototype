@@ -94,3 +94,16 @@ Generated React Query hooks and fetch client from the OpenAPI spec (e.g. `useHea
 ### `scripts` (`@workspace/scripts`)
 
 Utility scripts package. Each script is a `.ts` file in `src/` with a corresponding npm script in `package.json`. Run scripts via `pnpm --filter @workspace/scripts run <script>`. Scripts can import any workspace package (e.g., `@workspace/db`) by adding it as a dependency in `scripts/package.json`.
+
+### `artifacts/axis-search` (`@workspace/axis-search`)
+
+AXIS Premium Search Prototype — a React+Vite SPA for Deltatre's OTT streaming platform. Premium dark-themed search experience with semantic search, voice search UI, in-video moments, and personalized suggestions. All data is client-side mock data (42 content items).
+
+- Stack: React 19, Vite, TypeScript, Tailwind CSS v4, framer-motion, wouter, lucide-react
+- Routes: `/` (homepage with hero, trending, personalized rows), `/search?q=` (results with filters and moments)
+- Key components: SearchOverlay (full-screen predictive search), VoiceSearch (simulated voice UI), ContentCard, ContentModal
+- Search: Debounced client-side filtering with semantic intent expansion (e.g., "exciting" maps to action/thriller/sports tags)
+- In-video moments: Timestamped highlights from matched sport/live content
+- Mock images from picsum.photos
+- `pnpm --filter @workspace/axis-search run dev` — run the dev server
+- Preview path: `/`
