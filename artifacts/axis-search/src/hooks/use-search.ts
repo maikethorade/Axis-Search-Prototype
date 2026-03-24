@@ -26,7 +26,8 @@ export function useSearch(initialQuery: string = '') {
         items: [],
         moments: [],
         suggestions: [],
-        exactMatch: false
+        exactMatch: false,
+        totalCount: 0
       };
     }
 
