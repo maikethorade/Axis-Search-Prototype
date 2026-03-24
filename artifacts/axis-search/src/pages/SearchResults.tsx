@@ -39,6 +39,7 @@ export default function SearchResults() {
     const urlQuery = new URLSearchParams(window.location.search).get('q') || '';
     if (urlQuery && urlQuery !== query) {
       setQuery(urlQuery);
+      setActiveFilter('all');
     }
   }, [location]);
 

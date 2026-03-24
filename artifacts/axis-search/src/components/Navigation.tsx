@@ -29,7 +29,6 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         <div className="flex items-center gap-10">
           <Link href="/" className="flex items-center gap-2 group cursor-pointer">
-            {/* Using text logo for fallback, but ideally use generated image if available */}
             <span className="font-display font-black text-3xl tracking-tighter text-white group-hover:text-primary transition-colors">
               AXIS
             </span>
