@@ -17,7 +17,6 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground pb-20">
       <Navigation onOpenSearch={() => setIsSearchOpen(true)} />
       
-      {/* Hero Section */}
       {hero && (
         <section className="relative w-full h-[80vh] md:h-[90vh] flex items-end pb-24">
           <div className="absolute inset-0 w-full h-full">
@@ -26,9 +25,8 @@ export default function Home() {
               alt={hero.title}
               className="w-full h-full object-cover"
             />
-            {/* Cinematic Gradients */}
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full">
@@ -39,27 +37,28 @@ export default function Home() {
               className="max-w-2xl"
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="px-3 py-1 bg-destructive text-white text-xs font-bold uppercase tracking-wider rounded flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" /> Live Now
+                <span className="px-2.5 py-0.5 text-white text-xs font-bold uppercase tracking-wider rounded-sm flex items-center gap-1.5" style={{ background: 'var(--axis-live)' }}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> Live Now
                 </span>
                 <span className="text-white/80 font-medium text-sm">Champions League</span>
               </div>
               
-              <h1 className="text-5xl md:text-7xl font-display font-bold text-white leading-[1.1] mb-6 drop-shadow-2xl">
+              <h1 className="text-4xl md:text-6xl font-bold text-white leading-[1.2] mb-5 drop-shadow-2xl">
                 {hero.title}
               </h1>
               
-              <p className="text-lg md:text-xl text-white/80 mb-8 line-clamp-3 max-w-xl">
+              <p className="text-base md:text-lg mb-8 line-clamp-2 max-w-xl" style={{ color: 'var(--axis-text-secondary)', fontWeight: 400, lineHeight: 1.5 }}>
                 {hero.description}
               </p>
               
-              <div className="flex items-center gap-4">
-                <button className="bg-white text-black px-8 py-4 rounded-xl font-bold flex items-center gap-3 hover:bg-white/90 hover:scale-105 transition-all shadow-lg shadow-white/20">
-                  <Play className="w-5 h-5 fill-black" /> Watch Live
+              <div className="flex items-center gap-3">
+                <button className="px-7 py-3.5 rounded-sm font-bold flex items-center gap-2 hover:opacity-90 transition-all shadow-lg text-sm" style={{ background: 'var(--axis-brand)', color: '#fff' }}>
+                  <Play className="w-5 h-5 fill-white" /> Watch Live
                 </button>
                 <button 
                   onClick={() => setSelectedItem(hero)}
-                  className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-3 hover:bg-white/20 hover:scale-105 transition-all"
+                  className="backdrop-blur-md text-white px-7 py-3.5 rounded-sm font-bold flex items-center gap-2 hover:bg-white/20 transition-all text-sm"
+                  style={{ background: 'var(--axis-overlay)', border: '1px solid #fff' }}
                 >
                   <Info className="w-5 h-5" /> Details
                 </button>
@@ -69,12 +68,11 @@ export default function Home() {
         </section>
       )}
 
-      {/* Content Rows */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16 mt-[-40px] relative z-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-14 mt-[-40px] relative z-20">
         
         <section>
-          <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Trending Now</h2>
-          <div className="flex gap-4 md:gap-6 overflow-x-auto pb-8 pt-4 -mt-4 -mx-6 px-6 md:-mx-12 md:px-12 no-scrollbar snap-x">
+          <h2 className="text-lg md:text-xl font-bold text-white mb-5">Trending Now</h2>
+          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 pt-4 -mt-4 -mx-6 px-6 md:-mx-12 md:px-12 no-scrollbar snap-x">
             {trending.map(item => (
               <div key={item.id} className="snap-start">
                 <ContentCard item={item} onClick={setSelectedItem} aspectRatio="poster" />
@@ -84,11 +82,11 @@ export default function Home() {
         </section>
 
         <section>
-          <h2 className="text-xl md:text-2xl font-bold text-white mb-6 flex items-center gap-3">
-            <span className="bg-primary/20 text-primary p-1.5 rounded-lg"><TrendingUp className="w-5 h-5" /></span>
+          <h2 className="text-lg md:text-xl font-bold text-white mb-5 flex items-center gap-3">
+            <span className="p-1.5 rounded" style={{ background: 'rgba(74, 106, 247, 0.2)' }}><TrendingUp className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} /></span>
             Top Picks for You
           </h2>
-          <div className="flex gap-4 md:gap-6 overflow-x-auto pb-8 pt-4 -mt-4 -mx-6 px-6 md:-mx-12 md:px-12 no-scrollbar snap-x">
+          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 pt-4 -mt-4 -mx-6 px-6 md:-mx-12 md:px-12 no-scrollbar snap-x">
             {personalized.map(item => (
               <div key={item.id} className="snap-start">
                 <ContentCard item={item} onClick={setSelectedItem} aspectRatio="video" featured={item.id === personalized[0]?.id} />
@@ -98,8 +96,8 @@ export default function Home() {
         </section>
 
         <section>
-          <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Live & Upcoming Sports</h2>
-          <div className="flex gap-4 md:gap-6 overflow-x-auto pb-8 pt-4 -mt-4 -mx-6 px-6 md:-mx-12 md:px-12 no-scrollbar snap-x">
+          <h2 className="text-lg md:text-xl font-bold text-white mb-5">Live & Upcoming Sports</h2>
+          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 pt-4 -mt-4 -mx-6 px-6 md:-mx-12 md:px-12 no-scrollbar snap-x">
             {sports.map(item => (
               <div key={item.id} className="snap-start">
                 <ContentCard item={item} onClick={setSelectedItem} aspectRatio="video" />

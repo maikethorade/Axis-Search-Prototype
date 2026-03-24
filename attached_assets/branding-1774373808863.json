@@ -1,0 +1,203 @@
+{
+  "source": "https://stable.deltatreaxis.com/",
+  "extractedAt": "2026-03-24",
+  "platform": "Deltatre AXIS OTT Platform",
+  
+  "colors": {
+    "primary": {
+      "brand": "#4a6af7",
+      "brandHover": "#2544d0",
+      "description": "AXIS signature blue-violet — used for primary CTAs, focus states, hover accents, active tabs, and interactive highlights"
+    },
+    "live": {
+      "badge": "#ec0000",
+      "badgeText": "#fff",
+      "buttonHover": "var(--color-global-button-live-background-hover)",
+      "description": "Pure red for LIVE indicators and live-event CTAs"
+    },
+    "entitlement": {
+      "purchase": "#ffb200",
+      "purchased": "#4a6af7",
+      "locked": "#fff",
+      "description": "Gold for purchase prompts, brand blue for purchased states"
+    },
+    "badges": {
+      "default": { "text": "#1a1a1a", "background": "#ffb200" },
+      "savings": { "text": "#000", "background": "#fff8c5" },
+      "editorial": { "text": "#000", "background": "#aef3f1" },
+      "upcoming": { "text": "#fff", "background": "#2a2a2a" }
+    },
+    "surfaces": {
+      "pageBackground": "#000",
+      "navBackground": "#1a1a1a",
+      "cardBackground": "#2a2a2a",
+      "elevatedSurface": "#2a2a2a",
+      "heroAccent": "#4a6af7",
+      "overlayDark": "rgba(0,0,0,.4)",
+      "overlayLight": "hsla(0,0%,100%,.2)",
+      "description": "Near-black base with dark grey surfaces"
+    },
+    "text": {
+      "primary": "#fff",
+      "secondary": "#ccc",
+      "tertiary": "grey",
+      "disabled": "grey",
+      "tvDefault": "#ebebeb",
+      "navDefault": "#fff",
+      "navInactive": "hsla(0,0%,100%,.7)",
+      "navHover": "#4a6af7",
+      "description": "White primary text, light grey secondary, grey for metadata/disabled"
+    },
+    "buttons": {
+      "primaryBg": "#4a6af7",
+      "primaryBgHover": "#2544d0",
+      "primaryText": "#fff",
+      "secondaryBorder": "#fff",
+      "secondaryBg": "rgba(0,0,0,.4)",
+      "secondaryBgHover": "hsla(0,0%,100%,.2)",
+      "secondaryText": "#fff",
+      "tertiaryText": "#fff",
+      "tertiaryBgHover": "hsla(0,0%,100%,.2)",
+      "iconButtonBorder": "#fff"
+    },
+    "interactive": {
+      "focusRing": "#0099f7",
+      "playIconHover": "#0099f7",
+      "linkDefault": "#4a6af7",
+      "linkHover": "#0875b8"
+    }
+  },
+
+  "typography": {
+    "fontFamily": {
+      "title": "inter, arial, sans-serif",
+      "body": "inter, arial, sans-serif",
+      "description": "Inter is the primary typeface for all AXIS UI — both headings and body text"
+    },
+    "hero": {
+      "xl": { "shortTitle": "700 4.5rem/1.2", "longTitle": "700 3.5rem/1.2", "extraLong": "700 3rem/1.2" },
+      "l":  { "shortTitle": "700 4rem/1.2",   "longTitle": "700 3rem/1.2",   "extraLong": "700 2.5rem/1.2" },
+      "m":  { "shortTitle": "700 3.5rem/1.2", "longTitle": "700 2.5rem/1.2", "extraLong": "700 2rem/1.2" },
+      "s":  { "shortTitle": "700 2.5rem/1.2", "longTitle": "700 2rem/1.2",   "extraLong": "700 1.5rem/1.2" },
+      "xs": { "shortTitle": "700 2rem/1.2",   "longTitle": "700 1.5rem/1.2", "extraLong": "700 1.125rem/1.2" }
+    },
+    "heroDescription": {
+      "fontSize": "1rem",
+      "fontWeight": 400,
+      "lineHeight": 1.5,
+      "lineClamp": { "default": 2, "desktopWide": 3 },
+      "marginTop": { "default": "8px", "desktop": "16px" },
+      "textShadow": "2px 2px 4px rgba(0,0,0,.45)"
+    },
+    "heroTagline": {
+      "fontSizes": { "default": "0.875rem", "tablet": "1rem", "laptop": "1.25rem", "desktop": "1.5rem" },
+      "fontWeight": 400,
+      "lineHeight": 1.2,
+      "lineClamp": { "default": 1, "laptop": 2 }
+    },
+    "body": {
+      "s": { "regular": "400 1rem/1.5", "bold": "700 1rem/1.5" },
+      "xs": { "regular": "400 0.875rem/1.5", "bold": "700 0.875rem/1.5" }
+    },
+    "button": {
+      "l": "700 1.25rem/1",
+      "m": "700 1rem/1",
+      "s": "700 0.875rem/1"
+    },
+    "metadata": {
+      "l": "400 1rem/1",
+      "s": "400 0.875rem/1"
+    }
+  },
+
+  "metadata": {
+    "formatting": {
+      "fontSize": { "mobile": "12px", "tablet": "14px" },
+      "lineHeight": { "mobile": "14px", "tablet": "17px" },
+      "height": { "mobile": "19px", "tablet": "21px" },
+      "padding": "2px 4px",
+      "margin": "0 8px 0 0",
+      "border": "1px solid grey",
+      "background": "rgba(0,0,0,.4)",
+      "description": "Metadata badges (year, duration, rating) use small pill-style containers with dark semi-transparent backgrounds and grey borders"
+    },
+    "separatorPattern": "pipe (|) or bullet (·) between inline metadata items",
+    "displayOrder": ["badge/label", "title", "tagline/genre", "year · duration · rating"]
+  },
+
+  "badges": {
+    "live": {
+      "text": "LIVE",
+      "background": "#ec0000",
+      "color": "#fff",
+      "icon": "pulsing dot",
+      "fontSize": "12px",
+      "lineHeight": "16px",
+      "padding": "2px 10px"
+    },
+    "default": {
+      "background": "#ffb200",
+      "color": "#1a1a1a"
+    },
+    "editorial": {
+      "background": "#aef3f1",
+      "color": "#000"
+    }
+  },
+
+  "packshot": {
+    "aspectRatios": {
+      "tile": "16:9",
+      "block": "4:3",
+      "poster": "2:3",
+      "square": "1:1",
+      "wide": "2:1",
+      "tall": "1:2",
+      "hero": "3:1",
+      "heroBlock": "4:3",
+      "banner": "7:1",
+      "wallpaper": "16:9"
+    },
+    "titlePosition": "below",
+    "hoverBehavior": "scale(1.1) with play icon overlay",
+    "playIconColor": { "default": "white", "hover": "#0099f7" },
+    "titleTruncation": "single-line truncate (ellipsis)",
+    "grid": {
+      "phone": "12/24 cols (2 per row)",
+      "phablet": "8/24 cols (3 per row)",
+      "laptop": "6/24 cols (4 per row)",
+      "desktopWide": "4/24 cols (6 per row)"
+    }
+  },
+
+  "navigation": {
+    "background": "#1a1a1a",
+    "textDefault": "#fff",
+    "textInactive": "hsla(0,0%,100%,.7)",
+    "textHover": "#4a6af7",
+    "textDisabled": "grey",
+    "tabBorderSelected": "#fff",
+    "searchEmptyBg": "hsla(0,0%,100%,.2)",
+    "searchHoverBg": "hsla(0,0%,100%,.2)",
+    "searchActiveBg": "#fff"
+  },
+
+  "hero": {
+    "accentBackground": "#4a6af7",
+    "titleColor": "#fff",
+    "descriptionColor": "#fff",
+    "labelDefault": "#fff",
+    "labelHover": "hsla(0,0%,100%,.9)",
+    "secondaryActionText": { "default": "#ccc", "hover": "#fff" },
+    "secondaryActionIcon": { "default": "#ccc", "hover": "#fff" },
+    "carouselIndicator": { "default": "hsla(0,0%,100%,.2)", "selected": "#fff", "hover": "hsla(0,0%,100%,.4)" },
+    "muteButton": { "icon": "#ccc", "iconHover": "#fff", "bg": "rgba(0,0,0,.4)" }
+  },
+
+  "designTokenNotes": {
+    "colorSystem": "AXIS uses a design-token-driven theming system. All colors are defined as CSS custom properties (--color-*) allowing per-project skinning. The demo environment uses a dark theme with #000 page background, #1a1a1a for navigation and surfaces, #2a2a2a for elevated cards, and #4a6af7 as the brand accent color.",
+    "typographySystem": "All typography uses the Inter font family with weight 400 (regular) and 700 (bold). Hero titles use responsive font sizes from 1.125rem (xs) to 4.5rem (xl) with 1.2 line-height. Body text uses 1rem/1.5 standard.",
+    "metadataFormatting": "Content metadata (year, duration, rating, genre) is displayed in small (12-14px) pill badges with semi-transparent dark backgrounds (rgba(0,0,0,.4)) and grey borders. Items are separated by 8px margin. The LIVE badge uses a distinctive red (#ec0000) background.",
+    "interactionPatterns": "Hover states use the brand blue (#4a6af7) for text and the play icon color #0099f7 for media interactions. Secondary buttons use white borders with transparent backgrounds that get a light overlay on hover."
+  }
+}

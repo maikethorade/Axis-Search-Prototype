@@ -107,3 +107,10 @@ AXIS Premium Search Prototype — a React+Vite SPA for Deltatre's OTT streaming 
 - Mock images from picsum.photos
 - `pnpm --filter @workspace/axis-search run dev` — run the dev server
 - Preview path: `/`
+- **Branding**: Extracted from live AXIS demo (https://stable.deltatreaxis.com/). Design tokens reference: `attached_assets/branding-1774373808863.json`
+  - Primary brand: `#4a6af7` (AXIS blue-violet), hover: `#2544d0`
+  - Surfaces: `#000` (page), `#1a1a1a` (nav), `#2a2a2a` (cards/elevated)
+  - LIVE badge: `#ec0000`, gold accent: `#ffb200`
+  - Font: Inter (matches AXIS `--font-family-title` and `--font-family-body`)
+  - Metadata: AXIS pill badge pattern (12px/14px responsive, grey border, rgba(0,0,0,.4) bg) via `.axis-metadata-badge` utility
+  - CSS custom properties: `--axis-nav`, `--axis-surface`, `--axis-brand`, `--axis-brand-hover`, `--axis-live`, `--axis-gold`, `--axis-text-secondary`, `--axis-text-tertiary`, `--axis-overlay`

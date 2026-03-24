@@ -23,7 +23,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
-      setQuery(''); // reset on close
+      setQuery('');
     }
   }, [isOpen]);
 
@@ -50,7 +50,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
       case 'Sports': return <Trophy className="w-4 h-4" />;
       case 'Movies': return <Film className="w-4 h-4" />;
       case 'Series': return <Tv className="w-4 h-4" />;
-      case 'Live Events': return <PlayCircle className="w-4 h-4 text-destructive" />;
+      case 'Live Events': return <PlayCircle className="w-4 h-4" style={{ color: 'var(--axis-live)' }} />;
       default: return null;
     }
   };
@@ -69,14 +69,14 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             role="dialog"
             aria-modal="true"
             aria-label="Search"
-            className="fixed inset-0 z-50 bg-background/98 backdrop-blur-2xl overflow-y-auto"
+            className="fixed inset-0 z-50 overflow-y-auto"
+            style={{ background: 'rgba(0, 0, 0, 0.98)' }}
           >
-            {/* Header / Input Area */}
-            <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-white/10 pt-6 pb-6 px-4 md:px-12">
+            <div className="sticky top-0 z-10 backdrop-blur-md border-b border-white/10 pt-6 pb-6 px-4 md:px-12" style={{ background: 'rgba(26, 26, 26, 0.9)' }}>
               <div className="max-w-5xl mx-auto flex items-center gap-4">
                 <form onSubmit={handleSearchSubmit} className="flex-1 relative group">
                   <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                    <Search className={`w-6 h-6 transition-colors ${query ? 'text-primary' : 'text-white/40'}`} />
+                    <Search className={`w-5 h-5 transition-colors ${query ? 'text-[var(--axis-brand)]' : 'text-white/40'}`} />
                   </div>
                   <input
                     ref={inputRef}
@@ -84,47 +84,49 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search for movies, sports, genres, or moods..."
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 pl-14 pr-16 text-xl text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 focus:bg-white/10 transition-all shadow-inner"
+                    className="w-full rounded-lg py-4 pl-12 pr-14 text-lg text-white placeholder:text-white/30 focus:outline-none transition-all"
+                    style={{
+                      background: query ? '#fff' : 'hsla(0, 0%, 100%, 0.2)',
+                      color: query ? '#000' : '#fff',
+                    }}
                   />
                   <button 
                     type="button"
                     onClick={() => setIsVoiceOpen(true)}
                     aria-label="Voice search"
-                    className="absolute inset-y-0 right-4 flex items-center text-white/50 hover:text-white transition-colors"
+                    className="absolute inset-y-0 right-4 flex items-center transition-colors"
+                    style={{ color: query ? 'var(--axis-brand)' : 'white' }}
                   >
-                    <Mic className="w-6 h-6" />
+                    <Mic className="w-5 h-5" />
                   </button>
                   
-                  {/* Subtle pulsing glow when analyzing semantic intent */}
                   {query && !showPredictive && (
-                    <div className="absolute inset-0 rounded-2xl ring-2 ring-primary/20 animate-pulse pointer-events-none" />
+                    <div className="absolute inset-0 rounded-lg ring-2 animate-pulse pointer-events-none" style={{ ringColor: 'var(--axis-brand)' }} />
                   )}
                 </form>
                 
                 <button 
                   onClick={onClose}
                   aria-label="Close search"
-                  className="p-4 rounded-xl bg-white/5 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                  className="p-3 rounded-lg text-white/70 hover:text-white transition-colors"
+                  style={{ background: 'hsla(0, 0%, 100%, 0.1)' }}
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
             </div>
 
-            {/* Main Content Area */}
             <div className="max-w-5xl mx-auto px-4 md:px-12 py-10 pb-24">
               
-              {/* DEFAULT STATE (Empty Input) */}
               {!showPredictive && (
                 <motion.div 
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   className="space-y-12"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    {/* Recent & Trending */}
                     <div className="space-y-10">
                       <div>
-                        <h3 className="text-sm font-bold tracking-wider text-white/50 uppercase mb-4 flex items-center gap-2">
+                        <h3 className="text-xs font-bold tracking-wider uppercase mb-4 flex items-center gap-2" style={{ color: 'hsla(0, 0%, 100%, 0.5)' }}>
                           <Clock className="w-4 h-4" /> Recent Searches
                         </h3>
                         <div className="flex flex-wrap gap-2">
@@ -132,7 +134,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                             <button 
                               key={s} 
                               onClick={() => { setQuery(s); handleSearchSubmit(undefined, s); }}
-                              className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/15 border border-white/5 text-white/80 transition-colors text-sm"
+                              className="px-4 py-2 rounded text-white/80 transition-colors text-sm hover:text-white"
+                              style={{ background: 'hsla(0, 0%, 100%, 0.05)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}
                             >
                               {s}
                             </button>
@@ -141,7 +144,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       </div>
 
                       <div>
-                        <h3 className="text-sm font-bold tracking-wider text-white/50 uppercase mb-4 flex items-center gap-2">
+                        <h3 className="text-xs font-bold tracking-wider uppercase mb-4 flex items-center gap-2" style={{ color: 'hsla(0, 0%, 100%, 0.5)' }}>
                           <TrendingUp className="w-4 h-4" /> Trending Now
                         </h3>
                         <ul className="space-y-1">
@@ -149,9 +152,9 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                             <li key={s}>
                               <button 
                                 onClick={() => { setQuery(s); handleSearchSubmit(undefined, s); }}
-                                className="w-full text-left px-4 py-3 rounded-lg hover:bg-white/5 text-white/80 transition-colors flex items-center gap-4 group"
+                                className="w-full text-left px-4 py-3 rounded hover:bg-white/5 text-white/80 transition-colors flex items-center gap-4 group"
                               >
-                                <span className="text-primary/50 font-bold w-4">{i + 1}</span>
+                                <span className="font-bold w-4" style={{ color: 'var(--axis-brand)', opacity: 0.5 }}>{i + 1}</span>
                                 <span className="group-hover:text-white transition-colors">{s}</span>
                               </button>
                             </li>
@@ -160,9 +163,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       </div>
                     </div>
 
-                    {/* Explore Categories */}
                     <div>
-                      <h3 className="text-sm font-bold tracking-wider text-white/50 uppercase mb-4">
+                      <h3 className="text-xs font-bold tracking-wider uppercase mb-4" style={{ color: 'hsla(0, 0%, 100%, 0.5)' }}>
                         Explore Categories
                       </h3>
                       <div className="grid grid-cols-2 gap-3">
@@ -170,12 +172,13 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                           <button 
                             key={cat}
                             onClick={() => { setQuery(cat); handleSearchSubmit(undefined, cat); }}
-                            className="p-4 rounded-xl bg-gradient-to-br from-white/5 to-white/0 border border-white/5 hover:border-primary/30 hover:from-primary/10 transition-all flex flex-col gap-3 group text-left"
+                            className="p-4 rounded-lg transition-all flex flex-col gap-3 group text-left"
+                            style={{ background: 'hsla(0, 0%, 100%, 0.05)', border: '1px solid hsla(0, 0%, 100%, 0.05)' }}
                           >
-                            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-primary/20 transition-all text-white/70 group-hover:text-primary">
+                            <div className="w-8 h-8 rounded-full flex items-center justify-center group-hover:scale-110 transition-all text-white/70 group-hover:text-[var(--axis-brand)]" style={{ background: 'hsla(0, 0%, 100%, 0.1)' }}>
                               {renderCategoryIcon(cat) || <Search className="w-4 h-4" />}
                             </div>
-                            <span className="font-semibold text-white/90">{cat}</span>
+                            <span className="font-medium text-white/90">{cat}</span>
                           </button>
                         ))}
                       </div>
@@ -184,23 +187,22 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                 </motion.div>
               )}
 
-              {/* PREDICTIVE STATE (Typing) */}
               {showPredictive && (
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                   className="space-y-8"
                 >
                   <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                    <h2 className="text-2xl font-display font-bold text-white flex items-center gap-3">
+                    <h2 className="text-xl font-bold text-white flex items-center gap-3">
                       {isSearching ? (
                         <span className="animate-pulse flex items-center gap-2">
-                          <Flame className="w-5 h-5 text-primary" /> Analyzing intent...
+                          <Flame className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} /> Analyzing intent...
                         </span>
                       ) : (
                         <span>Results for "{query}"</span>
                       )}
                     </h2>
-                    <button onClick={() => handleSearchSubmit()} className="text-primary hover:text-primary-foreground font-medium text-sm transition-colors">
+                    <button onClick={() => handleSearchSubmit()} className="font-medium text-sm transition-colors hover:opacity-80" style={{ color: 'var(--axis-brand)' }}>
                       View all results &rarr;
                     </button>
                   </div>
@@ -212,24 +214,23 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                      {/* Top Matches (Titles) */}
                       <div className="lg:col-span-2 space-y-4">
-                        <h3 className="text-sm font-bold tracking-wider text-white/50 uppercase">Top Matches</h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <h3 className="text-xs font-bold tracking-wider uppercase" style={{ color: 'hsla(0, 0%, 100%, 0.5)' }}>Top Matches</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           {results.items.slice(0, 6).map(item => (
                             <button 
                               key={item.id}
-                              onClick={() => { onClose(); /* Handle navigation to detail in real app */ }}
-                              className="flex gap-4 p-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-left group"
+                              onClick={() => { onClose(); }}
+                              className="flex gap-3 p-3 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-left group"
                             >
-                              <div className="w-24 aspect-video rounded-md overflow-hidden shrink-0 bg-white/10 relative">
+                              <div className="w-24 aspect-video rounded overflow-hidden shrink-0 relative" style={{ background: 'var(--axis-surface)' }}>
                                 <img src={item.thumbnailUrl} alt={item.title} className="w-full h-full object-cover" />
-                                {item.type === 'live' && <div className="absolute top-1 left-1 w-2 h-2 bg-destructive rounded-full animate-pulse" />}
+                                {item.type === 'live' && <div className="absolute top-1 left-1 w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--axis-live)' }} />}
                               </div>
-                              <div className="flex flex-col justify-center">
-                                <span className="font-bold text-white/90 line-clamp-1 group-hover:text-primary transition-colors">{item.title}</span>
-                                <span className="text-xs text-white/50 capitalize mt-1 flex items-center gap-2">
-                                  <span className="px-1.5 py-0.5 rounded bg-white/10">{item.type}</span>
+                              <div className="flex flex-col justify-center min-w-0">
+                                <span className="font-bold text-white/90 line-clamp-1 group-hover:text-[var(--axis-brand)] transition-colors text-sm">{item.title}</span>
+                                <span className="text-xs mt-1 flex items-center gap-2" style={{ color: 'var(--axis-text-secondary)' }}>
+                                  <span className="axis-metadata-badge">{item.type}</span>
                                   {item.year && <span>{item.year}</span>}
                                 </span>
                               </div>
@@ -238,25 +239,24 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         </div>
                       </div>
 
-                      {/* Moments & Metadata Matches */}
                       <div className="space-y-8">
                         {results.moments.length > 0 && (
                           <div className="space-y-4">
-                            <h3 className="text-sm font-bold tracking-wider text-primary uppercase flex items-center gap-2">
+                            <h3 className="text-xs font-bold tracking-wider uppercase flex items-center gap-2" style={{ color: 'var(--axis-brand)' }}>
                               <PlayCircle className="w-4 h-4" /> In-Video Moments
                             </h3>
                             <div className="space-y-3">
                               {results.moments.map(m => (
-                                <button key={m.id} className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-primary/10 border border-transparent hover:border-primary/20 transition-all text-left group">
-                                  <div className="w-16 aspect-video rounded bg-white/10 overflow-hidden relative shrink-0">
+                                <button key={m.id} className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-left group">
+                                  <div className="w-16 aspect-video rounded overflow-hidden relative shrink-0" style={{ background: 'var(--axis-surface)' }}>
                                      <img src={m.thumbnailUrl} className="w-full h-full object-cover" />
-                                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                     <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'var(--axis-overlay)' }}>
                                         <PlayCircle className="w-5 h-5 text-white opacity-80" />
                                      </div>
                                   </div>
                                   <div>
                                     <p className="text-sm font-medium text-white/90 group-hover:text-white">{m.title}</p>
-                                    <p className="text-xs text-white/50">{m.parentTitle} • {m.timestamp}</p>
+                                    <p className="text-xs" style={{ color: 'var(--axis-text-tertiary)' }}>{m.parentTitle} · {m.timestamp}</p>
                                   </div>
                                 </button>
                               ))}

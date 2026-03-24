@@ -17,7 +17,6 @@ export function VoiceSearch({ isOpen, onClose, onResult }: VoiceSearchProps) {
       return;
     }
 
-    // Simulate voice interaction flow
     const t1 = setTimeout(() => setPhase('processing'), 3000);
     const t2 = setTimeout(() => {
       setPhase('done');
@@ -38,7 +37,8 @@ export function VoiceSearch({ isOpen, onClose, onResult }: VoiceSearchProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-background/95 backdrop-blur-xl"
+            className="absolute inset-0 backdrop-blur-xl"
+            style={{ background: 'rgba(0, 0, 0, 0.95)' }}
             onClick={onClose}
           />
           
@@ -54,42 +54,42 @@ export function VoiceSearch({ isOpen, onClose, onResult }: VoiceSearchProps) {
             <button 
               onClick={onClose}
               aria-label="Close voice search"
-              className="absolute -top-16 right-0 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+              className="absolute -top-16 right-0 w-12 h-12 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+              style={{ background: 'hsla(0, 0%, 100%, 0.1)' }}
             >
               <X className="w-6 h-6" />
             </button>
 
             <div className="relative w-40 h-40 flex items-center justify-center mb-12">
-              {/* Pulsing rings for listening state */}
               {phase === 'listening' && (
                 <>
                   <motion.div 
                     animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute inset-0 rounded-full bg-primary/40"
+                    className="absolute inset-0 rounded-full"
+                    style={{ background: 'rgba(74, 106, 247, 0.4)' }}
                   />
                   <motion.div 
                     animate={{ scale: [1, 1.8, 1], opacity: [0.3, 0, 0.3] }}
                     transition={{ duration: 2, delay: 0.3, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute inset-0 rounded-full bg-accent/30"
+                    className="absolute inset-0 rounded-full"
+                    style={{ background: 'rgba(74, 106, 247, 0.3)' }}
                   />
                 </>
               )}
               
-              <div className={`relative z-10 w-24 h-24 rounded-full flex items-center justify-center shadow-2xl transition-colors duration-500 ${
-                phase === 'processing' ? 'bg-accent' : 'bg-primary'
-              }`}>
+              <div className="relative z-10 w-24 h-24 rounded-full flex items-center justify-center shadow-2xl transition-colors duration-500" style={{ background: phase === 'processing' ? 'var(--axis-brand-hover)' : 'var(--axis-brand)' }}>
                 <Mic className="w-10 h-10 text-white" />
               </div>
             </div>
 
-            <h3 className="text-2xl md:text-3xl font-display font-bold text-white text-center h-12">
+            <h3 className="text-2xl md:text-3xl font-bold text-white text-center h-12">
               {phase === 'listening' && "Listening..."}
               {phase === 'processing' && "Understanding intent..."}
               {phase === 'done' && "Got it!"}
             </h3>
             
-            <p className="mt-4 text-white/60 text-center text-lg h-8">
+            <p className="mt-4 text-center text-lg h-8" style={{ color: 'var(--axis-text-secondary)' }}>
               {phase === 'listening' && "Try saying 'Find exciting action movies'"}
             </p>
           </motion.div>
