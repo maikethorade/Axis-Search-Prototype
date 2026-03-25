@@ -100,7 +100,7 @@ export default function Home() {
                   {hero.year && <span>{hero.year}</span>}
                   {hero.rating && <><span className="mx-2 w-px h-3.5 bg-white/40 inline-block align-middle" /><span>{hero.rating}</span></>}
                   {hero.duration && <><span className="mx-2 w-px h-3.5 bg-white/40 inline-block align-middle" /><span>{hero.duration}</span></>}
-                  <span className="mx-2 w-px h-3.5 bg-white/40 inline-block align-middle" /><span className="capitalize">{hero.type}</span>
+                  {hero.type !== 'live' && <><span className="mx-2 w-px h-3.5 bg-white/40 inline-block align-middle" /><span className="capitalize">{hero.type}</span></>}
                 </div>
                 
                 <p className="text-base md:text-lg mb-8 line-clamp-2 max-w-xl" style={{ color: 'var(--axis-text-secondary)', fontWeight: 400, lineHeight: 1.5 }}>
