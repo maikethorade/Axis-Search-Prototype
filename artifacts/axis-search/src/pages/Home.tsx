@@ -152,7 +152,6 @@ export default function Home() {
           title="Top Picks for You"
           items={personalized}
           onSelect={setSelectedItem}
-          featured
         />
 
         <ContentRail
