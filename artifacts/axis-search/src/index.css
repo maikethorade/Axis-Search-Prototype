@@ -327,3 +327,13 @@
     width: 8px;
   }
 }
+
+.rails-container {
+  padding-left: 24px;
+  padding-right: 0;
+}
+@media (min-width: 768px) {
+  .rails-container {
+    padding-left: max(48px, calc((100vw - 1280px) / 2 + 48px));
+  }
+}
