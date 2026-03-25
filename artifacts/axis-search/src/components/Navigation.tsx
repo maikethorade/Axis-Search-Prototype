@@ -47,7 +47,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
         <div className="flex items-center gap-5">
           <button 
             onClick={onOpenSearch}
-            className="text-white/80 hover:text-white transition-colors hover:scale-105 active:scale-95 flex items-center gap-2 rounded-full px-3 py-2"
+            className="text-white/80 hover:text-white transition-colors hover:scale-105 active:scale-95 flex items-center justify-center w-10 h-10 rounded-full"
             style={{ background: 'hsla(0, 0%, 100%, 0.2)' }}
             aria-label="Search"
           >
