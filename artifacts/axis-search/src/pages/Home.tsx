@@ -37,7 +37,7 @@ function ContentRail({ title, items, onSelect, icon, aspectRatio = 'video' as co
 export default function Home() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
-  const { hero, trending, personalized, football, liveSports, otherSports, drama, entertainment, movies, series, documentaries, newReleases } = useHomeData();
+  const { hero, trending, personalized, sports, drama, entertainment, movies, series, documentaries, newReleases } = useHomeData();
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
@@ -63,10 +63,10 @@ export default function Home() {
               className="max-w-2xl"
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="px-2.5 py-0.5 text-white text-xs font-bold uppercase tracking-wider rounded-sm flex items-center gap-1.5" style={{ background: 'var(--axis-live)' }}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> Live Now
+                <span className="px-2.5 py-0.5 text-white text-xs font-bold uppercase tracking-wider rounded-sm flex items-center gap-1.5" style={{ background: 'var(--axis-brand)' }}>
+                  New Series
                 </span>
-                <span className="text-white/80 font-medium text-sm">Champions League</span>
+                <span className="text-white/80 font-medium text-sm">{hero.genre.join(' · ')}</span>
               </div>
               
               <h1 className="text-4xl md:text-6xl font-bold text-white leading-[1.2] mb-5 drop-shadow-2xl">
@@ -79,7 +79,7 @@ export default function Home() {
               
               <div className="flex items-center gap-3">
                 <button className="px-7 py-3.5 rounded-sm font-bold flex items-center gap-2 hover:opacity-90 transition-all shadow-lg text-sm" style={{ background: 'var(--axis-brand)', color: '#fff' }}>
-                  <Play className="w-5 h-5 fill-white" /> Watch Live
+                  <Play className="w-5 h-5 fill-white" /> Watch Now
                 </button>
                 <button 
                   onClick={() => setSelectedItem(hero)}
@@ -109,27 +109,6 @@ export default function Home() {
           onSelect={setSelectedItem}
           icon={<span className="p-1.5 rounded" style={{ background: 'rgba(74, 106, 247, 0.2)' }}><TrendingUp className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} /></span>}
           featured
-        />
-
-        <ContentRail
-          title="Live & Upcoming Sports"
-          items={liveSports}
-          onSelect={setSelectedItem}
-          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(236, 0, 0, 0.2)' }}><Zap className="w-4 h-4" style={{ color: 'var(--axis-live)' }} /></span>}
-        />
-
-        <ContentRail
-          title="Football"
-          items={football}
-          onSelect={setSelectedItem}
-          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(74, 106, 247, 0.2)' }}><Trophy className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} /></span>}
-        />
-
-        <ContentRail
-          title="More Sports"
-          items={otherSports}
-          onSelect={setSelectedItem}
-          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(255, 178, 0, 0.2)' }}><Trophy className="w-4 h-4" style={{ color: 'var(--axis-gold)' }} /></span>}
         />
 
         <ContentRail
@@ -175,6 +154,13 @@ export default function Home() {
           items={documentaries}
           onSelect={setSelectedItem}
           icon={<span className="p-1.5 rounded" style={{ background: 'rgba(74, 106, 247, 0.2)' }}><BookOpen className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} /></span>}
+        />
+
+        <ContentRail
+          title="Sports"
+          items={sports}
+          onSelect={setSelectedItem}
+          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(236, 0, 0, 0.2)' }}><Trophy className="w-4 h-4" style={{ color: 'var(--axis-live)' }} /></span>}
         />
 
       </div>
