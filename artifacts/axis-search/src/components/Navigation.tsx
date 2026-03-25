@@ -26,7 +26,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
         scrolled ? 'py-2.5' : 'py-4'
       }`}
       style={{
-        background: scrolled ? '#4A6AF7' : 'transparent',
+        background: scrolled ? 'var(--axis-nav)' : 'transparent',
         borderBottom: scrolled ? '1px solid hsla(0, 0%, 100%, 0.1)' : '1px solid transparent',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
       }}
