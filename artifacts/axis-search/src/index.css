@@ -140,3 +140,94 @@
     }
   }
 }
+
+.cta-btn {
+  appearance: none;
+  border: none;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  gap: 0;
+}
+
+.cta-btn--primary {
+  background-color: var(--axis-brand);
+  color: #fff;
+}
+
+.cta-btn--primary:hover:not(:disabled) {
+  background-color: var(--axis-brand-hover);
+}
+
+.cta-btn--large {
+  font-size: 16px;
+  line-height: 1;
+  height: 48px;
+  padding: 0 28px;
+}
+
+.cta-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.cta-btn__content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .cta-btn--large {
+    font-size: 14px;
+    height: 40px;
+    padding: 0 20px;
+  }
+}
+
+.cta-toggle-btn {
+  background: transparent;
+  border: none;
+  min-width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  gap: 6px;
+}
+
+.cta-toggle-btn__icon {
+  width: 24px;
+  height: 24px;
+  color: #ccc;
+  transition: color 0.2s;
+}
+
+.cta-toggle-btn__label {
+  color: #ccc;
+  font-size: 12px;
+  line-height: 1.25;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  transition: color 0.2s;
+}
+
+.cta-toggle-btn:hover .cta-toggle-btn__icon {
+  color: #fff;
+}
+
+.cta-toggle-btn:hover .cta-toggle-btn__label {
+  color: #fff;
+}

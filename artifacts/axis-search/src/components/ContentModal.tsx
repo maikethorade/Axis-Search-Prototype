@@ -57,8 +57,9 @@ export function ContentModal({ item, onClose }: ContentModalProps) {
                   {item.title}
                 </h2>
                 <div className="flex items-center gap-3 mb-6">
-                  <button className="px-6 py-3 rounded-sm font-bold flex items-center gap-2 transition-colors shadow-lg text-sm" style={{ background: 'var(--axis-brand)', color: '#fff' }}>
-                    <Play className="w-5 h-5 fill-white" /> Play
+                  <button className="cta-btn cta-btn--primary" style={{ height: '40px', padding: '0 24px', fontSize: '14px', fontWeight: 600 }}>
+                    <span className="cta-btn__icon"><Play className="w-5 h-5 fill-white stroke-white" /></span>
+                    <span className="cta-btn__content">Play</span>
                   </button>
                   <button className="w-11 h-11 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors" style={{ background: 'var(--axis-overlay)', border: '1px solid #fff' }}>
                     <Plus className="w-5 h-5" />

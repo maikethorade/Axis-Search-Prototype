@@ -56,8 +56,9 @@ export function ContentCard({ item, onClick, aspectRatio = 'video', featured = f
             </div>
 
             <div className="flex items-center gap-2">
-              <button className="flex-1 py-2 rounded-sm font-bold flex items-center justify-center gap-2 text-sm transition-colors" style={{ background: 'var(--axis-brand)', color: '#fff' }}>
-                <Play className="w-4 h-4 fill-white" /> <span className="hidden md:inline">Play</span>
+              <button className="cta-btn cta-btn--primary flex-1" style={{ height: '36px', padding: '0 16px', fontSize: '13px', fontWeight: 600 }}>
+                <span className="cta-btn__icon"><Play className="w-4 h-4 fill-white stroke-white" /></span>
+                <span className="cta-btn__content"><span className="hidden md:inline">Play</span></span>
               </button>
               <button className="w-9 h-9 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-all" style={{ background: 'var(--axis-overlay)', border: '1px solid #fff' }}>
                 <Plus className="w-4 h-4" />
