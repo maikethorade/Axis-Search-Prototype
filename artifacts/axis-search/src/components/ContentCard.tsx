@@ -36,7 +36,7 @@ export function ContentCard({ item, onClick, aspectRatio = 'video', featured = f
             </span>
           )}
           {item.personalizedScore && item.personalizedScore > 90 && (
-            <span className="px-2 py-0.5 rounded-sm text-xs font-bold shadow-lg" style={{ background: 'var(--axis-brand)', color: '#fff' }}>
+            <span className="px-2 py-0.5 rounded-sm text-xs font-bold shadow-lg" style={{ background: '#000', color: '#fff' }}>
               Top Pick
             </span>
           )}
