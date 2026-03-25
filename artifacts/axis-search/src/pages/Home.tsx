@@ -104,7 +104,6 @@ export default function Home() {
                           <path fillRule="evenodd" d="M0 0h5.4C9.3 0 12.5 3.2 12.5 7.1v1.8c0 3.9-3.2 7.1-7.1 7.1H0V0zm2 14h3.4c2.8 0 5.1-2.3 5.1-5.1V7.1C10.5 4.3 8.2 2 5.4 2H2v12z"/>
                           <path fillRule="evenodd" d="M24 0h-5.4c-3.9 0-7.1 3.2-7.1 7.1v1.8c0 3.9 3.2 7.1 7.1 7.1H24V0zm-2 14h-3.4c-2.8 0-5.1-2.3-5.1-5.1V7.1c0-2.8 2.3-5.1 5.1-5.1H22v12z"/>
                         </svg>
-                        <span className="text-xs font-semibold tracking-wide" style={{ fontSize: '11px', letterSpacing: '0.08em' }}>VISION</span>
                       </span>
                     </>
                   )}
