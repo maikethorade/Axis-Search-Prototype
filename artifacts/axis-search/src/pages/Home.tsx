@@ -48,7 +48,7 @@ function ContentRail({ title, items, onSelect, aspectRatio = 'video' as const, f
         {title}
       </h2>
       <div className="relative -mr-6 md:-mr-12">
-        <div ref={scrollRef} className="flex gap-4 md:gap-5 overflow-x-auto pb-6 no-scrollbar snap-x pr-6 md:pr-12">
+        <div ref={scrollRef} className="flex gap-2 md:gap-4 overflow-x-auto pb-6 no-scrollbar snap-x pr-6 md:pr-12">
           {items.map((item, i) => (
             <div key={item.id} className="snap-start">
               <ContentCard item={item} onClick={onSelect} aspectRatio={aspectRatio} featured={featured && i === 0} />
