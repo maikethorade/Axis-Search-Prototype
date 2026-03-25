@@ -857,6 +857,53 @@ export const MOCK_CONTENT: ContentItem[] = [
     duration: "1h 30m",
     year: "2024",
     rating: "PG"
+  },
+  {
+    id: "tr_wl",
+    title: "The White Lotus",
+    description: "A satirical comedy-drama set at an exclusive tropical resort, following the vacations of various hotel guests over the span of a week.",
+    type: "series",
+    genre: ["Drama", "Comedy"],
+    tags: ["drama", "comedy", "series", "hbo", "resort", "satire", "thriller"],
+    thumbnailUrl: "https://image.tmdb.org/t/p/w500/gbSaK9v1CbcYH1ISgbM7XObD2dW.jpg",
+    heroUrl: "https://image.tmdb.org/t/p/original/rCTLaPwuApDx8vLGjYZ9pRl7zRB.jpg",
+    duration: "3 Seasons",
+    year: "2021-2025",
+    rating: "18+",
+    cast: ["Jennifer Coolidge", "Aubrey Plaza", "Walton Goggins"],
+    trending: true,
+    personalizedScore: 93
+  },
+  {
+    id: "tr_im",
+    title: "Inside the Manosphere",
+    description: "Louis Theroux investigates the online world of men's rights activists, pick-up artists, and influencers promoting extreme views on masculinity.",
+    type: "documentary",
+    genre: ["Documentary", "Society"],
+    tags: ["documentary", "society", "culture", "theroux", "bbc", "masculinity"],
+    thumbnailUrl: "https://image.tmdb.org/t/p/w500/ouOvRvsgF37yEx3D6ZLWyuxZFjE.jpg",
+    heroUrl: "https://image.tmdb.org/t/p/original/cmpiLnDIdxQNFZLZZFRj1rSo7fW.jpg",
+    duration: "1h 30m",
+    year: "2024",
+    rating: "15+",
+    trending: true,
+    personalizedScore: 78
+  },
+  {
+    id: "tr_sm",
+    title: "Spider-Man: Across the Spider-Verse",
+    description: "Miles Morales catapults across the multiverse, where he encounters a team of Spider-People charged with protecting its very existence.",
+    type: "movie",
+    genre: ["Animation", "Action"],
+    tags: ["animation", "action", "superhero", "marvel", "spider-man", "exciting"],
+    thumbnailUrl: "https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg",
+    heroUrl: "https://image.tmdb.org/t/p/original/9xfDWXAUbFXQK585JvByT5pEAhe.jpg",
+    duration: "2h 20m",
+    year: "2023",
+    rating: "PG",
+    cast: ["Shameik Moore", "Hailee Steinfeld", "Oscar Isaac"],
+    trending: true,
+    personalizedScore: 89
   }
 ];
 
