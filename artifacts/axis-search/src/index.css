@@ -231,3 +231,40 @@
 .cta-toggle-btn:hover .cta-toggle-btn__label {
   color: #fff;
 }
+
+.indicator-blocks-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.indicator-block {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  width: 16px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.35);
+  transition: background-color 0.3s, width 0.3s;
+  padding: 0;
+}
+
+.indicator-block--active {
+  background-color: #fff;
+}
+
+.indicator-block:hover:not(.indicator-block--active) {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.indicator-block:focus-visible {
+  outline: 1px solid #fff;
+  outline-offset: 1px;
+}
+
+@media (max-width: 479px) {
+  .indicator-block {
+    width: 8px;
+  }
+}
