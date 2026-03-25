@@ -107,7 +107,7 @@ export const MOCK_CONTENT: ContentItem[] = [
     type: "series",
     genre: ["Drama", "Comedy"],
     tags: ["drama", "comedy", "series", "hbo", "resort", "satire", "thriller", "white lotus"],
-    thumbnailUrl: "https://image.tmdb.org/t/p/w500/gbSaK9v1CbcYH1ISgbM7XObD2dW.jpg",
+    thumbnailUrl: "https://image.tmdb.org/t/p/w500/7n06DhBEVVBDLxSwQK1RCUfeUbH.jpg",
     heroUrl: "https://image.tmdb.org/t/p/original/rCTLaPwuApDx8vLGjYZ9pRl7zRB.jpg",
     duration: "3 Seasons",
     year: "2021-2025",
