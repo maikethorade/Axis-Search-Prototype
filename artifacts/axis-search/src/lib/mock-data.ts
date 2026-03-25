@@ -140,21 +140,19 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "s2",
-    title: "F1 Grand Prix: Monaco",
-    description: "Live coverage from the iconic streets of Monte Carlo. Who will master the tight corners and claim glory at the most prestigious race on the calendar?",
-    type: "live",
-    genre: ["Motorsport", "Racing"],
-    tags: ["f1", "formula 1", "monaco", "racing", "motorsport", "live", "exciting", "fast", "cars", "race"],
-    thumbnailUrl: img("pen_moment"),
-    heroUrl: hero("pen_moment"),
-    duration: "Live",
-    year: "2024",
+    title: "Peaky Blinders",
+    description: "A gangster family epic set in 1920s Birmingham, England, centred on a gang who sew razor blades into the peaks of their caps. Tommy Shelby leads his fearless crew through the criminal underworld.",
+    type: "series",
+    genre: ["Crime", "Drama"],
+    tags: ["crime", "drama", "series", "bbc", "gangster", "1920s", "thriller", "birmingham", "period"],
+    thumbnailUrl: "https://image.tmdb.org/t/p/w500/8qPdsHxxJU493XbjeYAXStRo7z.jpg",
+    heroUrl: "https://image.tmdb.org/t/p/original/wiE9doxiLwq3WCGamDIOb2PqBqc.jpg",
+    duration: "6 Seasons",
+    year: "2013-2022",
+    rating: "18+",
+    cast: ["Cillian Murphy", "Helen McCrory", "Paul Anderson"],
     trending: true,
-    personalizedScore: 92,
-    moments: [
-      { id: "m2a", title: "Dramatic pit stop under safety car", timestamp: "Lap 32", thumbnailUrl: thumb("mum_vert") },
-      { id: "m2b", title: "Overtake at the hairpin", timestamp: "Lap 48", thumbnailUrl: thumb("teen_vert") }
-    ]
+    personalizedScore: 92
   },
   {
     id: "d1",
