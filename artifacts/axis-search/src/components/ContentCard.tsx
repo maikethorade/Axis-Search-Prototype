@@ -16,7 +16,7 @@ export function ContentCard({ item, onClick, aspectRatio = 'video', featured = f
     <motion.div
       whileHover={{ scale: 1.05, zIndex: 10 }}
       whileTap={{ scale: 0.98 }}
-      className={`relative group cursor-pointer rounded-lg overflow-hidden shrink-0 bg-[var(--axis-surface)] ${
+      className={`relative group cursor-pointer overflow-hidden shrink-0 bg-[var(--axis-surface)] ${
         featured ? 'w-[400px] md:w-[600px]' : isPoster ? 'w-[160px] md:w-[220px]' : 'w-[280px] md:w-[320px]'
       }`}
       onClick={() => onClick(item)}

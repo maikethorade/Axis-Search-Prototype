@@ -106,7 +106,7 @@ export default function SearchResults() {
                   <motion.section 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-6 md:p-8 rounded-lg"
+                    className="p-6 md:p-8"
                     style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}
                   >
                     <div className="flex items-center gap-3 mb-6">
@@ -116,14 +116,14 @@ export default function SearchResults() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                       {results.moments.map(m => (
                         <div key={m.id} className="group cursor-pointer">
-                          <div className="relative aspect-video rounded overflow-hidden mb-3 border border-white/10 group-hover:border-[var(--axis-brand)] transition-colors">
+                          <div className="relative aspect-video overflow-hidden mb-3 border border-white/10 group-hover:border-[var(--axis-brand)] transition-colors">
                             <img src={m.thumbnailUrl} alt={m.title} className="w-full h-full object-cover" />
                             <div className="absolute inset-0 group-hover:bg-black/20 transition-colors flex items-center justify-center" style={{ background: 'var(--axis-overlay)' }}>
                                <div className="w-10 h-10 rounded-full flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform" style={{ background: 'var(--axis-brand)' }}>
                                  <PlayCircle className="w-5 h-5 text-white" />
                                </div>
                             </div>
-                            <div className="absolute bottom-2 right-2 px-2 py-1 rounded text-xs font-mono text-white" style={{ background: 'rgba(0,0,0,0.8)' }}>
+                            <div className="absolute bottom-2 right-2 px-2 py-1 text-xs font-mono text-white" style={{ background: 'rgba(0,0,0,0.8)' }}>
                               {m.timestamp}
                             </div>
                           </div>
@@ -203,7 +203,7 @@ export default function SearchResults() {
                   We couldn't find anything matching "{debouncedQuery}". Try adjusting your filters or searching for something else.
                 </p>
                 
-                <div className="w-full max-w-2xl p-8 rounded-lg text-left" style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                <div className="w-full max-w-2xl p-8 text-left" style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
                   <h3 className="text-base font-bold text-white mb-4">Did you mean to search for...</h3>
                   <div className="flex flex-wrap gap-3">
                     {['Action Thrillers', 'Live Sports', 'Documentaries'].map(s => (

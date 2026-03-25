@@ -223,7 +223,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                               onClick={() => { onClose(); }}
                               className="flex gap-3 p-3 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-left group"
                             >
-                              <div className="w-24 aspect-video rounded overflow-hidden shrink-0 relative" style={{ background: 'var(--axis-surface)' }}>
+                              <div className="w-24 aspect-video overflow-hidden shrink-0 relative" style={{ background: 'var(--axis-surface)' }}>
                                 <img src={item.thumbnailUrl} alt={item.title} className="w-full h-full object-cover" />
                                 {item.type === 'live' && <div className="absolute top-1 left-1 w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--axis-live)' }} />}
                               </div>
@@ -248,7 +248,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                             <div className="space-y-3">
                               {results.moments.map(m => (
                                 <button key={m.id} className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-left group">
-                                  <div className="w-16 aspect-video rounded overflow-hidden relative shrink-0" style={{ background: 'var(--axis-surface)' }}>
+                                  <div className="w-16 aspect-video overflow-hidden relative shrink-0" style={{ background: 'var(--axis-surface)' }}>
                                      <img src={m.thumbnailUrl} className="w-full h-full object-cover" />
                                      <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'var(--axis-overlay)' }}>
                                         <PlayCircle className="w-5 h-5 text-white opacity-80" />

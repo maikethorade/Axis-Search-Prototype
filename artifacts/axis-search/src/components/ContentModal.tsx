@@ -33,7 +33,7 @@ export function ContentModal({ item, onClose }: ContentModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-5xl max-h-[90vh] rounded-lg shadow-2xl overflow-y-auto no-scrollbar z-10"
+            className="relative w-full max-w-5xl max-h-[90vh] shadow-2xl overflow-y-auto no-scrollbar z-10"
             style={{ background: 'var(--axis-nav)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}
           >
             <button 
