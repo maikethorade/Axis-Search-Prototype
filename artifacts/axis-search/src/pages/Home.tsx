@@ -60,16 +60,16 @@ export default function Home() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="max-w-2xl"
             >
-              <div className="flex items-center gap-2 mb-4">
-                {hero.year && <span className="axis-metadata-badge" style={{ borderColor: '#fff', color: '#fff' }}>{hero.year}</span>}
-                {hero.rating && <span className="axis-metadata-badge" style={{ borderColor: '#fff', color: '#fff' }}>{hero.rating}</span>}
-                {hero.duration && <span className="axis-metadata-badge" style={{ borderColor: '#fff', color: '#fff' }}>{hero.duration}</span>}
-                <span className="axis-metadata-badge capitalize" style={{ borderColor: 'var(--axis-brand)', color: 'var(--axis-brand)' }}>{hero.type}</span>
-              </div>
-              
               <h1 className="text-4xl md:text-6xl font-bold text-white leading-[1.2] mb-5 drop-shadow-2xl">
                 {hero.title}
               </h1>
+
+              <div className="flex items-center gap-0 mb-6 text-white/90 text-sm font-medium">
+                {hero.year && <span>{hero.year}</span>}
+                {hero.rating && <><span className="mx-2 w-px h-3.5 bg-white/40 inline-block align-middle" /><span>{hero.rating}</span></>}
+                {hero.duration && <><span className="mx-2 w-px h-3.5 bg-white/40 inline-block align-middle" /><span>{hero.duration}</span></>}
+                <span className="mx-2 w-px h-3.5 bg-white/40 inline-block align-middle" /><span className="capitalize">{hero.type}</span>
+              </div>
               
               <p className="text-base md:text-lg mb-8 line-clamp-2 max-w-xl" style={{ color: 'var(--axis-text-secondary)', fontWeight: 400, lineHeight: 1.5 }}>
                 {hero.description}
