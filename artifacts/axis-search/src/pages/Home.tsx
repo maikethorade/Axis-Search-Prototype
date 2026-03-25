@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Navigation } from '../components/Navigation';
 import { ContentCard } from '../components/ContentCard';
 import { SearchOverlay } from '../components/SearchOverlay';
 import { ContentModal } from '../components/ContentModal';
 import { useHomeData } from '../hooks/use-search';
 import { ContentItem } from '../lib/mock-data';
-import { Play } from 'lucide-react';
+import { Play, ChevronRight, ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function ContentRail({ title, items, onSelect, aspectRatio = 'video' as const, featured = false }: {
@@ -15,18 +15,64 @@ function ContentRail({ title, items, onSelect, aspectRatio = 'video' as const, f
   aspectRatio?: 'video' | 'poster';
   featured?: boolean;
 }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 10);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    checkScroll();
+    el.addEventListener('scroll', checkScroll, { passive: true });
+    return () => el.removeEventListener('scroll', checkScroll);
+  }, [checkScroll, items]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const amount = el.clientWidth * 0.75;
+    el.scrollBy({ left: direction === 'right' ? amount : -amount, behavior: 'smooth' });
+  };
+
   if (!items.length) return null;
   return (
-    <section>
+    <section className="relative group/rail">
       <h2 className="text-lg md:text-xl font-bold text-white mb-5">
         {title}
       </h2>
-      <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 no-scrollbar snap-x">
-        {items.map((item, i) => (
-          <div key={item.id} className="snap-start">
-            <ContentCard item={item} onClick={onSelect} aspectRatio={aspectRatio} featured={featured && i === 0} />
-          </div>
-        ))}
+      <div className="relative -mr-6 md:-mr-12">
+        <div ref={scrollRef} className="flex gap-4 md:gap-5 overflow-x-auto pb-6 no-scrollbar snap-x pr-6 md:pr-12">
+          {items.map((item, i) => (
+            <div key={item.id} className="snap-start">
+              <ContentCard item={item} onClick={onSelect} aspectRatio={aspectRatio} featured={featured && i === 0} />
+            </div>
+          ))}
+        </div>
+        {canScrollLeft && (
+          <button
+            onClick={() => scroll('left')}
+            className="hidden md:flex absolute left-0 top-0 bottom-6 w-12 items-center justify-center bg-gradient-to-r from-black/80 to-transparent z-10 opacity-0 group-hover/rail:opacity-100 transition-opacity duration-300 cursor-pointer"
+            aria-label="Scroll left"
+          >
+            <ChevronLeft className="w-7 h-7 text-white" />
+          </button>
+        )}
+        {canScrollRight && (
+          <button
+            onClick={() => scroll('right')}
+            className="hidden md:flex absolute right-0 top-0 bottom-6 w-12 items-center justify-center bg-gradient-to-l from-black/80 to-transparent z-10 opacity-0 group-hover/rail:opacity-100 transition-opacity duration-300 cursor-pointer"
+            aria-label="Scroll right"
+          >
+            <ChevronRight className="w-7 h-7 text-white" />
+          </button>
+        )}
       </div>
     </section>
   );
