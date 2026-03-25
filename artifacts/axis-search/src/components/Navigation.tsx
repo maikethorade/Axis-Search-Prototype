@@ -23,9 +23,13 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-out ${
-        scrolled ? 'py-3' : 'py-4'
+        scrolled ? 'py-2.5' : 'py-4'
       }`}
-      style={{ background: scrolled ? 'var(--axis-nav)' : 'transparent' }}
+      style={{
+        background: scrolled ? 'var(--axis-nav)' : 'transparent',
+        borderBottom: scrolled ? '1px solid hsla(0, 0%, 100%, 0.1)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+      }}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         <div className="flex items-center gap-10">
