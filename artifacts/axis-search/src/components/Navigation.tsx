@@ -58,11 +58,11 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
         <div className="flex items-center gap-5">
           <button 
             onClick={onOpenSearch}
-            className="text-white/80 hover:text-white transition-colors hover:scale-105 active:scale-95 flex items-center justify-center w-10 h-10 rounded-full"
-            style={{ background: 'hsla(0, 0%, 100%, 0.15)' }}
+            className="text-white/90 hover:text-white transition-colors hover:scale-105 active:scale-95 flex items-center justify-center w-8 h-8 rounded-full border border-white/30 cursor-pointer"
+            style={{ background: 'var(--axis-overlay)' }}
             aria-label="Search"
           >
-            <Search className="w-5 h-5" />
+            <Search className="w-4 h-4" />
           </button>
           
           <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden hidden md:flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
