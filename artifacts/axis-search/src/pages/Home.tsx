@@ -46,7 +46,7 @@ export default function Home() {
     if (!heroItems.length) return;
     const timer = setInterval(() => {
       setActiveHeroIndex(prev => (prev + 1) % heroItems.length);
-    }, 8000);
+    }, 12000);
     return () => clearInterval(timer);
   }, [heroItems.length]);
 
@@ -57,7 +57,7 @@ export default function Home() {
       <Navigation onOpenSearch={() => setIsSearchOpen(true)} />
       
       {hero && (
-        <section className="relative w-full h-[80vh] md:h-[90vh] flex items-end pb-24">
+        <section className="relative w-full h-[80vh] md:h-[90vh] flex items-end pb-24 cursor-pointer" onClick={() => setSelectedItem(hero)}>
           <AnimatePresence mode="wait">
             <motion.div
               key={hero.id}
@@ -102,7 +102,7 @@ export default function Home() {
                   {hero.description}
                 </p>
                 
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-5" onClick={(e) => e.stopPropagation()}>
                   <button className="cta-btn cta-btn--primary cta-btn--large">
                     <span className="cta-btn__icon">
                       <Play className="w-5 h-5 fill-white stroke-white" />
@@ -125,7 +125,7 @@ export default function Home() {
           </div>
 
           {heroItems.length > 1 && (
-            <div className="indicator-blocks-container absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1">
+            <div className="indicator-blocks-container absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
               {heroItems.map((_, index) => (
                 <button
                   key={index}
