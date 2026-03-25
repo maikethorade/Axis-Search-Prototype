@@ -139,7 +139,7 @@ export default function Home() {
         </section>
       )}
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-14 mt-[-40px] relative z-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-14 mt-[0px] relative z-20">
         
         <ContentRail
           title="Trending Now"
