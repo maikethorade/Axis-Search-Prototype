@@ -108,21 +108,18 @@ export function useSearch(initialQuery: string = '') {
 
 export function useHomeData() {
   const allSports = MOCK_CONTENT.filter(c => c.type === 'sport' || c.type === 'live');
-
-  const drama = MOCK_CONTENT.filter(c =>
-    c.type === 'series' && c.genre.some(g => ['Crime', 'Drama', 'Thriller', 'Mystery'].includes(g))
-  );
-  const entertainment = MOCK_CONTENT.filter(c =>
-    c.genre.some(g => ['Entertainment', 'Reality', 'Game Show', 'Variety', 'Comedy', 'Soap'].includes(g))
-  );
+  const football = MOCK_CONTENT.filter(c => c.genre.some(g => g === 'Football' || g === 'Soccer'));
+  const liveSports = MOCK_CONTENT.filter(c => c.type === 'live');
+  const nonFootballSports = allSports.filter(c => !c.genre.some(g => g === 'Football' || g === 'Soccer'));
 
   return {
-    hero: MOCK_CONTENT.find(c => c.id === 'se1'),
+    hero: MOCK_CONTENT.find(c => c.id === 's1'),
     trending: MOCK_CONTENT.filter(c => c.trending),
     personalized: [...MOCK_CONTENT].sort((a, b) => (b.personalizedScore || 0) - (a.personalizedScore || 0)).slice(0, 8),
     sports: allSports,
-    drama,
-    entertainment,
+    football,
+    liveSports,
+    otherSports: nonFootballSports,
     movies: MOCK_CONTENT.filter(c => c.type === 'movie'),
     series: MOCK_CONTENT.filter(c => c.type === 'series'),
     documentaries: MOCK_CONTENT.filter(c => c.type === 'documentary'),
