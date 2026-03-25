@@ -103,7 +103,7 @@ export default function Home() {
                   {hero.type !== 'live' && <><span className="mx-2 w-px h-3.5 bg-white/40 inline-block align-middle" /><span className="capitalize">{hero.type}</span></>}
                 </div>
                 
-                <p className="text-base md:text-lg mb-8 line-clamp-2 max-w-xl" style={{ color: 'var(--axis-text-secondary)', fontWeight: 400, lineHeight: 1.5 }}>
+                <p className="text-base md:text-lg mb-8 line-clamp-2 md:line-clamp-3 max-w-xl" style={{ color: 'var(--axis-text-secondary)', fontWeight: 400, lineHeight: 1.5 }}>
                   {hero.description}
                 </p>
                 
