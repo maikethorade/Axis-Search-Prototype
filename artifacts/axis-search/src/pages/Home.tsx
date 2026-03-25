@@ -87,6 +87,11 @@ export default function Home() {
                 transition={{ duration: 0.5 }}
                 className="max-w-2xl"
               >
+                {hero.type === 'live' && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm text-xs font-bold uppercase tracking-wider mb-4 shadow-lg" style={{ background: 'var(--axis-live)', color: '#fff' }}>
+                    <span className="w-2 h-2 rounded-full bg-white animate-pulse" /> LIVE
+                  </span>
+                )}
                 <h1 className="text-4xl md:text-6xl font-bold text-white leading-[1.2] mb-5 drop-shadow-2xl">
                   {hero.title}
                 </h1>
@@ -107,7 +112,7 @@ export default function Home() {
                     <span className="cta-btn__icon">
                       <Play className="w-5 h-5 fill-white stroke-white" />
                     </span>
-                    <span className="cta-btn__content">Watch</span>
+                    <span className="cta-btn__content">{hero.type === 'live' ? 'Watch Live' : 'Watch'}</span>
                   </button>
                   <button 
                     onClick={() => setSelectedItem(hero)}
