@@ -196,7 +196,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     <h2 className="text-xl font-bold text-white flex items-center gap-3">
                       {isSearching ? (
                         <span className="animate-pulse flex items-center gap-2">
-                          <Flame className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} /> Analyzing intent...
+                          <Flame className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} /> Thinking...
                         </span>
                       ) : (
                         <span>Results for "{query}"</span>
