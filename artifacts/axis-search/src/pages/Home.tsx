@@ -60,11 +60,11 @@ export default function Home() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="max-w-2xl"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <span className="px-2.5 py-0.5 text-white text-xs font-bold uppercase tracking-wider rounded-sm flex items-center gap-1.5" style={{ background: 'var(--axis-live)' }}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> Live Now
-                </span>
-                <span className="text-white/80 font-medium text-sm">Champions League</span>
+              <div className="flex items-center gap-2 mb-4">
+                {hero.year && <span className="axis-metadata-badge" style={{ borderColor: '#fff', color: '#fff' }}>{hero.year}</span>}
+                {hero.rating && <span className="axis-metadata-badge" style={{ borderColor: '#fff', color: '#fff' }}>{hero.rating}</span>}
+                {hero.duration && <span className="axis-metadata-badge" style={{ borderColor: '#fff', color: '#fff' }}>{hero.duration}</span>}
+                <span className="axis-metadata-badge capitalize" style={{ borderColor: 'var(--axis-brand)', color: 'var(--axis-brand)' }}>{hero.type}</span>
               </div>
               
               <h1 className="text-4xl md:text-6xl font-bold text-white leading-[1.2] mb-5 drop-shadow-2xl">

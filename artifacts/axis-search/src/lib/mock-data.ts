@@ -85,6 +85,22 @@ const thumb = (key: keyof typeof ITV_IMAGES) => itv(key, 400, 225);
 
 export const MOCK_CONTENT: ContentItem[] = [
   {
+    id: "hero_marty",
+    title: "Marty Supreme",
+    description: "Set in 1950s New York, a shoe salesman and table tennis hustler pursues his obsessive dream of becoming world champion. Based on the extraordinary life of legendary ping-pong player Marty Reisman.",
+    type: "movie",
+    genre: ["Drama", "Sport", "Biography"],
+    tags: ["marty supreme", "timothee chalamet", "ping pong", "table tennis", "a24", "josh safdie", "drama", "sport", "biography", "1950s", "new york"],
+    thumbnailUrl: "https://image.tmdb.org/t/p/w500/qKWDHofjMHPSEOTLaixkC9ZmjTT.jpg",
+    heroUrl: "https://image.tmdb.org/t/p/original/3iMoYSbI72Nwsvi7uSpqReLJVa6.jpg",
+    duration: "2h 17m",
+    year: "2025",
+    rating: "15",
+    cast: ["Timothée Chalamet", "Gwyneth Paltrow", "Tyler, the Creator"],
+    trending: true,
+    personalizedScore: 99
+  },
+  {
     id: "s1",
     title: "Champions League: Real Madrid vs Man City",
     description: "The thrilling semi-final clash between two European giants. Watch full match replays and highlights from this dramatic encounter at the Santiago Bernabéu.",

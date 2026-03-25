@@ -113,7 +113,7 @@ export function useHomeData() {
   const nonFootballSports = allSports.filter(c => !c.genre.some(g => g === 'Football' || g === 'Soccer'));
 
   return {
-    hero: MOCK_CONTENT.find(c => c.id === 's1'),
+    hero: MOCK_CONTENT.find(c => c.id === 'hero_marty'),
     trending: MOCK_CONTENT.filter(c => c.trending),
     personalized: [...MOCK_CONTENT].sort((a, b) => (b.personalizedScore || 0) - (a.personalizedScore || 0)).slice(0, 8),
     sports: allSports,
