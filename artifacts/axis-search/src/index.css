@@ -164,6 +164,42 @@
   border-bottom-color: #fff;
 }
 
+.mobile-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  font-family: inter, arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: hsla(0, 0%, 100%, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease, background 0.2s ease;
+  position: relative;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.06);
+}
+
+.mobile-menu-item:hover {
+  color: #fff;
+  background: hsla(0, 0%, 100%, 0.05);
+}
+
+.mobile-menu-item[data-active] {
+  color: #fff;
+  font-weight: 600;
+}
+
+.mobile-menu-active-bar {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 24px;
+  background: #4A6AF7;
+  border-radius: 0 2px 2px 0;
+}
+
 .cta-btn {
   appearance: none;
   border: none;
