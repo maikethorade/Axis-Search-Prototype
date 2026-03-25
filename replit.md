@@ -104,8 +104,9 @@ AXIS Premium Search Prototype — a React+Vite SPA for Deltatre's OTT streaming 
 - Key components: SearchOverlay (full-screen predictive search), VoiceSearch (simulated voice UI), ContentCard, ContentModal
 - Search: Debounced client-side filtering with semantic intent expansion (e.g., "exciting" maps to action/thriller/sports tags)
 - In-video moments: Timestamped highlights from matched sport/live content
-- Images: Real ITV/ITVX Contentful CDN packshots from `images.ctfassets.net` (sport, news, programme imagery with resize params)
-- Homepage rails: Trending Now, Top Picks for You, Live & Upcoming Sports, Football, More Sports, New Releases, Movies, Series, Documentaries
+- Images: Three CDN sources: ITV Contentful CDN (sport/news imagery from `images.ctfassets.net`), TMDB poster CDN (entertainment/drama/comedy show posters from `image.tmdb.org`), ITV Studios Webflow CDN (documentary/factual programme images from `cdn.prod.website-files.com`)
+- Content: Real ITV show names (Vera, Broadchurch, Trigger Point, Love Island, The Chase, Grace, etc.) alongside original sport and fictional titles
+- Homepage rails: Trending Now, Top Picks for You, Live & Upcoming Sports, Football, More Sports, Drama, Entertainment, New Releases, Movies, Series, Documentaries
 - `pnpm --filter @workspace/axis-search run dev` — run the dev server
 - Preview path: `/`
 - **Branding**: Extracted from live AXIS demo (https://stable.deltatreaxis.com/). Design tokens reference: `attached_assets/branding-1774373808863.json`

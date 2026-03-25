@@ -112,6 +112,13 @@ export function useHomeData() {
   const liveSports = MOCK_CONTENT.filter(c => c.type === 'live');
   const nonFootballSports = allSports.filter(c => !c.genre.some(g => g === 'Football' || g === 'Soccer'));
 
+  const drama = MOCK_CONTENT.filter(c =>
+    c.type === 'series' && c.genre.some(g => ['Crime', 'Drama', 'Thriller', 'Mystery'].includes(g))
+  );
+  const entertainment = MOCK_CONTENT.filter(c =>
+    c.genre.some(g => ['Entertainment', 'Reality', 'Game Show', 'Variety', 'Comedy', 'Soap'].includes(g))
+  );
+
   return {
     hero: MOCK_CONTENT.find(c => c.id === 's1'),
     trending: MOCK_CONTENT.filter(c => c.trending),
@@ -120,6 +127,8 @@ export function useHomeData() {
     football,
     liveSports,
     otherSports: nonFootballSports,
+    drama,
+    entertainment,
     movies: MOCK_CONTENT.filter(c => c.type === 'movie'),
     series: MOCK_CONTENT.filter(c => c.type === 'series'),
     documentaries: MOCK_CONTENT.filter(c => c.type === 'documentary'),

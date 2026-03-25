@@ -5,7 +5,7 @@ import { SearchOverlay } from '../components/SearchOverlay';
 import { ContentModal } from '../components/ContentModal';
 import { useHomeData } from '../hooks/use-search';
 import { ContentItem } from '../lib/mock-data';
-import { Play, Info, TrendingUp, Tv, Trophy, Zap, Film, Clapperboard, BookOpen } from 'lucide-react';
+import { Play, Info, TrendingUp, Trophy, Zap, Film, BookOpen, Star, Sparkles, Clapperboard } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 function ContentRail({ title, items, onSelect, icon, aspectRatio = 'video' as const, featured = false }: {
@@ -37,7 +37,7 @@ function ContentRail({ title, items, onSelect, icon, aspectRatio = 'video' as co
 export default function Home() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
-  const { hero, trending, personalized, football, liveSports, otherSports, movies, series, documentaries, newReleases } = useHomeData();
+  const { hero, trending, personalized, football, liveSports, otherSports, drama, entertainment, movies, series, documentaries, newReleases } = useHomeData();
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
@@ -130,6 +130,22 @@ export default function Home() {
           items={otherSports}
           onSelect={setSelectedItem}
           icon={<span className="p-1.5 rounded" style={{ background: 'rgba(255, 178, 0, 0.2)' }}><Trophy className="w-4 h-4" style={{ color: 'var(--axis-gold)' }} /></span>}
+        />
+
+        <ContentRail
+          title="Drama"
+          items={drama}
+          onSelect={setSelectedItem}
+          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(236, 0, 0, 0.15)' }}><Star className="w-4 h-4" style={{ color: 'var(--axis-live)' }} /></span>}
+          aspectRatio="poster"
+        />
+
+        <ContentRail
+          title="Entertainment"
+          items={entertainment}
+          onSelect={setSelectedItem}
+          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(255, 178, 0, 0.2)' }}><Sparkles className="w-4 h-4" style={{ color: 'var(--axis-gold)' }} /></span>}
+          aspectRatio="poster"
         />
 
         <ContentRail
