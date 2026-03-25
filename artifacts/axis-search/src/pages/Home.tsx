@@ -47,8 +47,8 @@ function ContentRail({ title, items, onSelect, aspectRatio = 'video' as const, f
       <h2 className="text-lg md:text-xl font-bold text-white mb-5">
         {title}
       </h2>
-      <div className="relative -mr-6 md:-mr-12">
-        <div ref={scrollRef} className="flex gap-2 md:gap-4 overflow-x-auto pb-6 no-scrollbar snap-x pr-6 md:pr-12">
+      <div className="relative">
+        <div ref={scrollRef} className="flex gap-2 md:gap-4 overflow-x-auto pb-6 no-scrollbar snap-x">
           {items.map((item, i) => (
             <div key={item.id} className="snap-start">
               <ContentCard item={item} onClick={onSelect} aspectRatio={aspectRatio} featured={featured && i === 0} />
@@ -190,7 +190,7 @@ export default function Home() {
         </section>
       )}
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-14 mt-[0px] relative z-20">
+      <div className="pl-6 md:pl-12 pr-0 space-y-12 md:space-y-14 mt-[0px] relative z-20">
         
         <ContentRail
           title="Trending Now"
