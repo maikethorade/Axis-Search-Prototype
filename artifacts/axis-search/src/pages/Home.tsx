@@ -72,7 +72,7 @@ export default function Home() {
         
         <section>
           <h2 className="text-lg md:text-xl font-bold text-white mb-5">Trending Now</h2>
-          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 pt-4 -mt-4 -mx-6 px-6 md:-mx-12 md:px-12 no-scrollbar snap-x">
+          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 no-scrollbar snap-x">
             {trending.map(item => (
               <div key={item.id} className="snap-start">
                 <ContentCard item={item} onClick={setSelectedItem} aspectRatio="poster" />
@@ -86,7 +86,7 @@ export default function Home() {
             <span className="p-1.5 rounded" style={{ background: 'rgba(74, 106, 247, 0.2)' }}><TrendingUp className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} /></span>
             Top Picks for You
           </h2>
-          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 pt-4 -mt-4 -mx-6 px-6 md:-mx-12 md:px-12 no-scrollbar snap-x">
+          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 no-scrollbar snap-x">
             {personalized.map(item => (
               <div key={item.id} className="snap-start">
                 <ContentCard item={item} onClick={setSelectedItem} aspectRatio="video" featured={item.id === personalized[0]?.id} />
@@ -97,7 +97,7 @@ export default function Home() {
 
         <section>
           <h2 className="text-lg md:text-xl font-bold text-white mb-5">Live & Upcoming Sports</h2>
-          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 pt-4 -mt-4 -mx-6 px-6 md:-mx-12 md:px-12 no-scrollbar snap-x">
+          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 no-scrollbar snap-x">
             {sports.map(item => (
               <div key={item.id} className="snap-start">
                 <ContentCard item={item} onClick={setSelectedItem} aspectRatio="video" />
