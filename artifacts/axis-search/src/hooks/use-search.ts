@@ -107,11 +107,22 @@ export function useSearch(initialQuery: string = '') {
 }
 
 export function useHomeData() {
+  const allSports = MOCK_CONTENT.filter(c => c.type === 'sport' || c.type === 'live');
+  const football = MOCK_CONTENT.filter(c => c.genre.some(g => g === 'Football' || g === 'Soccer'));
+  const liveSports = MOCK_CONTENT.filter(c => c.type === 'live');
+  const nonFootballSports = allSports.filter(c => !c.genre.some(g => g === 'Football' || g === 'Soccer'));
+
   return {
     hero: MOCK_CONTENT.find(c => c.id === 's1'),
     trending: MOCK_CONTENT.filter(c => c.trending),
-    personalized: [...MOCK_CONTENT].sort((a, b) => (b.personalizedScore || 0) - (a.personalizedScore || 0)).slice(0, 5),
-    sports: MOCK_CONTENT.filter(c => c.type === 'sport' || c.type === 'live'),
-    movies: MOCK_CONTENT.filter(c => c.type === 'movie' || c.type === 'documentary')
+    personalized: [...MOCK_CONTENT].sort((a, b) => (b.personalizedScore || 0) - (a.personalizedScore || 0)).slice(0, 8),
+    sports: allSports,
+    football,
+    liveSports,
+    otherSports: nonFootballSports,
+    movies: MOCK_CONTENT.filter(c => c.type === 'movie'),
+    series: MOCK_CONTENT.filter(c => c.type === 'series'),
+    documentaries: MOCK_CONTENT.filter(c => c.type === 'documentary'),
+    newReleases: [...MOCK_CONTENT].filter(c => c.year?.includes('2024') || c.year?.includes('2025')).slice(0, 8),
   };
 }

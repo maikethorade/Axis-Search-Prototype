@@ -5,13 +5,39 @@ import { SearchOverlay } from '../components/SearchOverlay';
 import { ContentModal } from '../components/ContentModal';
 import { useHomeData } from '../hooks/use-search';
 import { ContentItem } from '../lib/mock-data';
-import { Play, Info, TrendingUp } from 'lucide-react';
+import { Play, Info, TrendingUp, Tv, Trophy, Zap, Film, Clapperboard, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
+
+function ContentRail({ title, items, onSelect, icon, aspectRatio = 'video' as const, featured = false }: {
+  title: string;
+  items: ContentItem[];
+  onSelect: (item: ContentItem) => void;
+  icon?: React.ReactNode;
+  aspectRatio?: 'video' | 'poster';
+  featured?: boolean;
+}) {
+  if (!items.length) return null;
+  return (
+    <section>
+      <h2 className="text-lg md:text-xl font-bold text-white mb-5 flex items-center gap-3">
+        {icon}
+        {title}
+      </h2>
+      <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 no-scrollbar snap-x">
+        {items.map((item, i) => (
+          <div key={item.id} className="snap-start">
+            <ContentCard item={item} onClick={onSelect} aspectRatio={aspectRatio} featured={featured && i === 0} />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 export default function Home() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
-  const { hero, trending, personalized, sports, movies } = useHomeData();
+  const { hero, trending, personalized, football, liveSports, otherSports, movies, series, documentaries, newReleases } = useHomeData();
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
@@ -70,41 +96,71 @@ export default function Home() {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-12 md:space-y-14 mt-[-40px] relative z-20">
         
-        <section>
-          <h2 className="text-lg md:text-xl font-bold text-white mb-5">Trending Now</h2>
-          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 no-scrollbar snap-x">
-            {trending.map(item => (
-              <div key={item.id} className="snap-start">
-                <ContentCard item={item} onClick={setSelectedItem} aspectRatio="poster" />
-              </div>
-            ))}
-          </div>
-        </section>
+        <ContentRail
+          title="Trending Now"
+          items={trending}
+          onSelect={setSelectedItem}
+          aspectRatio="poster"
+        />
 
-        <section>
-          <h2 className="text-lg md:text-xl font-bold text-white mb-5 flex items-center gap-3">
-            <span className="p-1.5 rounded" style={{ background: 'rgba(74, 106, 247, 0.2)' }}><TrendingUp className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} /></span>
-            Top Picks for You
-          </h2>
-          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 no-scrollbar snap-x">
-            {personalized.map(item => (
-              <div key={item.id} className="snap-start">
-                <ContentCard item={item} onClick={setSelectedItem} aspectRatio="video" featured={item.id === personalized[0]?.id} />
-              </div>
-            ))}
-          </div>
-        </section>
+        <ContentRail
+          title="Top Picks for You"
+          items={personalized}
+          onSelect={setSelectedItem}
+          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(74, 106, 247, 0.2)' }}><TrendingUp className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} /></span>}
+          featured
+        />
 
-        <section>
-          <h2 className="text-lg md:text-xl font-bold text-white mb-5">Live & Upcoming Sports</h2>
-          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-6 no-scrollbar snap-x">
-            {sports.map(item => (
-              <div key={item.id} className="snap-start">
-                <ContentCard item={item} onClick={setSelectedItem} aspectRatio="video" />
-              </div>
-            ))}
-          </div>
-        </section>
+        <ContentRail
+          title="Live & Upcoming Sports"
+          items={liveSports}
+          onSelect={setSelectedItem}
+          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(236, 0, 0, 0.2)' }}><Zap className="w-4 h-4" style={{ color: 'var(--axis-live)' }} /></span>}
+        />
+
+        <ContentRail
+          title="Football"
+          items={football}
+          onSelect={setSelectedItem}
+          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(74, 106, 247, 0.2)' }}><Trophy className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} /></span>}
+        />
+
+        <ContentRail
+          title="More Sports"
+          items={otherSports}
+          onSelect={setSelectedItem}
+          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(255, 178, 0, 0.2)' }}><Trophy className="w-4 h-4" style={{ color: 'var(--axis-gold)' }} /></span>}
+        />
+
+        <ContentRail
+          title="New Releases"
+          items={newReleases}
+          onSelect={setSelectedItem}
+          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(74, 106, 247, 0.2)' }}><Zap className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} /></span>}
+          aspectRatio="poster"
+        />
+
+        <ContentRail
+          title="Movies"
+          items={movies}
+          onSelect={setSelectedItem}
+          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(255, 178, 0, 0.2)' }}><Film className="w-4 h-4" style={{ color: 'var(--axis-gold)' }} /></span>}
+        />
+
+        <ContentRail
+          title="Series"
+          items={series}
+          onSelect={setSelectedItem}
+          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(74, 106, 247, 0.2)' }}><Clapperboard className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} /></span>}
+        />
+
+        <ContentRail
+          title="Documentaries"
+          items={documentaries}
+          onSelect={setSelectedItem}
+          icon={<span className="p-1.5 rounded" style={{ background: 'rgba(74, 106, 247, 0.2)' }}><BookOpen className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} /></span>}
+        />
+
       </div>
 
       <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
