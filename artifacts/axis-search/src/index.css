@@ -141,6 +141,29 @@
   }
 }
 
+.axis-nav-item {
+  font-family: inter, arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: hsla(0, 0%, 100%, 0.7);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+}
+
+.axis-nav-item:hover {
+  color: #fff;
+}
+
+.axis-nav-item--active {
+  color: #fff;
+  font-weight: 600;
+  border-bottom-color: #fff;
+}
+
 .cta-btn {
   appearance: none;
   border: none;

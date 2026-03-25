@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
-import { Search, Bell, User, Menu } from 'lucide-react';
+import { Search, User, Menu } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface NavigationProps {
@@ -23,24 +23,32 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-out ${
-        scrolled ? 'py-3' : 'py-5'
+        scrolled ? 'py-3' : 'py-4'
       }`}
-      style={{ background: scrolled ? 'var(--axis-nav)' : 'rgba(26, 26, 26, 0.6)' }}
+      style={{ background: scrolled ? 'var(--axis-nav)' : 'transparent' }}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         <div className="flex items-center gap-10">
-          <Link href="/" className="flex items-center gap-2 group cursor-pointer">
-            <span className="font-bold text-2xl tracking-tight text-white group-hover:text-[var(--axis-brand)] transition-colors">
-              AXIS
-            </span>
+          <Link href="/" className="flex items-center cursor-pointer">
+            <img
+              src="https://images.deltatre.com/image/private/t_q_best/v1711553662/prd/assets/products/logos/axis-logo.png"
+              alt="AXIS"
+              className="h-6"
+              style={{ filter: 'brightness(0) invert(1)' }}
+            />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm" style={{ color: 'hsla(0, 0%, 100%, 0.7)' }}>
-            <Link href="/" className="hover:text-white transition-colors cursor-pointer text-white font-medium">Home</Link>
-            <span className="hover:text-[var(--axis-brand)] transition-colors cursor-pointer">Sports</span>
-            <span className="hover:text-[var(--axis-brand)] transition-colors cursor-pointer">Movies</span>
-            <span className="hover:text-[var(--axis-brand)] transition-colors cursor-pointer">Series</span>
-            <span className="hover:text-[var(--axis-brand)] transition-colors cursor-pointer">Live</span>
+          <nav className="hidden md:flex items-center gap-7">
+            <Link
+              href="/"
+              className="axis-nav-item axis-nav-item--active"
+            >
+              Home
+            </Link>
+            <span className="axis-nav-item">Sports</span>
+            <span className="axis-nav-item">Movies</span>
+            <span className="axis-nav-item">Series</span>
+            <span className="axis-nav-item">Live</span>
           </nav>
         </div>
 
@@ -48,14 +56,10 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           <button 
             onClick={onOpenSearch}
             className="text-white/80 hover:text-white transition-colors hover:scale-105 active:scale-95 flex items-center justify-center w-10 h-10 rounded-full"
-            style={{ background: 'hsla(0, 0%, 100%, 0.2)' }}
+            style={{ background: 'hsla(0, 0%, 100%, 0.15)' }}
             aria-label="Search"
           >
             <Search className="w-5 h-5" />
-          </button>
-          
-          <button className="hidden md:block text-white/80 hover:text-white transition-colors">
-            <Bell className="w-5 h-5" />
           </button>
           
           <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden hidden md:flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
