@@ -124,17 +124,17 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "m1",
-    title: "Neon Horizon",
-    description: "In a cyberpunk future, a rogue detective must uncover a conspiracy that threatens the entire city grid. A visually stunning sci-fi thriller.",
+    title: "Spider-Man: Across the Spider-Verse",
+    description: "Miles Morales catapults across the multiverse, where he encounters a team of Spider-People charged with protecting its very existence. But when the heroes clash on how to handle a new threat, Miles must redefine what it means to be a hero.",
     type: "movie",
-    genre: ["Action", "Sci-Fi", "Thriller"],
-    tags: ["cyberpunk", "detective", "action", "thriller", "exciting", "future", "neon", "sci-fi"],
-    thumbnailUrl: img("trophy_lift"),
-    heroUrl: hero("trophy_lift"),
-    duration: "2h 05m",
-    year: "2024",
-    rating: "18+",
-    cast: ["Elena Rostova", "Marcus Chen", "David Park"],
+    genre: ["Animation", "Action", "Adventure"],
+    tags: ["animation", "action", "superhero", "marvel", "spider-man", "exciting", "multiverse", "adventure"],
+    thumbnailUrl: "https://image.tmdb.org/t/p/w500/uc5U4GCZu9Z2Zb3yqk5fZfLwawR.jpg",
+    heroUrl: "https://image.tmdb.org/t/p/original/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg",
+    duration: "2h 20m",
+    year: "2023",
+    rating: "PG",
+    cast: ["Shameik Moore", "Hailee Steinfeld", "Oscar Isaac"],
     trending: true,
     personalizedScore: 85
   },
@@ -874,22 +874,6 @@ export const MOCK_CONTENT: ContentItem[] = [
     rating: "15+",
     trending: true,
     personalizedScore: 78
-  },
-  {
-    id: "tr_sm",
-    title: "Spider-Man: Across the Spider-Verse",
-    description: "Miles Morales catapults across the multiverse, where he encounters a team of Spider-People charged with protecting its very existence.",
-    type: "movie",
-    genre: ["Animation", "Action"],
-    tags: ["animation", "action", "superhero", "marvel", "spider-man", "exciting"],
-    thumbnailUrl: "https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg",
-    heroUrl: "https://image.tmdb.org/t/p/original/9xfDWXAUbFXQK585JvByT5pEAhe.jpg",
-    duration: "2h 20m",
-    year: "2023",
-    rating: "PG",
-    cast: ["Shameik Moore", "Hailee Steinfeld", "Oscar Isaac"],
-    trending: true,
-    personalizedScore: 89
   }
 ];
 
@@ -902,5 +886,5 @@ export const RECENT_SEARCHES = [
 ];
 
 export const TRENDING_SEARCHES = [
-  "Premier League Live", "Neon Horizon", "Basketball Finals", "New Documentaries", "Comedy Specials", "Olympics highlights"
+  "Premier League Live", "Spider-Man", "Basketball Finals", "New Documentaries", "Comedy Specials", "Olympics highlights"
 ];
