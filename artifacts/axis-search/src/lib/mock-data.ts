@@ -57,7 +57,7 @@ export const MOCK_CONTENT: ContentItem[] = [
     genre: ["Drama", "Comedy"],
     tags: ["drama", "comedy", "series", "hbo", "resort", "satire", "thriller", "white lotus"],
     thumbnailUrl: tmdb("gbSaK9v1CbcYH1ISgbM7XObD2dW.jpg"),
-    heroUrl: tmdbHero("tC3QYgTqapxJ6gnrZZ4HwK7wg6q.jpg"),
+    heroUrl: tmdbHero("rahhXHBUZ25BIhbKxYJgizCZ9Al.jpg"),
     duration: "3 Seasons",
     year: "2021-2025",
     rating: "18+",
