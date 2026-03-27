@@ -35,7 +35,7 @@ export interface CategoryCard {
 export const CATEGORY_CARDS: CategoryCard[] = [
   {
     name: "Sports",
-    thumbnailUrl: "https://images.ctfassets.net/zkw1wfs2si3w/7n7Q8bH6CApcsRpOMdJY5K/c87db9ae02d25f76b654314bce3859da/RUSSO_EQUALISER_GFX.jpg?w=640&h=360&fit=fill&fm=jpg&q=80",
+    thumbnailUrl: "https://image.tmdb.org/t/p/w500/bv47XMjZUhptKGFKIEoVA8pVsMT.jpg",
     gradient: "from-green-900/80 to-transparent",
   },
   {
@@ -50,7 +50,7 @@ export const CATEGORY_CARDS: CategoryCard[] = [
   },
   {
     name: "Live Events",
-    thumbnailUrl: "https://images.ctfassets.net/zkw1wfs2si3w/3iCmczPPeeoy9wHwtenLDM/3737efb15b2726d8ecb06d6ce2e1793c/COMM_CAM_GFX.jpg?w=640&h=360&fit=fill&fm=jpg&q=80",
+    thumbnailUrl: "https://image.tmdb.org/t/p/w500/sMBpav8cK7t7Nk0yf4tuNOqNUyW.jpg",
     gradient: "from-red-900/80 to-transparent",
   },
   {
@@ -70,7 +70,7 @@ export const CATEGORY_CARDS: CategoryCard[] = [
   },
   {
     name: "Sci-Fi",
-    thumbnailUrl: "https://images.ctfassets.net/zkw1wfs2si3w/4tct68dZvF7rd5Ka8pAEPH/52ce802c6a56028cc50b5cde670926ba/ENG_IVS_GFX.jpg?w=640&h=360&fit=fill&fm=jpg&q=80",
+    thumbnailUrl: "https://image.tmdb.org/t/p/w500/lCySuYjhXix3FzQdS4oceDDrXKI.jpg",
     gradient: "from-cyan-900/80 to-transparent",
   },
 ];
