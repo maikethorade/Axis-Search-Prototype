@@ -82,7 +82,7 @@ export default function Home() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
   const [activeHeroIndex, setActiveHeroIndex] = useState(0);
-  const { heroItems, trending, personalized, liveSports, sportHighlights, movies, series, documentaries, newReleases } = useHomeData();
+  const { heroItems, trending, personalized, movies, series, newReleases } = useHomeData();
 
   const goToSlide = useCallback((index: number) => {
     setActiveHeroIndex(index);
@@ -226,19 +226,6 @@ export default function Home() {
           aspectRatio="poster"
         />
 
-        <ContentRail
-          title="Live & Upcoming Sports"
-          items={liveSports}
-          onSelect={setSelectedItem}
-          aspectRatio="poster"
-        />
-
-        <ContentRail
-          title="Sport Highlights & Replays"
-          items={sportHighlights}
-          onSelect={setSelectedItem}
-          aspectRatio="poster"
-        />
 
         <ContentRail
           title="New Releases"
@@ -261,12 +248,6 @@ export default function Home() {
           aspectRatio="poster"
         />
 
-        <ContentRail
-          title="Documentaries"
-          items={documentaries}
-          onSelect={setSelectedItem}
-          aspectRatio="poster"
-        />
 
       </div>
 
