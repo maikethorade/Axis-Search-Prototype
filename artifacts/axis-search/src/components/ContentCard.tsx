@@ -49,12 +49,16 @@ export function ContentCard({ item, onClick, aspectRatio = 'video', featured = f
               {item.title}
             </h3>
             
-            <div className={`flex items-center gap-1.5 ${featured ? 'mb-4' : ''}`}>
-              {item.year && <span className="axis-metadata-badge">{item.year}</span>}
-              {item.rating && <span className="axis-metadata-badge">{item.rating}</span>}
-              {item.duration && <span className="axis-metadata-badge">{item.duration}</span>}
-              <span className="axis-metadata-badge capitalize" style={{ borderColor: 'var(--axis-brand)', color: 'var(--axis-brand)' }}>{item.type}</span>
-            </div>
+            {featured ? (
+              <div className="flex items-center gap-1.5 mb-4">
+                {item.year && <span className="axis-metadata-badge">{item.year}</span>}
+                {item.rating && <span className="axis-metadata-badge">{item.rating}</span>}
+                {item.duration && <span className="axis-metadata-badge">{item.duration}</span>}
+                <span className="axis-metadata-badge capitalize" style={{ borderColor: 'var(--axis-brand)', color: 'var(--axis-brand)' }}>{item.type}</span>
+              </div>
+            ) : (
+              <p className="text-white/70 text-xs line-clamp-2 leading-relaxed">{item.description}</p>
+            )}
 
             {featured && (
               <div className="flex items-center gap-2">
