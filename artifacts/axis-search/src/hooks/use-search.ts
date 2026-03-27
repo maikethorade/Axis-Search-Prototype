@@ -107,7 +107,7 @@ export function useHomeData() {
       MOCK_CONTENT.find(c => c.id === 's1')!,
       MOCK_CONTENT.find(c => c.id === 'm1')!,
       MOCK_CONTENT.find(c => c.id === 's2')!,
-      MOCK_CONTENT.find(c => c.id === 'd1')!,
+      MOCK_CONTENT.find(c => c.id === 'mov_oppenheimer')!,
     ].filter(Boolean),
     trending: MOCK_CONTENT.filter(c => c.trending),
     personalized: [...MOCK_CONTENT]

@@ -567,7 +567,7 @@ export const MOCK_CONTENT: ContentItem[] = [
     genre: ["Drama", "Biography", "History"],
     tags: ["oppenheimer", "drama", "biography", "history", "nolan", "atomic bomb", "ww2", "christopher nolan", "oscar"],
     thumbnailUrl: tmdb("8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg"),
-    heroUrl: tmdbHero("8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg"),
+    heroUrl: tmdbHero("nb3xI8XI3w4pMVZ38VijbsyBqP4.jpg"),
     duration: "3h 00m",
     year: "2023",
     rating: "15+",
