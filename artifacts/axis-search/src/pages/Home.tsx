@@ -103,7 +103,7 @@ export default function Home() {
       <Navigation onOpenSearch={() => setIsSearchOpen(true)} />
       
       {hero && (
-        <section className="relative w-full h-[80vh] lg:h-[504px] flex items-end pb-12 cursor-pointer group/hero" onClick={() => setSelectedItem(hero)}>
+        <section className="relative w-full h-[80vh] lg:h-[576px] flex items-end pb-12 cursor-pointer group/hero lg:overflow-visible" onClick={() => setSelectedItem(hero)}>
           <AnimatePresence mode="wait">
             <motion.div
               key={hero.id}
@@ -111,15 +111,16 @@ export default function Home() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
-              className="absolute inset-0 w-full h-full"
+              className="absolute inset-0 w-full h-full lg:h-[calc(100%+200px)]"
             >
               <img 
                 src={hero.heroUrl} 
                 alt={hero.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover lg:object-top"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black to-transparent" />
             </motion.div>
           </AnimatePresence>
 
@@ -209,7 +210,7 @@ export default function Home() {
         </section>
       )}
 
-      <div className="rails-container space-y-12 md:space-y-14 mt-[0px] relative z-20">
+      <div className="rails-container space-y-12 md:space-y-14 relative z-20">
         
         <ContentRail
           title="Trending Now"
