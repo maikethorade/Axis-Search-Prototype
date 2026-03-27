@@ -103,7 +103,7 @@ export default function Home() {
       <Navigation onOpenSearch={() => setIsSearchOpen(true)} />
       
       {hero && (
-        <section className="relative w-full h-[80vh] md:h-[90vh] flex items-end pb-24 cursor-pointer" onClick={() => setSelectedItem(hero)}>
+        <section className="relative w-full h-[80vh] lg:h-[70vh] flex items-end pb-24 cursor-pointer group/hero" onClick={() => setSelectedItem(hero)}>
           <AnimatePresence mode="wait">
             <motion.div
               key={hero.id}
@@ -122,6 +122,25 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
             </motion.div>
           </AnimatePresence>
+
+          {heroItems.length > 1 && (
+            <button
+              onClick={(e) => { e.stopPropagation(); setActiveHeroIndex(prev => (prev - 1 + heroItems.length) % heroItems.length); }}
+              className="hidden lg:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-full bg-black/50 hover:bg-black/70 border border-white/20 text-white opacity-0 group-hover/hero:opacity-100 transition-opacity duration-300 cursor-pointer"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+          )}
+          {heroItems.length > 1 && (
+            <button
+              onClick={(e) => { e.stopPropagation(); setActiveHeroIndex(prev => (prev + 1) % heroItems.length); }}
+              className="hidden lg:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-full bg-black/50 hover:bg-black/70 border border-white/20 text-white opacity-0 group-hover/hero:opacity-100 transition-opacity duration-300 cursor-pointer"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          )}
 
           <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full">
             <AnimatePresence mode="wait">
