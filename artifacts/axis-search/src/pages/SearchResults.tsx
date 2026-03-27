@@ -252,7 +252,7 @@ export default function SearchResults() {
             </div>
 
             {hasResults ? (
-              <div className="space-y-14 px-4">
+              <div className="space-y-14">
                 {results.moments.length > 0 && activeFilter === 'all' && (
                   <motion.section 
                     initial={{ opacity: 0, y: 20 }}
