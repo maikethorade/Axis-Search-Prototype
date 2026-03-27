@@ -654,17 +654,17 @@ export const MOCK_CONTENT: ContentItem[] = [
 
   // --- Documentaries ---
   {
-    id: "doc_mo_salah",
-    title: "Mo Salah: Never Give Up",
-    description: "The story of Mo Salah's unlikely rise to global stardom, from the streets of Nagrig to the pinnacle of world football.",
+    id: "doc_planet_earth",
+    title: "Planet Earth III",
+    description: "David Attenborough presents a breathtaking exploration of the natural world, revealing the extraordinary ways animals and plants have adapted to survive in every habitat on our planet.",
     type: "documentary",
-    genre: ["Sport", "Biography"],
-    tags: ["mo salah", "football", "soccer", "biography", "documentary", "bbc", "liverpool", "inspiring", "sports"],
-    thumbnailUrl: bbc16x9("p0mmh2ts"),
-    heroUrl: bbcHero("p0mmh2ts"),
-    duration: "1h 30m",
-    year: "2025",
-    rating: "PG",
+    genre: ["Nature", "Science"],
+    tags: ["planet earth", "nature", "wildlife", "david attenborough", "bbc", "documentary", "animals", "science", "environment"],
+    thumbnailUrl: tmdb("hNwJPvA0SaFGKLW2oExiHFNDpNs.jpg"),
+    heroUrl: tmdbHero("hNwJPvA0SaFGKLW2oExiHFNDpNs.jpg"),
+    duration: "8 Episodes",
+    year: "2023",
+    rating: "U",
     trending: true,
     personalizedScore: 95
   },
@@ -840,5 +840,5 @@ export const RECENT_SEARCHES = [
 ];
 
 export const TRENDING_SEARCHES = [
-  "Premier League Live", "Trigger Point", "Match of the Day", "Line of Duty", "Broadchurch", "Mo Salah"
+  "Premier League Live", "Trigger Point", "Match of the Day", "Line of Duty", "Broadchurch", "Planet Earth"
 ];
