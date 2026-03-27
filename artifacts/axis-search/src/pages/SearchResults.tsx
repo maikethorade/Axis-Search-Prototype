@@ -178,7 +178,6 @@ export default function SearchResults() {
                     style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}
                   >
                     <div className="flex items-center gap-3 mb-6">
-                      <PlayCircle className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} />
                       <h2 className="text-lg md:text-xl font-bold text-white">Moments inside videos</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -214,7 +213,6 @@ export default function SearchResults() {
                         animate={{ opacity: 1, y: 0 }}
                       >
                         <div className="flex items-center gap-3 mb-5">
-                          {icon}
                           <h2 className="text-lg md:text-xl font-bold text-white">{label}</h2>
                           <span className="text-xs ml-auto pr-6 md:pr-12" style={{ color: 'var(--axis-text-tertiary)' }}>{items.length} result{items.length !== 1 ? 's' : ''}</span>
                         </div>
@@ -291,7 +289,6 @@ export default function SearchResults() {
 
             <section>
               <div className="flex items-center gap-3 mb-5">
-                <Clock className="w-5 h-5" style={{ color: 'var(--axis-text-tertiary)' }} />
                 <h2 className="text-lg font-bold text-white">Recent Searches</h2>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -310,7 +307,6 @@ export default function SearchResults() {
 
             <section>
               <div className="flex items-center gap-3 mb-5">
-                <TrendingUp className="w-5 h-5" style={{ color: 'var(--axis-text-tertiary)' }} />
                 <h2 className="text-lg font-bold text-white">Trending Now</h2>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -329,7 +325,6 @@ export default function SearchResults() {
 
             <section>
               <div className="flex items-center gap-3 mb-5">
-                <Sparkles className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} />
                 <h2 className="text-lg font-bold text-white">Recommended for You</h2>
               </div>
               <ResultsRail items={personalizedSuggestions} onSelect={setSelectedItem} />
