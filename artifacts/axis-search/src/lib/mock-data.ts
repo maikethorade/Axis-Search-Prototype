@@ -46,7 +46,8 @@ export const MOCK_CONTENT: ContentItem[] = [
     rating: "15",
     cast: ["Timothée Chalamet", "Gwyneth Paltrow", "Tyler, the Creator"],
     trending: true,
-    personalizedScore: 99
+    personalizedScore: 99,
+    badge: "New"
   },
   {
     id: "s1",
@@ -100,7 +101,8 @@ export const MOCK_CONTENT: ContentItem[] = [
     rating: "18+",
     cast: ["Cillian Murphy", "Helen McCrory", "Paul Anderson"],
     trending: true,
-    personalizedScore: 92
+    personalizedScore: 92,
+    badge: "Top Pick"
   },
   {
     id: "d1",
@@ -165,7 +167,8 @@ export const MOCK_CONTENT: ContentItem[] = [
     rating: "15+",
     cast: ["David Tennant", "Olivia Colman", "Jodie Whittaker"],
     trending: true,
-    personalizedScore: 94
+    personalizedScore: 94,
+    badge: "Trending"
   },
   {
     id: "tv_playing_nice",
@@ -214,7 +217,8 @@ export const MOCK_CONTENT: ContentItem[] = [
     year: "2014-2023",
     rating: "15+",
     cast: ["Sarah Lancashire", "James Norton", "Siobhan Finneran"],
-    personalizedScore: 97
+    personalizedScore: 97,
+    badge: "Must Watch"
   },
   {
     id: "tv_the_night_manager",
@@ -336,7 +340,8 @@ export const MOCK_CONTENT: ContentItem[] = [
     rating: "12+",
     cast: ["Benedict Cumberbatch", "Martin Freeman"],
     trending: true,
-    personalizedScore: 93
+    personalizedScore: 93,
+    badge: "Editor's Pick"
   },
   {
     id: "tv_the_tower",
@@ -397,7 +402,8 @@ export const MOCK_CONTENT: ContentItem[] = [
     year: "2016-2019",
     rating: "15+",
     cast: ["Phoebe Waller-Bridge", "Sian Clifford", "Andrew Scott"],
-    personalizedScore: 95
+    personalizedScore: 95,
+    badge: "Award Winner"
   },
   {
     id: "tv_liar",
@@ -567,7 +573,8 @@ export const MOCK_CONTENT: ContentItem[] = [
     rating: "15+",
     cast: ["Cillian Murphy", "Emily Blunt", "Robert Downey Jr."],
     trending: true,
-    personalizedScore: 96
+    personalizedScore: 96,
+    badge: "Award Winner"
   },
   {
     id: "mov_dune2",
@@ -582,7 +589,8 @@ export const MOCK_CONTENT: ContentItem[] = [
     year: "2024",
     rating: "12+",
     cast: ["Timothée Chalamet", "Zendaya", "Austin Butler"],
-    personalizedScore: 94
+    personalizedScore: 94,
+    badge: "Trending"
   },
   {
     id: "mov_killers",
@@ -626,7 +634,8 @@ export const MOCK_CONTENT: ContentItem[] = [
     duration: "1h 36m",
     year: "2024",
     rating: "U",
-    personalizedScore: 82
+    personalizedScore: 82,
+    badge: "Family Pick"
   },
   {
     id: "mov_kung_fu_panda_4",

@@ -31,18 +31,13 @@ export function ContentCard({ item, onClick, aspectRatio = 'video', featured = f
             loading="lazy"
           />
           
-          <div className="absolute top-2 left-2 flex gap-1.5">
-            {item.type === 'live' && (
-              <span className="px-2.5 py-0.5 rounded-sm text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-lg" style={{ background: 'var(--axis-live)', color: '#fff' }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> LIVE
-              </span>
-            )}
-            {item.personalizedScore && item.personalizedScore > 90 && (
+          {item.badge && (
+            <div className="absolute top-2 left-2 flex gap-1.5">
               <span className="px-1.5 py-px rounded-sm text-[10px] font-bold uppercase tracking-wider shadow-lg" style={{ background: '#000', color: '#fff' }}>
-                Top Pick
+                {item.badge}
               </span>
-            )}
-          </div>
+            </div>
+          )}
 
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 md:p-5">
             <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
@@ -103,18 +98,13 @@ export function ContentCard({ item, onClick, aspectRatio = 'video', featured = f
           loading="lazy"
         />
         
-        <div className="absolute top-2 left-2 flex gap-1.5">
-          {item.type === 'live' && (
-            <span className="px-2.5 py-0.5 rounded-sm text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-lg" style={{ background: 'var(--axis-live)', color: '#fff' }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> LIVE
-            </span>
-          )}
-          {item.personalizedScore && item.personalizedScore > 90 && (
+        {item.badge && (
+          <div className="absolute top-2 left-2 flex gap-1.5">
             <span className="px-1.5 py-px rounded-sm text-[10px] font-bold uppercase tracking-wider shadow-lg" style={{ background: '#000', color: '#fff' }}>
-              Top Pick
+              {item.badge}
             </span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <div
