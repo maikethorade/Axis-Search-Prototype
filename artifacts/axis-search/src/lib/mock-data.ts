@@ -179,15 +179,15 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "s3",
-    title: "NBA Finals: Game 7",
-    description: "It all comes down to this. The ultimate showdown for the championship ring in the most electrifying Game 7 in a decade.",
+    title: "UEFA Champions League: Matchday 8",
+    description: "The final league phase matchday. Every result matters as clubs fight for automatic qualification and knockout round places.",
     type: "sport",
     genre: ["Basketball"],
-    tags: ["nba", "basketball", "finals", "sports", "exciting", "intense", "game"],
-    thumbnailUrl: PACKSHOTS.nba_finals,
-    heroUrl: PACKSHOTS.nba_finals,
+    tags: ["champions league", "ucl", "football", "sports", "exciting", "intense", "european"],
+    thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/28e10da886ac7c841d4b349642d7d254ca963560e9aa9470c06c7f26c4e72221._SX720_FMjpg_.jpg",
+    heroUrl: "https://m.media-amazon.com/images/S/pv-target-images/28e10da886ac7c841d4b349642d7d254ca963560e9aa9470c06c7f26c4e72221._SX1080_FMjpg_.jpg",
     duration: "2h 30m",
-    year: "2024",
+    year: "2026",
     personalizedScore: 88,
     moments: [
       { id: "m3a", title: "Buzzer beater three-pointer", timestamp: "119:45", thumbnailUrl: PACKSHOTS.moment_4 },
@@ -210,15 +210,15 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "s4",
-    title: "Wimbledon Men's Final",
-    description: "Classic grass court action. An epic 5-set thriller that will go down in tennis history.",
+    title: "Ligue 1: PSG vs Marseille",
+    description: "Le Classique — French football's biggest rivalry. Paris Saint-Germain host Olympique de Marseille in a fiery Ligue 1 encounter.",
     type: "sport",
     genre: ["Tennis"],
-    tags: ["tennis", "wimbledon", "sports", "final", "grass", "exciting", "match"],
-    thumbnailUrl: PACKSHOTS.wimbledon,
-    heroUrl: PACKSHOTS.wimbledon,
-    duration: "4h 10m",
-    year: "2023",
+    tags: ["ligue 1", "psg", "marseille", "football", "sports", "french", "le classique"],
+    thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/449507f41461780c03f2502b9ccbab49ab9162ed62b63b48165eed7658ea5c9f._SX720_FMjpg_.jpg",
+    heroUrl: "https://m.media-amazon.com/images/S/pv-target-images/449507f41461780c03f2502b9ccbab49ab9162ed62b63b48165eed7658ea5c9f._SX1080_FMjpg_.jpg",
+    duration: "2h",
+    year: "2026",
     personalizedScore: 75
   },
   {
@@ -331,15 +331,15 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "s6",
-    title: "Tour de France: Stage 20",
-    description: "The penultimate mountain stage through the Alps. A gruelling test of endurance that will decide the yellow jersey.",
+    title: "UEFA Nations League: Quarter-Final",
+    description: "The UEFA Nations League knockout rounds. National teams battle for a place in the semi-finals in a tense two-legged tie.",
     type: "sport",
     genre: ["Cycling"],
-    tags: ["cycling", "tour de france", "sports", "alps", "endurance", "race"],
-    thumbnailUrl: PACKSHOTS.tour_france,
-    heroUrl: PACKSHOTS.tour_france,
-    duration: "4h 30m",
-    year: "2024"
+    tags: ["nations league", "uefa", "football", "sports", "international", "knockout"],
+    thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/41bf23db0f7bb7b4c9fc479de2e88689ec07603c6ba5d7dd81efa6b9f0d7f73e._SX720_FMjpg_.jpg",
+    heroUrl: "https://m.media-amazon.com/images/S/pv-target-images/41bf23db0f7bb7b4c9fc479de2e88689ec07603c6ba5d7dd81efa6b9f0d7f73e._SX1080_FMjpg_.jpg",
+    duration: "2h",
+    year: "2026"
   },
   {
     id: "m5",
@@ -357,19 +357,16 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "s7",
-    title: "Olympics: 100m Sprint Final",
-    description: "The fastest humans on the planet compete for gold. Sub-10 second performances and raw athletic excellence.",
+    title: "Bundesliga: Bayern Munich vs Stuttgart",
+    description: "Bundesliga Sunday. Bayern Munich host VfB Stuttgart at the Allianz Arena in a battle between two top-four sides.",
     type: "sport",
     genre: ["Athletics", "Olympics"],
-    tags: ["olympics", "sprint", "athletics", "sports", "exciting", "fast", "gold"],
-    thumbnailUrl: PACKSHOTS.olympics_sprint,
-    heroUrl: PACKSHOTS.olympics_sprint,
-    duration: "35m",
-    year: "2024",
-    personalizedScore: 91,
-    moments: [
-      { id: "m7a", title: "Photo finish — 9.79 seconds", timestamp: "00:10", thumbnailUrl: PACKSHOTS.moment_7 }
-    ]
+    tags: ["bundesliga", "bayern", "stuttgart", "football", "sports", "german", "sunday"],
+    thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/4493e53ec267d6df6ca53777f08bd1f34b4e453d5259474df0e1c41d13fae534._SX720_FMjpg_.jpg",
+    heroUrl: "https://m.media-amazon.com/images/S/pv-target-images/4493e53ec267d6df6ca53777f08bd1f34b4e453d5259474df0e1c41d13fae534._SX1080_FMjpg_.jpg",
+    duration: "2h",
+    year: "2026",
+    personalizedScore: 91
   },
   {
     id: "se4",
@@ -415,15 +412,15 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "s8",
-    title: "Rugby World Cup Final",
-    description: "The pinnacle of international rugby. Two nations battle for the Webb Ellis Cup in a ferocious contest.",
+    title: "Champions League: Round of 16 Highlights",
+    description: "All the goals, saves, and drama from the Champions League Round of 16. Relive the best moments from Europe's elite knockout stage.",
     type: "sport",
     genre: ["Rugby"],
-    tags: ["rugby", "world cup", "sports", "intense", "exciting", "final"],
-    thumbnailUrl: PACKSHOTS.rugby_wc,
-    heroUrl: PACKSHOTS.rugby_wc,
-    duration: "2h 10m",
-    year: "2023"
+    tags: ["champions league", "ucl", "highlights", "football", "sports", "knockout"],
+    thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/71ceaccb04396c172e8a563b49f4600bc2ea77ab93a99cf3fbb8634e3c7e36df._SX720_FMjpg_.jpg",
+    heroUrl: "https://m.media-amazon.com/images/S/pv-target-images/71ceaccb04396c172e8a563b49f4600bc2ea77ab93a99cf3fbb8634e3c7e36df._SX1080_FMjpg_.jpg",
+    duration: "1h 30m",
+    year: "2026"
   },
   {
     id: "se5",
@@ -469,15 +466,15 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "s9",
-    title: "Australian Open: Women's Final",
-    description: "An electrifying showdown under the Melbourne sun. Two titans of women's tennis battle for the first Grand Slam of the year.",
+    title: "World Cup Qualifier: Italy vs England",
+    description: "2026 FIFA World Cup European qualifier. Italy and England meet in a high-stakes clash with World Cup places on the line.",
     type: "sport",
     genre: ["Tennis"],
-    tags: ["tennis", "australian open", "sports", "match", "exciting", "women"],
-    thumbnailUrl: PACKSHOTS.aus_open,
-    heroUrl: PACKSHOTS.aus_open,
-    duration: "2h 45m",
-    year: "2024"
+    tags: ["world cup", "qualifier", "italy", "england", "football", "sports", "international"],
+    thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/5880529cb82a2f974a4cf4662ffc7f34195a75e788012f3e1489b92ead45d5a0._SX720_FMjpg_.jpg",
+    heroUrl: "https://m.media-amazon.com/images/S/pv-target-images/5880529cb82a2f974a4cf4662ffc7f34195a75e788012f3e1489b92ead45d5a0._SX1080_FMjpg_.jpg",
+    duration: "2h",
+    year: "2026"
   },
   {
     id: "m8",
@@ -600,15 +597,15 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "s11",
-    title: "Cricket World Cup Final",
-    description: "Two cricketing nations clash in a dramatic final at Lord's. The atmosphere is electric as history is made.",
+    title: "Bundesliga: Freiburg vs Wolfsburg",
+    description: "Bundesliga Sunday. SC Freiburg welcome VfL Wolfsburg to the Europa-Park Stadion in a mid-table battle.",
     type: "sport",
     genre: ["Cricket"],
-    tags: ["cricket", "world cup", "sports", "final", "exciting"],
-    thumbnailUrl: PACKSHOTS.cricket_wc,
-    heroUrl: PACKSHOTS.cricket_wc,
-    duration: "8h",
-    year: "2023"
+    tags: ["bundesliga", "freiburg", "wolfsburg", "football", "sports", "german"],
+    thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/584a95a40ea86c019a836c9a80339d2e73082b7752629cf7b950d92de6623df8._SX720_FMjpg_.jpg",
+    heroUrl: "https://m.media-amazon.com/images/S/pv-target-images/584a95a40ea86c019a836c9a80339d2e73082b7752629cf7b950d92de6623df8._SX1080_FMjpg_.jpg",
+    duration: "2h",
+    year: "2026"
   },
   {
     id: "m10",
@@ -652,15 +649,15 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "s12",
-    title: "Six Nations: England vs France",
-    description: "Le Crunch — the fierce rugby rivalry crosses the Channel once more. A physical, tactical battle for Six Nations glory.",
+    title: "International Friendly: Germany vs Brazil",
+    description: "A prestigious international friendly between two footballing giants. Germany host Brazil at the Olympiastadion in Berlin.",
     type: "sport",
     genre: ["Rugby"],
-    tags: ["rugby", "six nations", "england", "france", "sports", "exciting"],
-    thumbnailUrl: PACKSHOTS.six_nations,
-    heroUrl: PACKSHOTS.six_nations,
-    duration: "2h 05m",
-    year: "2024"
+    tags: ["friendly", "germany", "brazil", "football", "sports", "international"],
+    thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/6842e59ef8a59be23e3c2d8fc7794cb7129141d2dca14ead33ae9fc249627fef._SX720_FMjpg_.jpg",
+    heroUrl: "https://m.media-amazon.com/images/S/pv-target-images/6842e59ef8a59be23e3c2d8fc7794cb7129141d2dca14ead33ae9fc249627fef._SX1080_FMjpg_.jpg",
+    duration: "2h",
+    year: "2026"
   },
   {
     id: "m11",

@@ -232,7 +232,7 @@ export default function Home() {
         />
 
         <ContentRail
-          title="More Sports"
+          title="Recently Ended"
           items={otherSports}
           onSelect={setSelectedItem}
         />
