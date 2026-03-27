@@ -15,8 +15,8 @@ export function ContentCard({ item, onClick, aspectRatio = 'video', featured = f
   
   return (
     <motion.div
-      whileHover={{ scale: 1.05, zIndex: 10 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={featured ? { scale: 1.05, zIndex: 10 } : { zIndex: 10 }}
+      whileTap={featured ? { scale: 0.98 } : undefined}
       className={`relative group cursor-pointer overflow-hidden bg-[var(--axis-surface)] ${
         fillWidth ? 'w-full' : `shrink-0 ${featured ? 'w-[400px] md:w-[600px]' : isPoster ? 'w-[160px] md:w-[220px]' : 'w-[280px] md:w-[320px]'}`
       }`}
@@ -26,7 +26,7 @@ export function ContentCard({ item, onClick, aspectRatio = 'video', featured = f
         <img 
           src={featured ? item.heroUrl : item.thumbnailUrl} 
           alt={item.title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className={`w-full h-full object-cover ${featured ? 'transition-transform duration-700 group-hover:scale-110' : ''}`}
           loading="lazy"
         />
         
