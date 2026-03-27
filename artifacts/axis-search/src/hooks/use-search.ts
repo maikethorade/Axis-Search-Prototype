@@ -110,12 +110,36 @@ export function useHomeData() {
       MOCK_CONTENT.find(c => c.id === 'd1')!,
     ].filter(Boolean),
     trending: MOCK_CONTENT.filter(c => c.trending),
-    personalized: [...MOCK_CONTENT].sort((a, b) => (b.personalizedScore || 0) - (a.personalizedScore || 0)).slice(0, 10),
+    personalized: [...MOCK_CONTENT]
+      .filter(c => c.personalizedScore)
+      .sort((a, b) => (b.personalizedScore || 0) - (a.personalizedScore || 0))
+      .filter(c => !c.trending)
+      .concat([...MOCK_CONTENT].filter(c => c.trending && c.personalizedScore).sort((a, b) => (b.personalizedScore || 0) - (a.personalizedScore || 0)))
+      .slice(0, 10),
     liveSports,
     sportHighlights,
-    movies: MOCK_CONTENT.filter(c => c.type === 'movie'),
-    series: MOCK_CONTENT.filter(c => c.type === 'series'),
+    movies: [...MOCK_CONTENT].filter(c => c.type === 'movie').sort((a, b) => {
+      const order = ['mov_oppenheimer', 'mov_dune2', 'mov_banshees', 'mov_garfield', 'hero_marty'];
+      const ai = order.indexOf(a.id);
+      const bi = order.indexOf(b.id);
+      if (ai !== -1 && bi !== -1) return ai - bi;
+      if (ai !== -1) return -1;
+      if (bi !== -1) return 1;
+      return 0;
+    }),
+    series: [...MOCK_CONTENT].filter(c => c.type === 'series').sort((a, b) => {
+      const order = ['tv_happy_valley', 'tv_fleabag', 'tv_sherlock', 'tv_the_crown', 'tv_bodyguard'];
+      const ai = order.indexOf(a.id);
+      const bi = order.indexOf(b.id);
+      if (ai !== -1 && bi !== -1) return ai - bi;
+      if (ai !== -1) return -1;
+      if (bi !== -1) return 1;
+      return 0;
+    }),
     documentaries: MOCK_CONTENT.filter(c => c.type === 'documentary'),
-    newReleases: [...MOCK_CONTENT].filter(c => c.year?.includes('2025') || c.year?.includes('2026')).slice(0, 10),
+    newReleases: [...MOCK_CONTENT]
+      .filter(c => c.year?.includes('2024') || c.year?.includes('2025') || c.year?.includes('2026'))
+      .filter(c => !c.trending)
+      .slice(0, 10),
   };
 }
