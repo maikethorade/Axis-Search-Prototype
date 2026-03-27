@@ -42,7 +42,7 @@ function ResultsRail({ items, onSelect, aspectRatio = 'video' as const }: {
 
   return (
     <div className="relative group/rail">
-      <div ref={scrollRef} className="flex gap-2 md:gap-4 overflow-x-auto pb-4 no-scrollbar snap-x">
+      <div ref={scrollRef} className="flex gap-4 overflow-x-auto pb-4 no-scrollbar snap-x">
         {items.map((item, i) => (
           <motion.div
             key={item.id}
@@ -222,7 +222,7 @@ export default function SearchResults() {
                   })
                 ) : (
                   <section>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                       {results.items.map((item, i) => (
                         <motion.div 
                           key={item.id}
