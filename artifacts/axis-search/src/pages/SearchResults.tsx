@@ -338,7 +338,7 @@ export default function SearchResults() {
                   We couldn't find anything matching "{debouncedQuery}". Try adjusting your filters or searching for something else.
                 </p>
                 
-                <div className="w-full max-w-2xl p-8 text-left" style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                <div className="w-full max-w-2xl p-8 text-left" style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)', borderRadius: '16px' }}>
                   <h3 className="text-base font-bold text-white mb-4">Did you mean to search for...</h3>
                   <div className="flex flex-wrap gap-3">
                     {['Action Thrillers', 'Live Sports', 'Documentaries'].map(s => (
