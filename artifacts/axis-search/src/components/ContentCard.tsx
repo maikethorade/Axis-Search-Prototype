@@ -49,25 +49,27 @@ export function ContentCard({ item, onClick, aspectRatio = 'video', featured = f
               {item.title}
             </h3>
             
-            <div className="flex items-center gap-1.5 mb-4">
+            <div className={`flex items-center gap-1.5 ${featured ? 'mb-4' : ''}`}>
               {item.year && <span className="axis-metadata-badge">{item.year}</span>}
               {item.rating && <span className="axis-metadata-badge">{item.rating}</span>}
               {item.duration && <span className="axis-metadata-badge">{item.duration}</span>}
               <span className="axis-metadata-badge capitalize" style={{ borderColor: 'var(--axis-brand)', color: 'var(--axis-brand)' }}>{item.type}</span>
             </div>
 
-            <div className="flex items-center gap-2">
-              <button className="cta-btn cta-btn--primary flex-1" style={{ height: '36px', padding: '0 16px', fontSize: '13px', fontWeight: 600 }}>
-                <span className="cta-btn__icon"><Play className="w-4 h-4 fill-white stroke-white" /></span>
-                <span className="cta-btn__content"><span className="hidden md:inline">Play</span></span>
-              </button>
-              <button className="w-9 h-9 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-all" style={{ background: 'var(--axis-overlay)', border: '1px solid #fff' }}>
-                <Plus className="w-4 h-4" />
-              </button>
-              <button className="w-9 h-9 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-all" style={{ background: 'var(--axis-overlay)', border: '1px solid #fff' }}>
-                <ThumbsUp className="w-3.5 h-3.5" />
-              </button>
-            </div>
+            {featured && (
+              <div className="flex items-center gap-2">
+                <button className="cta-btn cta-btn--primary flex-1" style={{ height: '36px', padding: '0 16px', fontSize: '13px', fontWeight: 600 }}>
+                  <span className="cta-btn__icon"><Play className="w-4 h-4 fill-white stroke-white" /></span>
+                  <span className="cta-btn__content"><span className="hidden md:inline">Play</span></span>
+                </button>
+                <button className="w-9 h-9 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-all" style={{ background: 'var(--axis-overlay)', border: '1px solid #fff' }}>
+                  <Plus className="w-4 h-4" />
+                </button>
+                <button className="w-9 h-9 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-all" style={{ background: 'var(--axis-overlay)', border: '1px solid #fff' }}>
+                  <ThumbsUp className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
         
