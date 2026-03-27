@@ -174,7 +174,7 @@ export default function SearchResults() {
                   <motion.section 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-6 md:p-8"
+                    className="p-6 md:p-8 rounded-2xl"
                     style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}
                   >
                     <div className="flex items-center gap-3 mb-6">
