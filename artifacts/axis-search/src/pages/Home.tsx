@@ -82,7 +82,7 @@ export default function Home() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
   const [activeHeroIndex, setActiveHeroIndex] = useState(0);
-  const { heroItems, trending, personalized, football, liveSports, otherSports, movies, series, documentaries, newReleases } = useHomeData();
+  const { heroItems, trending, personalized, liveSports, sportHighlights, movies, series, documentaries, newReleases } = useHomeData();
 
   const goToSlide = useCallback((index: number) => {
     setActiveHeroIndex(index);
@@ -232,8 +232,8 @@ export default function Home() {
         />
 
         <ContentRail
-          title="Recently Ended"
-          items={otherSports}
+          title="Sport Highlights & Replays"
+          items={sportHighlights}
           onSelect={setSelectedItem}
         />
 
