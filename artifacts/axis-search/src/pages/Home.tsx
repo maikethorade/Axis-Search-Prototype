@@ -103,7 +103,7 @@ export default function Home() {
       <Navigation onOpenSearch={() => setIsSearchOpen(true)} />
       
       {hero && (
-        <section className="relative w-full h-[80vh] lg:h-[70vh] flex items-end pb-24 cursor-pointer group/hero" onClick={() => setSelectedItem(hero)}>
+        <section className="relative w-full h-[80vh] lg:h-[504px] flex items-end pb-12 cursor-pointer group/hero" onClick={() => setSelectedItem(hero)}>
           <AnimatePresence mode="wait">
             <motion.div
               key={hero.id}
