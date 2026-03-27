@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useLocation } from 'wouter';
 import { Navigation } from '../components/Navigation';
 import { ContentCard } from '../components/ContentCard';
@@ -6,8 +6,76 @@ import { ContentModal } from '../components/ContentModal';
 import { SearchOverlay } from '../components/SearchOverlay';
 import { useSearch } from '../hooks/use-search';
 import { ContentItem, MOCK_CONTENT, TRENDING_SEARCHES, RECENT_SEARCHES } from '../lib/mock-data';
-import { PlayCircle, Search, Filter, Film, Tv, Trophy, Radio, BookOpen, Clock, TrendingUp, Sparkles } from 'lucide-react';
+import { PlayCircle, Search, Filter, Film, Tv, Trophy, Radio, BookOpen, Clock, TrendingUp, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+
+function ResultsRail({ items, onSelect, aspectRatio = 'video' as const }: {
+  items: ContentItem[];
+  onSelect: (item: ContentItem) => void;
+  aspectRatio?: 'video' | 'poster';
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 10);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    checkScroll();
+    el.addEventListener('scroll', checkScroll, { passive: true });
+    return () => el.removeEventListener('scroll', checkScroll);
+  }, [checkScroll, items]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const amount = el.clientWidth * 0.75;
+    el.scrollBy({ left: direction === 'right' ? amount : -amount, behavior: 'smooth' });
+  };
+
+  return (
+    <div className="relative group/rail">
+      <div ref={scrollRef} className="flex gap-2 md:gap-4 overflow-x-auto pb-4 no-scrollbar snap-x">
+        {items.map((item, i) => (
+          <motion.div
+            key={item.id}
+            className="snap-start"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.05 }}
+          >
+            <ContentCard item={item} onClick={onSelect} aspectRatio={aspectRatio} />
+          </motion.div>
+        ))}
+      </div>
+      {canScrollLeft && (
+        <button
+          onClick={() => scroll('left')}
+          className="hidden md:flex absolute left-0 top-0 bottom-4 w-12 items-center justify-center bg-gradient-to-r from-black/80 to-transparent z-10 opacity-0 group-hover/rail:opacity-100 transition-opacity duration-300 cursor-pointer"
+          aria-label="Scroll left"
+        >
+          <ChevronLeft className="w-7 h-7 text-white" />
+        </button>
+      )}
+      {canScrollRight && (
+        <button
+          onClick={() => scroll('right')}
+          className="hidden md:flex absolute right-0 top-0 bottom-4 w-12 items-center justify-center bg-gradient-to-l from-black/80 to-transparent z-10 opacity-0 group-hover/rail:opacity-100 transition-opacity duration-300 cursor-pointer"
+          aria-label="Scroll right"
+        >
+          <ChevronRight className="w-7 h-7 text-white" />
+        </button>
+      )}
+    </div>
+  );
+}
 
 const FILTER_LABELS: Record<string, string> = {
   all: 'All Content',
@@ -66,10 +134,10 @@ export default function SearchResults() {
     <div className="min-h-screen bg-background text-foreground pb-24">
       <Navigation onOpenSearch={() => setIsSearchOpen(true)} />
       
-      <div className="pt-28 max-w-7xl mx-auto px-6 md:px-12">
+      <div className="pt-28 rails-container">
         {hasQuery ? (
           <>
-            <div className="mb-8">
+            <div className="mb-8 pr-6 md:pr-12">
               <h1 className="text-2xl md:text-4xl font-bold text-white mb-3">
                 Search Results
               </h1>
@@ -78,7 +146,7 @@ export default function SearchResults() {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-5 border-b border-white/10">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-5 border-b border-white/10 pr-6 md:pr-12">
               <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
                 {(['all', 'movie', 'series', 'sport', 'live', 'documentary'] as const).map(filter => (
                   <button
@@ -148,24 +216,13 @@ export default function SearchResults() {
                         <div className="flex items-center gap-3 mb-5">
                           {icon}
                           <h2 className="text-lg md:text-xl font-bold text-white">{label}</h2>
-                          <span className="text-xs ml-auto" style={{ color: 'var(--axis-text-tertiary)' }}>{items.length} result{items.length !== 1 ? 's' : ''}</span>
+                          <span className="text-xs ml-auto pr-6 md:pr-12" style={{ color: 'var(--axis-text-tertiary)' }}>{items.length} result{items.length !== 1 ? 's' : ''}</span>
                         </div>
-                        <div className="flex gap-4 overflow-x-auto no-scrollbar pb-4">
-                          {items.map((item, i) => (
-                            <motion.div 
-                              key={item.id}
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: i * 0.05 }}
-                            >
-                              <ContentCard 
-                                item={item} 
-                                onClick={setSelectedItem} 
-                                aspectRatio={type === 'movie' || type === 'series' ? 'poster' : 'video'} 
-                              />
-                            </motion.div>
-                          ))}
-                        </div>
+                        <ResultsRail
+                          items={items}
+                          onSelect={setSelectedItem}
+                          aspectRatio={type === 'movie' || type === 'series' ? 'poster' : 'video'}
+                        />
                       </motion.section>
                     );
                   })
@@ -223,7 +280,7 @@ export default function SearchResults() {
           </>
         ) : (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-14">
-            <div>
+            <div className="pr-6 md:pr-12">
               <h1 className="text-2xl md:text-4xl font-bold text-white mb-3">
                 Discover
               </h1>
@@ -275,11 +332,7 @@ export default function SearchResults() {
                 <Sparkles className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} />
                 <h2 className="text-lg font-bold text-white">Recommended for You</h2>
               </div>
-              <div className="flex gap-4 overflow-x-auto no-scrollbar pb-4">
-                {personalizedSuggestions.map(item => (
-                  <ContentCard key={item.id} item={item} onClick={setSelectedItem} />
-                ))}
-              </div>
+              <ResultsRail items={personalizedSuggestions} onSelect={setSelectedItem} />
             </section>
           </motion.div>
         )}
