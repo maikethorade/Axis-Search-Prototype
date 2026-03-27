@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --axis-nav: #1a1a1a;
+  --axis-surface: #2a2a2a;
+  --axis-brand: #4a6af7;
+  --axis-brand-hover: #2544d0;
+  --axis-live: #ec0000;
+  --axis-gold: #ffb200;
+  --axis-text-secondary: #ccc;
+  --axis-text-tertiary: grey;
+  --axis-overlay: rgba(0, 0, 0, 0.4);
+}
+
+body {
+  font-family: 'Inter', arial, sans-serif;
+  background: #000;
+  color: #fff;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
