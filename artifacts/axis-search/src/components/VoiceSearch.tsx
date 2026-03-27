@@ -85,7 +85,7 @@ export function VoiceSearch({ isOpen, onClose, onResult }: VoiceSearchProps) {
 
             <h3 className="text-2xl md:text-3xl font-bold text-white text-center h-12">
               {phase === 'listening' && "Listening..."}
-              {phase === 'processing' && "Understanding intent..."}
+              {phase === 'processing' && "Thinking..."}
               {phase === 'done' && "Got it!"}
             </h3>
             
