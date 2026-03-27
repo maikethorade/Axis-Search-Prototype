@@ -124,20 +124,7 @@ export function ContentCard({ item, onClick, aspectRatio = 'video', featured = f
         <h3 className="text-white font-bold text-sm line-clamp-1 leading-tight mb-1.5">
           {item.title}
         </h3>
-        <div className="flex items-center gap-1.5 flex-wrap">
-          {item.year && <span className="text-[11px] text-[var(--axis-text-secondary)]">{item.year}</span>}
-          {item.year && (item.rating || item.duration) && <span className="text-[11px] text-[var(--axis-text-tertiary)]">·</span>}
-          {item.rating && <span className="text-[11px] text-[var(--axis-text-secondary)]">{item.rating}</span>}
-          {item.rating && item.duration && <span className="text-[11px] text-[var(--axis-text-tertiary)]">·</span>}
-          {item.duration && <span className="text-[11px] text-[var(--axis-text-secondary)]">{item.duration}</span>}
-          {(item.year || item.rating || item.duration) && <span className="text-[11px] text-[var(--axis-text-tertiary)]">·</span>}
-          <span className="text-[11px] capitalize" style={{ color: 'var(--axis-brand)' }}>{item.type}</span>
-        </div>
-        {item.genre && item.genre.length > 0 && (
-          <div className="flex items-center gap-1 mt-1">
-            <span className="text-[11px] text-[var(--axis-text-tertiary)] capitalize">{Array.isArray(item.genre) ? item.genre.slice(0, 3).join(', ') : item.genre}</span>
-          </div>
-        )}
+        <p className="text-[12px] leading-relaxed line-clamp-3" style={{ color: 'var(--axis-text-secondary)' }}>{item.description}</p>
       </div>
     </motion.div>
   );
