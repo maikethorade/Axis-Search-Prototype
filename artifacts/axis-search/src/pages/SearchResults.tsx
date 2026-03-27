@@ -9,7 +9,7 @@ import { ContentItem, MOCK_CONTENT, TRENDING_SEARCHES, RECENT_SEARCHES } from '.
 import { PlayCircle, Search, Filter, Film, Tv, Trophy, Radio, BookOpen, Clock, TrendingUp, Sparkles, ChevronLeft, ChevronRight, ChevronDown, Check, ArrowUpDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type SortOption = 'relevance' | 'newest' | 'oldest' | 'a-z' | 'z-a' | 'duration-short' | 'duration-long';
+type SortOption = 'relevance' | 'newest' | 'oldest' | 'a-z' | 'z-a';
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'relevance', label: 'Most Relevant' },
@@ -17,23 +17,7 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'oldest', label: 'Oldest First' },
   { value: 'a-z', label: 'A — Z' },
   { value: 'z-a', label: 'Z — A' },
-  { value: 'duration-short', label: 'Shortest' },
-  { value: 'duration-long', label: 'Longest' },
 ];
-
-function parseDuration(d?: string): number {
-  if (!d) return 0;
-  let mins = 0;
-  const hMatch = d.match(/(\d+)\s*h/);
-  const mMatch = d.match(/(\d+)\s*m/);
-  const sMatch = d.match(/(\d+)\s*Season/i);
-  const eMatch = d.match(/(\d+)\s*Episode/i);
-  if (hMatch) mins += parseInt(hMatch[1]) * 60;
-  if (mMatch) mins += parseInt(mMatch[1]);
-  if (sMatch) mins += parseInt(sMatch[1]) * 600;
-  if (eMatch) mins += parseInt(eMatch[1]) * 45;
-  return mins;
-}
 
 function sortItems(items: ContentItem[], sort: SortOption): ContentItem[] {
   if (sort === 'relevance') return items;
@@ -47,10 +31,6 @@ function sortItems(items: ContentItem[], sort: SortOption): ContentItem[] {
       return sorted.sort((a, b) => a.title.localeCompare(b.title));
     case 'z-a':
       return sorted.sort((a, b) => b.title.localeCompare(a.title));
-    case 'duration-short':
-      return sorted.sort((a, b) => parseDuration(a.duration) - parseDuration(b.duration));
-    case 'duration-long':
-      return sorted.sort((a, b) => parseDuration(b.duration) - parseDuration(a.duration));
     default:
       return sorted;
   }
