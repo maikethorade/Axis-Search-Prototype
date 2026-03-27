@@ -7,17 +7,18 @@ interface ContentCardProps {
   onClick: (item: ContentItem) => void;
   aspectRatio?: 'video' | 'poster';
   featured?: boolean;
+  fillWidth?: boolean;
 }
 
-export function ContentCard({ item, onClick, aspectRatio = 'video', featured = false }: ContentCardProps) {
+export function ContentCard({ item, onClick, aspectRatio = 'video', featured = false, fillWidth = false }: ContentCardProps) {
   const isPoster = aspectRatio === 'poster';
   
   return (
     <motion.div
       whileHover={{ scale: 1.05, zIndex: 10 }}
       whileTap={{ scale: 0.98 }}
-      className={`relative group cursor-pointer overflow-hidden shrink-0 bg-[var(--axis-surface)] ${
-        featured ? 'w-[400px] md:w-[600px]' : isPoster ? 'w-[160px] md:w-[220px]' : 'w-[280px] md:w-[320px]'
+      className={`relative group cursor-pointer overflow-hidden bg-[var(--axis-surface)] ${
+        fillWidth ? 'w-full' : `shrink-0 ${featured ? 'w-[400px] md:w-[600px]' : isPoster ? 'w-[160px] md:w-[220px]' : 'w-[280px] md:w-[320px]'}`
       }`}
       onClick={() => onClick(item)}
     >

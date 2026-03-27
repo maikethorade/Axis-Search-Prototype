@@ -233,7 +233,8 @@ export default function SearchResults() {
                           <ContentCard 
                             item={item} 
                             onClick={setSelectedItem} 
-                            aspectRatio={item.type === 'movie' || item.type === 'series' ? 'poster' : 'video'} 
+                            aspectRatio={item.type === 'movie' || item.type === 'series' ? 'poster' : 'video'}
+                            fillWidth
                           />
                         </motion.div>
                       ))}
