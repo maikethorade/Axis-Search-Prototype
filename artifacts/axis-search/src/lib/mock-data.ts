@@ -23,6 +23,7 @@ export interface ContentItem {
   moments?: Moment[];
   trending?: boolean;
   personalizedScore?: number;
+  badge?: string;
 }
 
 const bbc16x9 = (id: string) => `https://ichef.bbci.co.uk/images/ic/960x540/${id}.jpg`;
