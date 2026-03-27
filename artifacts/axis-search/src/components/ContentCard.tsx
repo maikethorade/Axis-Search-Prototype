@@ -118,7 +118,7 @@ export function ContentCard({ item, onClick, aspectRatio = 'video', featured = f
       </div>
 
       <div
-        className="absolute bottom-[-32px] left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none p-4 pt-6"
+        className="absolute bottom-[-32px] left-0 right-0 hidden lg:block opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none p-4 pt-6"
         style={{ background: '#1a1a1a', zIndex: 20 }}
       >
         <h3 className="text-white font-bold text-sm line-clamp-1 leading-tight mb-1.5">
