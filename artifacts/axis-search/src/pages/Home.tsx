@@ -223,18 +223,21 @@ export default function Home() {
           title="Top Picks for You"
           items={personalized}
           onSelect={setSelectedItem}
+          aspectRatio="poster"
         />
 
         <ContentRail
           title="Live & Upcoming Sports"
           items={liveSports}
           onSelect={setSelectedItem}
+          aspectRatio="poster"
         />
 
         <ContentRail
           title="Sport Highlights & Replays"
           items={sportHighlights}
           onSelect={setSelectedItem}
+          aspectRatio="poster"
         />
 
         <ContentRail
@@ -248,18 +251,21 @@ export default function Home() {
           title="Movies"
           items={movies}
           onSelect={setSelectedItem}
+          aspectRatio="poster"
         />
 
         <ContentRail
           title="Series"
           items={series}
           onSelect={setSelectedItem}
+          aspectRatio="poster"
         />
 
         <ContentRail
           title="Documentaries"
           items={documentaries}
           onSelect={setSelectedItem}
+          aspectRatio="poster"
         />
 
       </div>
