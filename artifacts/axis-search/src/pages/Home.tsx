@@ -232,12 +232,6 @@ export default function Home() {
         />
 
         <ContentRail
-          title="Football"
-          items={football}
-          onSelect={setSelectedItem}
-        />
-
-        <ContentRail
           title="More Sports"
           items={otherSports}
           onSelect={setSelectedItem}
