@@ -298,7 +298,7 @@ export default function SearchResults() {
                         <ResultsRail
                           items={items}
                           onSelect={setSelectedItem}
-                          aspectRatio={type === 'movie' || type === 'series' ? 'poster' : 'video'}
+                          aspectRatio={type === 'movie' || type === 'series' || type === 'documentary' ? 'poster' : 'video'}
                         />
                       </motion.section>
                     );
