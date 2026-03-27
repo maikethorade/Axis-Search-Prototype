@@ -250,9 +250,6 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                                 <button key={m.id} className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-left group">
                                   <div className="w-16 aspect-video overflow-hidden relative shrink-0" style={{ background: 'var(--axis-surface)' }}>
                                      <img src={m.thumbnailUrl} className="w-full h-full object-cover" />
-                                     <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'var(--axis-overlay)' }}>
-                                        <PlayCircle className="w-5 h-5 text-white opacity-80" />
-                                     </div>
                                   </div>
                                   <div>
                                     <p className="text-sm font-medium text-white/90 group-hover:text-white">{m.title}</p>
