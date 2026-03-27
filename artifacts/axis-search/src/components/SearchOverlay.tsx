@@ -72,8 +72,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             className="fixed inset-0 z-50 overflow-y-auto"
             style={{ background: 'rgba(0, 0, 0, 0.98)' }}
           >
-            <div className="sticky top-0 z-10 backdrop-blur-md border-b border-white/10 pt-6 pb-6 px-4 md:px-12" style={{ background: 'rgba(26, 26, 26, 0.9)' }}>
-              <div className="max-w-4xl mx-auto flex items-center gap-4">
+            <div className="sticky top-0 z-10 backdrop-blur-md border-b border-white/10 pt-6 pb-6" style={{ background: 'rgba(26, 26, 26, 0.9)' }}>
+              <div className="max-w-4xl mx-auto px-4 md:px-12 flex items-center gap-4">
                 <form onSubmit={handleSearchSubmit} className="flex-1 relative group">
                   <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                     <Search className={`w-5 h-5 transition-colors ${query ? 'text-[var(--axis-brand)]' : 'text-white/40'}`} />
