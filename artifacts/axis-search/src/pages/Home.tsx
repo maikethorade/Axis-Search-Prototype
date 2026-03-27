@@ -210,7 +210,7 @@ export default function Home() {
         </section>
       )}
 
-      <div className="rails-container space-y-12 md:space-y-14 relative z-20">
+      <div className="rails-container space-y-12 md:space-y-14 relative z-20 lg:pt-10">
         
         <ContentRail
           title="Trending Now"
