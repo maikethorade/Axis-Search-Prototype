@@ -241,7 +241,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
                       <div className="space-y-8">
                         {results.moments.length > 0 && (
-                          <div className="space-y-4">
+                          <div className="p-4 space-y-4" style={{ background: 'var(--axis-surface)', borderRadius: '16px', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
                             <h3 className="text-xs font-bold tracking-wider uppercase flex items-center gap-2" style={{ color: 'var(--axis-brand)' }}>
                               <PlayCircle className="w-4 h-4" /> In-Video Moments
                             </h3>
