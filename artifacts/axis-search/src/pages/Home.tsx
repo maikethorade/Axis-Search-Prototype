@@ -127,7 +127,7 @@ export default function Home() {
           {heroItems.length > 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); setActiveHeroIndex(prev => (prev - 1 + heroItems.length) % heroItems.length); }}
-              className="hidden lg:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-full bg-black/50 hover:bg-black/70 border border-white/20 text-white opacity-0 group-hover/hero:opacity-100 transition-opacity duration-300 cursor-pointer"
+              className="hidden lg:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-full text-white opacity-0 group-hover/hero:opacity-100 transition-opacity duration-300 cursor-pointer"
               aria-label="Previous slide"
             >
               <ChevronLeft className="w-6 h-6" />
@@ -136,7 +136,7 @@ export default function Home() {
           {heroItems.length > 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); setActiveHeroIndex(prev => (prev + 1) % heroItems.length); }}
-              className="hidden lg:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-full bg-black/50 hover:bg-black/70 border border-white/20 text-white opacity-0 group-hover/hero:opacity-100 transition-opacity duration-300 cursor-pointer"
+              className="hidden lg:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-full text-white opacity-0 group-hover/hero:opacity-100 transition-opacity duration-300 cursor-pointer"
               aria-label="Next slide"
             >
               <ChevronRight className="w-6 h-6" />
