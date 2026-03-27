@@ -185,11 +185,7 @@ export default function SearchResults() {
                         <div key={m.id} className="group cursor-pointer">
                           <div className="relative aspect-video overflow-hidden mb-3 border border-white/10 transition-colors">
                             <img src={m.thumbnailUrl} alt={m.title} className="w-full h-full object-cover" />
-                            <div className="absolute inset-0 group-hover:bg-black/20 transition-colors flex items-center justify-center" style={{ background: 'var(--axis-overlay)' }}>
-                               <div className="w-10 h-10 rounded-full flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform" style={{ background: 'var(--axis-brand)' }}>
-                                 <PlayCircle className="w-5 h-5 text-white" />
-                               </div>
-                            </div>
+                            <div className="absolute inset-0 group-hover:bg-black/20 transition-colors" style={{ background: 'var(--axis-overlay)' }} />
                             <div className="absolute bottom-2 right-2 px-2 py-1 text-xs font-mono text-white" style={{ background: 'rgba(0,0,0,0.8)' }}>
                               {m.timestamp}
                             </div>
