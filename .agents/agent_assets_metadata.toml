@@ -18,3 +18,9 @@ id = "G1-mosVJH4BqHHWvqA5QL"
 uri = "file://screenshots/two-panel-split-search-fullpage.jpg"
 type = "image"
 title = "B. Two-Panel Split Search — Full Page"
+
+[[outputs]]
+id = "DxTU64miiV9VXksZZZ1HH"
+uri = "file://screenshots/hero-masonry-search-fullpage.jpg"
+type = "image"
+title = "C. Hero Result + Masonry Search — Full Page"
