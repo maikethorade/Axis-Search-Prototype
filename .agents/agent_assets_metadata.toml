@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "xPucuQgFRXLHOOemH8_6r"
+uri = "file://screenshots/grid-gallery-search.jpg"
+type = "image"
+title = "A. Grid Gallery Search Results Layout"
