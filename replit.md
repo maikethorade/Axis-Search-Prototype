@@ -97,15 +97,19 @@ Utility scripts package. Each script is a `.ts` file in `src/` with a correspond
 
 ### `artifacts/axis-search` (`@workspace/axis-search`)
 
-AXIS Premium Search Prototype — a React+Vite SPA for Deltatre's OTT streaming platform. Premium dark-themed search experience with semantic search, voice search UI, in-video moments, and personalized suggestions. All data is client-side mock data (42 content items).
+AXIS Premium Search Prototype — a React+Vite SPA for Deltatre's OTT streaming platform. Premium dark-themed search experience with semantic search, voice search UI, in-video moments, and personalized suggestions. All data is client-side mock data (53 content items).
 
 - Stack: React 19, Vite, TypeScript, Tailwind CSS v4, framer-motion, wouter, lucide-react
 - Routes: `/` (homepage with hero, trending, personalized rows), `/search?q=` (results with filters and moments)
 - Key components: SearchOverlay (full-screen predictive search), VoiceSearch (simulated voice UI), ContentCard, ContentModal
 - Search: Debounced client-side filtering with semantic intent expansion (e.g., "exciting" maps to action/thriller/sports tags)
 - In-video moments: Timestamped highlights from matched sport/live content
-- Images: Real ITV/ITVX Contentful CDN packshots from `images.ctfassets.net` (sport, news, programme imagery with resize params)
-- Homepage rails: Trending Now, Top Picks for You, Live & Upcoming Sports, Football, More Sports, New Releases, Movies, Series, Documentaries
+- Images:
+  - **Hero carousel**: TMDB original resolution (Marty Supreme, White Lotus, Spider-Verse, Peaky Blinders, Free Solo)
+  - **Portrait 2:3 posters**: TMDB `w500` posters for British TV shows (ITV/BBC dramas: Trigger Point, Broadchurch, Line of Duty, Happy Valley, Sherlock, etc.) and movies (Oppenheimer, Dune 2, Banshees of Inisherin, etc.)
+  - **Sport 16:9**: BBC iPlayer `ichef.bbci.co.uk` images for live sport and highlights (FA Cup, Six Nations, MOTD, WSL, Cricket, Athletics)
+  - Image helper functions: `tmdb(path)` → `image.tmdb.org/t/p/w500/`, `tmdbHero(path)` → `image.tmdb.org/t/p/original/`, `bbc16x9(id)` → `ichef.bbci.co.uk/images/ic/960x540/`, `bbcHero(id)` → `ichef.bbci.co.uk/images/ic/1248x702/`
+- Homepage rails: Trending Now, Top Picks for You, Live & Upcoming Sports, Sport Highlights & Replays, New Releases, Movies, Series, Documentaries
 - `pnpm --filter @workspace/axis-search run dev` — run the dev server
 - Preview path: `/`
 - **Branding**: Extracted from live AXIS demo (https://stable.deltatreaxis.com/). Design tokens reference: `attached_assets/branding-1774373808863.json`
