@@ -12,3 +12,9 @@ id = "OfrO5uaYfJhPM5QdJtQIh"
 uri = "file://screenshots/grid-gallery-search-fullpage.jpg"
 type = "image"
 title = "A. Grid Gallery Search — Full Page"
+
+[[outputs]]
+id = "G1-mosVJH4BqHHWvqA5QL"
+uri = "file://screenshots/two-panel-split-search-fullpage.jpg"
+type = "image"
+title = "B. Two-Panel Split Search — Full Page"
