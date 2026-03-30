@@ -83,7 +83,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           </div>
         </div>
 
-        <nav className="md:hidden flex items-center justify-center gap-6 px-6 pt-1 pb-2">
+        <nav className="md:hidden flex items-center justify-center gap-6 px-6 pt-1 pb-2" style={{ background: '#2544D0' }}>
           {NAV_ITEMS.slice(0, 3).map((item) => (
             item.active ? (
               <Link
