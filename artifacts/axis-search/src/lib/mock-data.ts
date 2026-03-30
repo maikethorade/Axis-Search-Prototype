@@ -66,10 +66,10 @@ export const MOCK_CONTENT: ContentItem[] = [
     trending: true,
     personalizedScore: 98,
     moments: [
-      { id: "m1a", title: "Tanya's poolside breakdown", timestamp: "18:32", thumbnailUrl: tmdbHero("rahhXHBUZ25BIhbKxYJgizCZ9Al.jpg"), episode: "S1 E3 — Mysterious Monkeys" },
-      { id: "m1b", title: "The dinner confrontation", timestamp: "34:10", thumbnailUrl: tmdbHero("lFwykSz3Ykj1Q3JXJURnGUTNf1o.jpg"), episode: "S1 E5 — The Lotus-Eaters" },
-      { id: "m1c", title: "Shocking finale reveal", timestamp: "51:45", thumbnailUrl: tmdb("gbSaK9v1CbcYH1ISgbM7XObD2dW.jpg"), episode: "S1 E6 — Departures" },
-      { id: "m1d", title: "The boat scene twist", timestamp: "44:20", thumbnailUrl: tmdb("pE8CScObQURsFZ723PSW1K9EGYp.jpg"), episode: "S2 E7 — Arrivederci" }
+      { id: "m1a", title: "Tanya's poolside breakdown", timestamp: "18:32", thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/9b4020b9852572e14d4c2528464daf2ca2f31fe3b0f6df5c1ee179b388b71d6b._UR1920,1080_SX624_FMjpg_.jpg", episode: "S1 E3 — Mysterious Monkeys" },
+      { id: "m1b", title: "The dinner confrontation", timestamp: "34:10", thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/0098e61bce26af0a790ac6732f47b995941a5f51489703c8766705839d4c702e._UR1920,1080_SX624_FMjpg_.jpg", episode: "S1 E5 — The Lotus-Eaters" },
+      { id: "m1c", title: "Shocking finale reveal", timestamp: "51:45", thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/86923b33c85f69879192cef7c0ceea3a1fe9f0381543e71113a2cb09c1cc340c._UR1920,1080_SX624_FMjpg_.jpg", episode: "S1 E6 — Departures" },
+      { id: "m1d", title: "The boat scene twist", timestamp: "44:20", thumbnailUrl: "https://m.media-amazon.com/images/S/pv-target-images/4bcb86471eb5cb0704e5e5572803039802c1608c83ffb70a7f5f0f2984240505._UR1920,1080_SX624_FMjpg_.jpg", episode: "S2 E7 — Arrivederci" }
     ]
   },
   {
