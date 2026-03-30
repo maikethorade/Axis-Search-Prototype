@@ -54,7 +54,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
         }`}
         style={{
           background: (isMobile || scrolled) ? '#4A6AF7' : 'transparent',
-          borderBottom: (isMobile || scrolled) ? '1px solid hsla(0, 0%, 100%, 0.15)' : '1px solid transparent',
+          borderBottom: isMobile ? 'none' : (scrolled ? '1px solid hsla(0, 0%, 100%, 0.15)' : '1px solid transparent'),
         }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative h-12 md:h-auto">
