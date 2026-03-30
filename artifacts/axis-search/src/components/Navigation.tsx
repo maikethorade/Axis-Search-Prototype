@@ -47,7 +47,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
+        initial={{ y: -96 }}
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-out ${
           scrolled ? 'py-2.5' : 'py-4'
