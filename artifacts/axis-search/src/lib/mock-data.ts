@@ -837,7 +837,7 @@ export const SEARCH_CATEGORIES = [
 ];
 
 export const RECENT_SEARCHES = [
-  "Champions League", "F1 highlights", "Action movies", "Sci-fi series", "Tennis finals"
+  "Champions League", "F1 highlights", "Action movies", "Sci-fi series"
 ];
 
 export const TRENDING_SEARCHES = [
