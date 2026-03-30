@@ -97,7 +97,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search for movies, TV shows, sports, genres or moods..."
+                    placeholder="Movies, shows, people, genres..."
                     className="w-full rounded-lg py-4 pl-12 pr-14 text-lg text-white placeholder:text-white/30 focus:outline-none transition-all"
                     style={{
                       background: query ? '#fff' : 'hsla(0, 0%, 100%, 0.2)',
