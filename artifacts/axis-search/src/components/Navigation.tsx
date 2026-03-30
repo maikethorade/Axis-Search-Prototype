@@ -49,7 +49,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           borderBottom: scrolled ? '1px solid hsla(0, 0%, 100%, 0.15)' : '1px solid transparent',
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative">
           <div className="flex items-center gap-10">
             <Link href="/" className="flex items-center cursor-pointer">
               <img
@@ -60,7 +60,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
               />
             </Link>
 
-            <nav className="hidden md:flex items-center gap-7">
+            <nav className="hidden lg:flex items-center gap-7">
               {NAV_ITEMS.map((item) => (
                 item.active ? (
                   <Link
@@ -76,6 +76,22 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
               ))}
             </nav>
           </div>
+
+          <nav className="hidden md:flex lg:hidden items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2">
+            {NAV_ITEMS.slice(0, 3).map((item) => (
+              item.active ? (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="axis-nav-item axis-nav-item--active"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <span key={item.label} className="axis-nav-item">{item.label}</span>
+              )
+            ))}
+          </nav>
 
           <div className="flex items-center gap-5">
             <button 
