@@ -83,13 +83,13 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           </div>
         </div>
 
-        <nav className="md:hidden flex items-center justify-center gap-6 px-6 pt-1 pb-2" style={{ background: '#2544D0' }}>
+        <nav className="md:hidden flex items-end justify-center gap-6 px-6 pt-2 pb-0" style={{ background: '#2544D0' }}>
           {NAV_ITEMS.slice(0, 3).map((item) => (
             item.active ? (
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-white text-xs font-semibold tracking-wide uppercase pb-1"
+                className="text-white text-xs font-semibold tracking-wide uppercase pb-2"
                 style={{ borderBottom: '2px solid white' }}
               >
                 {item.label}
@@ -97,7 +97,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             ) : (
               <span
                 key={item.label}
-                className="text-white/70 text-xs font-medium tracking-wide uppercase pb-1 cursor-pointer hover:text-white transition-colors"
+                className="text-white/70 text-xs font-medium tracking-wide uppercase pb-2 cursor-pointer hover:text-white transition-colors"
                 style={{ borderBottom: '2px solid transparent' }}
               >
                 {item.label}
