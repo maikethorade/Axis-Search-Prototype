@@ -106,13 +106,13 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           ))}
         </nav>
 
-        <div className="hidden md:flex max-w-7xl mx-auto px-6 md:px-12 items-center justify-between relative">
-          <div className="flex items-center gap-10">
+        <div className="hidden md:flex max-w-7xl mx-auto px-6 md:px-12 items-center justify-between relative h-14">
+          <div className="flex items-center gap-10 h-full">
             <Link href="/" className="flex items-center cursor-pointer">
               <img src="/axis-logo.svg" alt="AXIS" className="h-6" />
             </Link>
 
-            <nav className="hidden lg:flex items-center gap-7">
+            <nav className="hidden lg:flex items-center gap-7 h-full">
               {NAV_ITEMS.map((item) => (
                 item.active ? (
                   <Link
@@ -129,7 +129,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             </nav>
           </div>
 
-          <nav className="flex lg:hidden items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2">
+          <nav className="flex lg:hidden items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2 h-full">
             {NAV_ITEMS.slice(0, 3).map((item) => (
               item.active ? (
                 <Link
