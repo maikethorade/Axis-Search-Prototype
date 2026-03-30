@@ -106,7 +106,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           ))}
         </nav>
 
-        <div className="hidden md:flex max-w-7xl mx-auto px-6 md:px-12 items-center justify-between relative h-14">
+        <div className="hidden md:flex max-w-7xl mx-auto px-6 md:px-12 items-center justify-between relative h-16">
           <div className="flex items-center gap-10 h-full">
             <Link href="/" className="flex items-center cursor-pointer">
               <img src="/axis-logo.svg" alt="AXIS" className="h-6" />
