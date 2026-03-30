@@ -49,8 +49,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     switch(cat) {
       case 'Sports': return <Trophy className="w-4 h-4" />;
       case 'Movies': return <Film className="w-4 h-4" />;
-      case 'Series': return <Tv className="w-4 h-4" />;
-      case 'Live Events': return <PlayCircle className="w-4 h-4" style={{ color: 'var(--axis-live)' }} />;
+      case 'TV': return <Tv className="w-4 h-4" />;
+      case 'Live': return <PlayCircle className="w-4 h-4" style={{ color: 'var(--axis-live)' }} />;
       default: return null;
     }
   };

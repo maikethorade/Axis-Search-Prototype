@@ -833,7 +833,7 @@ export const MOCK_CONTENT: ContentItem[] = [
 ];
 
 export const SEARCH_CATEGORIES = [
-  "Sports", "Movies", "Series", "Live Events", "Documentaries", "Action", "Comedy", "Sci-Fi"
+  "Movies", "TV", "Live", "Sports", "Comedy", "Sci-Fi", "Documentaries", "Action"
 ];
 
 export const RECENT_SEARCHES = [
