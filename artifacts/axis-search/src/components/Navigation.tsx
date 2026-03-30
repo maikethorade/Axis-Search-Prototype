@@ -18,14 +18,6 @@ const NAV_ITEMS = [
 export function Navigation({ onOpenSearch }: NavigationProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,8 +45,8 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           scrolled ? 'py-2.5' : 'py-4'
         }`}
         style={{
-          background: isMobile ? '#4A6AF7' : (scrolled ? '#4A6AF7' : 'transparent'),
-          borderBottom: scrolled || isMobile ? '1px solid hsla(0, 0%, 100%, 0.15)' : '1px solid transparent',
+          background: scrolled ? '#4A6AF7' : 'transparent',
+          borderBottom: scrolled ? '1px solid hsla(0, 0%, 100%, 0.15)' : '1px solid transparent',
         }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative">
