@@ -66,10 +66,10 @@ export const MOCK_CONTENT: ContentItem[] = [
     trending: true,
     personalizedScore: 98,
     moments: [
-      { id: "m1a", title: "Tanya's poolside breakdown", timestamp: "18:32", thumbnailUrl: tmdb("bTOnWMFyy3GWLMbjPkMkxH43eGm.jpg"), episode: "S1 E3 — Mysterious Monkeys" },
-      { id: "m1b", title: "The dinner confrontation", timestamp: "34:10", thumbnailUrl: tmdb("rXjGMevi6aad0kOFNiDBtj8mCFQ.jpg"), episode: "S1 E5 — The Lotus-Eaters" },
-      { id: "m1c", title: "Shocking finale reveal", timestamp: "51:45", thumbnailUrl: tmdb("hKRcuINneaoZjiRYGz3dENitfzl.jpg"), episode: "S1 E6 — Departures" },
-      { id: "m1d", title: "The boat scene twist", timestamp: "44:20", thumbnailUrl: tmdb("39DTlnF2NhnSVbCSRkCf8cVJAKG.jpg"), episode: "S2 E7 — Arrivederci" }
+      { id: "m1a", title: "Tanya's poolside breakdown", timestamp: "18:32", thumbnailUrl: tmdbHero("rahhXHBUZ25BIhbKxYJgizCZ9Al.jpg"), episode: "S1 E3 — Mysterious Monkeys" },
+      { id: "m1b", title: "The dinner confrontation", timestamp: "34:10", thumbnailUrl: tmdbHero("lFwykSz3Ykj1Q3JXJURnGUTNf1o.jpg"), episode: "S1 E5 — The Lotus-Eaters" },
+      { id: "m1c", title: "Shocking finale reveal", timestamp: "51:45", thumbnailUrl: tmdb("gbSaK9v1CbcYH1ISgbM7XObD2dW.jpg"), episode: "S1 E6 — Departures" },
+      { id: "m1d", title: "The boat scene twist", timestamp: "44:20", thumbnailUrl: tmdb("pE8CScObQURsFZ723PSW1K9EGYp.jpg"), episode: "S2 E7 — Arrivederci" }
     ]
   },
   {
