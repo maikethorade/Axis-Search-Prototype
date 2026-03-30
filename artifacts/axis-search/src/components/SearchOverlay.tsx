@@ -221,7 +221,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                             <button 
                               key={item.id}
                               onClick={() => { onClose(); }}
-                              className="flex gap-3 p-3 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-left group"
+                              className="flex gap-3 p-3 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-left group rounded-tl-[0px] rounded-tr-[0px] rounded-br-[0px] rounded-bl-[0px] border-t-[0px] border-r-[0px] border-b-[0px] border-l-[0px] pl-[0px] pr-[0px] pt-[0px] pb-[0px]"
                             >
                               <div className="overflow-hidden shrink-0 relative" style={{ background: 'var(--axis-surface)', height: '117px', aspectRatio: '16/9' }}>
                                 <img src={item.thumbnailUrl} alt={item.title} className="w-full h-full object-cover" />
@@ -270,7 +270,6 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
           </motion.div>
         )}
       </AnimatePresence>
-
       <VoiceSearch 
         isOpen={isVoiceOpen} 
         onClose={() => setIsVoiceOpen(false)} 
