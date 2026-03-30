@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { Search, User, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -8,7 +8,7 @@ interface NavigationProps {
 }
 
 const NAV_ITEMS = [
-  { label: 'Home', href: '/', active: true },
+  { label: 'Home', href: '/' },
   { label: 'Sports', href: '#' },
   { label: 'Movies', href: '#' },
   { label: 'Series', href: '#' },
@@ -16,6 +16,7 @@ const NAV_ITEMS = [
 ];
 
 export function Navigation({ onOpenSearch }: NavigationProps) {
+  const [location] = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -84,8 +85,9 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
         </div>
 
         <nav className="md:hidden flex items-end justify-center gap-6 px-6 h-12" style={{ background: '#2544D0' }}>
-          {NAV_ITEMS.slice(0, 3).map((item) => (
-            item.active ? (
+          {NAV_ITEMS.slice(0, 3).map((item) => {
+            const isActive = location === item.href;
+            return isActive ? (
               <Link
                 key={item.label}
                 href={item.href}
@@ -102,8 +104,8 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
               >
                 {item.label}
               </span>
-            )
-          ))}
+            );
+          })}
         </nav>
 
         <div className="hidden md:flex max-w-7xl mx-auto px-6 md:px-12 items-center justify-between relative h-16">
@@ -113,8 +115,9 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             </Link>
 
             <nav className="hidden lg:flex items-center gap-7 h-full">
-              {NAV_ITEMS.map((item) => (
-                item.active ? (
+              {NAV_ITEMS.map((item) => {
+                const isActive = location === item.href;
+                return isActive ? (
                   <Link
                     key={item.label}
                     href={item.href}
@@ -124,14 +127,15 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
                   </Link>
                 ) : (
                   <span key={item.label} className="axis-nav-item">{item.label}</span>
-                )
-              ))}
+                );
+              })}
             </nav>
           </div>
 
           <nav className="flex lg:hidden items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2 h-full">
-            {NAV_ITEMS.slice(0, 3).map((item) => (
-              item.active ? (
+            {NAV_ITEMS.slice(0, 3).map((item) => {
+              const isActive = location === item.href;
+              return isActive ? (
                 <Link
                   key={item.label}
                   href={item.href}
@@ -141,8 +145,8 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
                 </Link>
               ) : (
                 <span key={item.label} className="axis-nav-item">{item.label}</span>
-              )
-            ))}
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-5">
