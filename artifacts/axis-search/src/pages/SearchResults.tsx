@@ -274,7 +274,7 @@ export default function SearchResults() {
                             </div>
                           </div>
                           <h4 className="font-bold text-sm text-white/90 group-hover:text-[var(--axis-brand)] transition-colors">{m.title}</h4>
-                          <p className="text-xs truncate" style={{ color: 'var(--axis-text-tertiary)' }}>Found in: {m.parentTitle}</p>
+                          <p className="text-xs truncate" style={{ color: 'var(--axis-text-tertiary)' }}>{m.episode ? `${m.episode} · ${m.timestamp}` : `Found in: ${m.parentTitle}`}</p>
                         </div>
                       ))}
                     </div>

@@ -5,6 +5,7 @@ export interface Moment {
   title: string;
   timestamp: string;
   thumbnailUrl: string;
+  episode?: string;
 }
 
 export interface ContentItem {
@@ -65,10 +66,10 @@ export const MOCK_CONTENT: ContentItem[] = [
     trending: true,
     personalizedScore: 98,
     moments: [
-      { id: "m1a", title: "Incredible opening goal", timestamp: "12:05", thumbnailUrl: bbc16x9("p0n5qpv8") },
-      { id: "m1b", title: "VAR Review — Penalty decision", timestamp: "44:30", thumbnailUrl: bbc16x9("p0n7j775") },
-      { id: "m1c", title: "Last minute dramatic save", timestamp: "89:15", thumbnailUrl: bbc16x9("p0mmh2ts") },
-      { id: "m1d", title: "Post-match celebrations", timestamp: "92:00", thumbnailUrl: bbc16x9("p0n8g8jq") }
+      { id: "m1a", title: "Tanya's poolside breakdown", timestamp: "18:32", thumbnailUrl: tmdb("bTOnWMFyy3GWLMbjPkMkxH43eGm.jpg"), episode: "S1 E3 — Mysterious Monkeys" },
+      { id: "m1b", title: "The dinner confrontation", timestamp: "34:10", thumbnailUrl: tmdb("rXjGMevi6aad0kOFNiDBtj8mCFQ.jpg"), episode: "S1 E5 — The Lotus-Eaters" },
+      { id: "m1c", title: "Shocking finale reveal", timestamp: "51:45", thumbnailUrl: tmdb("hKRcuINneaoZjiRYGz3dENitfzl.jpg"), episode: "S1 E6 — Departures" },
+      { id: "m1d", title: "The boat scene twist", timestamp: "44:20", thumbnailUrl: tmdb("39DTlnF2NhnSVbCSRkCf8cVJAKG.jpg"), episode: "S2 E7 — Arrivederci" }
     ]
   },
   {

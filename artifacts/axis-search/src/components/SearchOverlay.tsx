@@ -253,7 +253,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                                   </div>
                                   <div>
                                     <p className="text-sm font-medium text-white/90 group-hover:text-white">{m.title}</p>
-                                    <p className="text-xs" style={{ color: 'var(--axis-text-tertiary)' }}>{m.parentTitle} · {m.timestamp}</p>
+                                    <p className="text-xs" style={{ color: 'var(--axis-text-tertiary)' }}>{m.episode || m.parentTitle} · {m.timestamp}</p>
                                   </div>
                                 </button>
                               ))}
