@@ -202,7 +202,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         <span>Results for "{query}"</span>
                       )}
                     </h2>
-                    <button onClick={() => handleSearchSubmit()} className="font-medium text-sm transition-colors hover:opacity-80" style={{ color: 'var(--axis-brand)' }}>
+                    <button onClick={() => handleSearchSubmit()} className="font-medium text-sm transition-colors hover:opacity-80 text-white">
                       View all results &rarr;
                     </button>
                   </div>
