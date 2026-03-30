@@ -55,6 +55,12 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     }
   };
 
+  const [recentSearches, setRecentSearches] = useState([...RECENT_SEARCHES]);
+
+  const removeRecentSearch = (search: string) => {
+    setRecentSearches(prev => prev.filter(s => s !== search));
+  };
+
   const showPredictive = debouncedQuery.length > 0;
 
   return (
@@ -130,15 +136,23 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                           <Clock className="w-4 h-4" /> Recent Searches
                         </h3>
                         <div className="flex flex-wrap gap-2">
-                          {RECENT_SEARCHES.map(s => (
-                            <button 
-                              key={s} 
-                              onClick={() => { setQuery(s); handleSearchSubmit(undefined, s); }}
-                              className="px-4 py-2 rounded text-white/80 transition-colors text-sm hover:text-white"
+                          {recentSearches.map(s => (
+                            <div
+                              key={s}
+                              className="flex items-center gap-1 pl-4 pr-2 py-2 rounded text-white/80 transition-colors text-sm hover:text-white"
                               style={{ background: 'hsla(0, 0%, 100%, 0.05)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}
                             >
-                              {s}
-                            </button>
+                              <button onClick={() => { setQuery(s); handleSearchSubmit(undefined, s); }}>
+                                {s}
+                              </button>
+                              <button
+                                onClick={(e) => { e.stopPropagation(); removeRecentSearch(s); }}
+                                className="ml-1 p-0.5 rounded-full hover:bg-white/10 transition-colors text-white/40 hover:text-white"
+                                aria-label={`Remove ${s}`}
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </div>
                           ))}
                         </div>
                       </div>
