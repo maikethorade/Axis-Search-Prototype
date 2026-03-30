@@ -105,13 +105,24 @@ function ResultsRail({ items, onSelect, aspectRatio = 'video' as const }: {
 }
 
 const FILTER_LABELS: Record<string, string> = {
-  all: 'All Content',
+  all: 'All',
   movie: 'Movies',
-  series: 'Series',
+  series: 'TV Shows',
   sport: 'Sports',
   live: 'Live',
   documentary: 'Documentaries',
 };
+
+const GENRE_OPTIONS = [
+  { value: 'all', label: 'All Genres' },
+  { value: 'action', label: 'Action' },
+  { value: 'comedy', label: 'Comedy' },
+  { value: 'drama', label: 'Drama' },
+  { value: 'sci-fi', label: 'Sci-Fi' },
+  { value: 'documentary', label: 'Documentary' },
+  { value: 'thriller', label: 'Thriller' },
+  { value: 'animation', label: 'Animation' },
+];
 
 const CATEGORY_CONFIG: { type: string; label: string; icon: React.ReactNode }[] = [
   { type: 'sport', label: 'Sports', icon: <Trophy className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} /> },
@@ -129,15 +140,20 @@ export default function SearchResults() {
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>('relevance');
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const [isTypeOpen, setIsTypeOpen] = useState(false);
+  const [isGenreOpen, setIsGenreOpen] = useState(false);
+  const [selectedGenre, setSelectedGenre] = useState('all');
   const sortRef = useRef<HTMLDivElement>(null);
+  const typeRef = useRef<HTMLDivElement>(null);
+  const genreRef = useRef<HTMLDivElement>(null);
   
   const { query, setQuery, results, activeFilter, setActiveFilter, debouncedQuery } = useSearch(initialQuery);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (sortRef.current && !sortRef.current.contains(e.target as Node)) {
-        setIsSortOpen(false);
-      }
+      if (sortRef.current && !sortRef.current.contains(e.target as Node)) setIsSortOpen(false);
+      if (typeRef.current && !typeRef.current.contains(e.target as Node)) setIsTypeOpen(false);
+      if (genreRef.current && !genreRef.current.contains(e.target as Node)) setIsGenreOpen(false);
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -188,26 +204,99 @@ export default function SearchResults() {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-5 border-b border-white/10 pr-6 md:pr-12">
-              <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
-                {(['all', 'movie', 'series', 'sport', 'live', 'documentary'] as const).map(filter => (
-                  <button
-                    key={filter}
-                    onClick={() => setActiveFilter(filter)}
-                    className="px-5 py-2 rounded-sm text-sm font-medium whitespace-nowrap transition-colors"
-                    style={activeFilter === filter 
-                      ? { background: 'var(--axis-brand)', color: '#fff' } 
-                      : { background: 'hsla(0, 0%, 100%, 0.05)', color: 'hsla(0, 0%, 100%, 0.7)' }
-                    }
-                  >
-                    {FILTER_LABELS[filter]}
-                  </button>
-                ))}
+            <div className="flex flex-wrap items-center gap-3 mb-8 pb-5 border-b border-white/10 pr-6 md:pr-12">
+              <div className="relative" ref={typeRef}>
+                <button
+                  onClick={() => { setIsTypeOpen(!isTypeOpen); setIsGenreOpen(false); setIsSortOpen(false); }}
+                  className="flex items-center gap-2 px-4 py-2 rounded text-sm transition-colors"
+                  style={{
+                    border: `1px solid ${isTypeOpen || activeFilter !== 'all' ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.1)'}`,
+                    color: isTypeOpen || activeFilter !== 'all' ? '#fff' : 'hsla(0, 0%, 100%, 0.8)',
+                    background: isTypeOpen ? 'hsla(0, 0%, 100%, 0.05)' : 'transparent',
+                  }}
+                >
+                  <Filter className="w-4 h-4" />
+                  {activeFilter === 'all' ? 'Type' : FILTER_LABELS[activeFilter]}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isTypeOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {isTypeOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute left-0 top-full mt-2 w-52 rounded-lg overflow-hidden z-50 py-1"
+                      style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)', boxShadow: '0 16px 48px rgba(0,0,0,0.5)' }}
+                    >
+                      <div className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--axis-text-tertiary)' }}>
+                        Type
+                      </div>
+                      {(['all', 'movie', 'series', 'sport', 'live', 'documentary'] as const).map(filter => (
+                        <button
+                          key={filter}
+                          onClick={() => { setActiveFilter(filter); setIsTypeOpen(false); }}
+                          className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-left transition-colors hover:bg-white/5"
+                          style={{ color: activeFilter === filter ? '#fff' : 'hsla(0, 0%, 100%, 0.7)' }}
+                        >
+                          <span className="w-4 h-4 flex items-center justify-center">
+                            {activeFilter === filter && <Check className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} />}
+                          </span>
+                          {FILTER_LABELS[filter]}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-              
+
+              <div className="relative" ref={genreRef}>
+                <button
+                  onClick={() => { setIsGenreOpen(!isGenreOpen); setIsTypeOpen(false); setIsSortOpen(false); }}
+                  className="flex items-center gap-2 px-4 py-2 rounded text-sm transition-colors"
+                  style={{
+                    border: `1px solid ${isGenreOpen || selectedGenre !== 'all' ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.1)'}`,
+                    color: isGenreOpen || selectedGenre !== 'all' ? '#fff' : 'hsla(0, 0%, 100%, 0.8)',
+                    background: isGenreOpen ? 'hsla(0, 0%, 100%, 0.05)' : 'transparent',
+                  }}
+                >
+                  {selectedGenre === 'all' ? 'Genre' : GENRE_OPTIONS.find(o => o.value === selectedGenre)?.label}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isGenreOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {isGenreOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute left-0 top-full mt-2 w-52 rounded-lg overflow-hidden z-50 py-1"
+                      style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)', boxShadow: '0 16px 48px rgba(0,0,0,0.5)' }}
+                    >
+                      <div className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--axis-text-tertiary)' }}>
+                        Genre
+                      </div>
+                      {GENRE_OPTIONS.map(option => (
+                        <button
+                          key={option.value}
+                          onClick={() => { setSelectedGenre(option.value); setIsGenreOpen(false); }}
+                          className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-left transition-colors hover:bg-white/5"
+                          style={{ color: selectedGenre === option.value ? '#fff' : 'hsla(0, 0%, 100%, 0.7)' }}
+                        >
+                          <span className="w-4 h-4 flex items-center justify-center">
+                            {selectedGenre === option.value && <Check className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} />}
+                          </span>
+                          {option.label}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               <div className="relative" ref={sortRef}>
                 <button
-                  onClick={() => setIsSortOpen(!isSortOpen)}
+                  onClick={() => { setIsSortOpen(!isSortOpen); setIsTypeOpen(false); setIsGenreOpen(false); }}
                   className="flex items-center gap-2 px-4 py-2 rounded text-sm transition-colors"
                   style={{
                     border: `1px solid ${isSortOpen || sortBy !== 'relevance' ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.1)'}`,
@@ -226,7 +315,7 @@ export default function SearchResults() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -8, scale: 0.96 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute right-0 top-full mt-2 w-52 rounded-lg overflow-hidden z-50 py-1"
+                      className="absolute left-0 top-full mt-2 w-52 rounded-lg overflow-hidden z-50 py-1"
                       style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)', boxShadow: '0 16px 48px rgba(0,0,0,0.5)' }}
                     >
                       <div className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--axis-text-tertiary)' }}>
