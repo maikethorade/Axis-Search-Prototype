@@ -223,7 +223,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                               onClick={() => { onClose(); }}
                               className="flex gap-3 p-3 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-left group"
                             >
-                              <div className="w-24 aspect-video overflow-hidden shrink-0 relative" style={{ background: 'var(--axis-surface)' }}>
+                              <div className="overflow-hidden shrink-0 relative" style={{ background: 'var(--axis-surface)', height: '171px', aspectRatio: '16/9' }}>
                                 <img src={item.thumbnailUrl} alt={item.title} className="w-full h-full object-cover" />
                                 {item.type === 'live' && <div className="absolute top-1 left-1 w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--axis-live)' }} />}
                               </div>
