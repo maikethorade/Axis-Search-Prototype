@@ -6,35 +6,12 @@ import { ContentModal } from '../components/ContentModal';
 import { SearchOverlay } from '../components/SearchOverlay';
 import { useSearch } from '../hooks/use-search';
 import { ContentItem, MOCK_CONTENT, TRENDING_SEARCHES, RECENT_SEARCHES } from '../lib/mock-data';
-import { PlayCircle, Search, Filter, Film, Tv, Trophy, Radio, BookOpen, Clock, TrendingUp, Sparkles, ChevronLeft, ChevronRight, ChevronDown, Check, ArrowUpDown } from 'lucide-react';
+import { PlayCircle, Search, Filter, Film, Tv, Trophy, Radio, BookOpen, Clock, TrendingUp, Sparkles, ChevronLeft, ChevronRight, ChevronDown, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type SortOption = 'relevance' | 'newest' | 'oldest' | 'a-z' | 'z-a';
-
-const SORT_OPTIONS: { value: SortOption; label: string }[] = [
-  { value: 'relevance', label: 'Most Relevant' },
-  { value: 'newest', label: 'Newest First' },
-  { value: 'oldest', label: 'Oldest First' },
-  { value: 'a-z', label: 'A — Z' },
-  { value: 'z-a', label: 'Z — A' },
-];
-
-function sortItems(items: ContentItem[], sort: SortOption): ContentItem[] {
-  if (sort === 'relevance') return items;
-  const sorted = [...items];
-  switch (sort) {
-    case 'newest':
-      return sorted.sort((a, b) => parseInt(b.year || '0') - parseInt(a.year || '0'));
-    case 'oldest':
-      return sorted.sort((a, b) => parseInt(a.year || '0') - parseInt(b.year || '0'));
-    case 'a-z':
-      return sorted.sort((a, b) => a.title.localeCompare(b.title));
-    case 'z-a':
-      return sorted.sort((a, b) => b.title.localeCompare(a.title));
-    default:
-      return sorted;
-  }
-}
+const FILTER_GENRES = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Thriller', 'Romance', 'Documentary', 'Animation', 'Crime'];
+const FILTER_SUBTITLES = ['English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese'];
+const FILTER_CHANNELS = ['AXIS Originals', 'Sky Sports', 'BBC', 'ITV', 'Channel 4', 'HBO', 'Showtime', 'Paramount+', 'Discovery', 'Eurosport'];
 
 function ResultsRail({ items, onSelect, aspectRatio = 'video' as const }: {
   items: ContentItem[];
@@ -127,21 +104,31 @@ export default function SearchResults() {
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
-  const [sortBy, setSortBy] = useState<SortOption>('relevance');
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const sortRef = useRef<HTMLDivElement>(null);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [freeToMe, setFreeToMe] = useState(false);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [selectedSubtitles, setSelectedSubtitles] = useState<string[]>([]);
+  const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
+  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+  const filtersRef = useRef<HTMLDivElement>(null);
   
   const { query, setQuery, results, activeFilter, setActiveFilter, debouncedQuery } = useSearch(initialQuery);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (sortRef.current && !sortRef.current.contains(e.target as Node)) {
-        setIsSortOpen(false);
+      if (filtersRef.current && !filtersRef.current.contains(e.target as Node)) {
+        setIsFiltersOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const toggleFilter = (value: string, selected: string[], setSelected: React.Dispatch<React.SetStateAction<string[]>>) => {
+    setSelected(prev => prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]);
+  };
+
+  const activeFilterCount = selectedGenres.length + selectedSubtitles.length + selectedChannels.length + (freeToMe ? 1 : 0);
 
   useEffect(() => {
     const urlQuery = new URLSearchParams(window.location.search).get('q') || '';
@@ -154,17 +141,15 @@ export default function SearchResults() {
   const hasQuery = debouncedQuery.trim().length > 0;
   const hasResults = results.items.length > 0;
 
-  const sortedItems = useMemo(() => sortItems(results.items, sortBy), [results.items, sortBy]);
-
   const categorizedResults = useMemo(() => {
     if (activeFilter !== 'all') return null;
     const groups: Record<string, ContentItem[]> = {};
-    sortedItems.forEach(item => {
+    results.items.forEach(item => {
       if (!groups[item.type]) groups[item.type] = [];
       groups[item.type].push(item);
     });
     return groups;
-  }, [sortedItems, activeFilter]);
+  }, [results.items, activeFilter]);
 
   const personalizedSuggestions = useMemo(() => {
     return [...MOCK_CONTENT]
@@ -205,45 +190,98 @@ export default function SearchResults() {
                 ))}
               </div>
               
-              <div className="relative" ref={sortRef}>
+              <div className="relative" ref={filtersRef}>
                 <button
-                  onClick={() => setIsSortOpen(!isSortOpen)}
+                  onClick={() => setIsFiltersOpen(!isFiltersOpen)}
                   className="flex items-center gap-2 px-4 py-2 rounded text-sm transition-colors"
                   style={{
-                    border: `1px solid ${isSortOpen || sortBy !== 'relevance' ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.1)'}`,
-                    color: isSortOpen || sortBy !== 'relevance' ? '#fff' : 'hsla(0, 0%, 100%, 0.8)',
-                    background: isSortOpen ? 'hsla(0, 0%, 100%, 0.05)' : 'transparent',
+                    border: `1px solid ${isFiltersOpen || activeFilterCount > 0 ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.1)'}`,
+                    color: isFiltersOpen || activeFilterCount > 0 ? '#fff' : 'hsla(0, 0%, 100%, 0.8)',
+                    background: isFiltersOpen ? 'hsla(0, 0%, 100%, 0.05)' : 'transparent',
                   }}
                 >
-                  <ArrowUpDown className="w-4 h-4" />
-                  {sortBy === 'relevance' ? 'Sort' : SORT_OPTIONS.find(o => o.value === sortBy)?.label}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isSortOpen ? 'rotate-180' : ''}`} />
+                  <Filter className="w-4 h-4" />
+                  Filters{activeFilterCount > 0 && ` (${activeFilterCount})`}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isFiltersOpen ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
-                  {isSortOpen && (
+                  {isFiltersOpen && (
                     <motion.div
                       initial={{ opacity: 0, y: -8, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -8, scale: 0.96 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute right-0 top-full mt-2 w-52 rounded-lg overflow-hidden z-50 py-1"
+                      className="absolute right-0 top-full mt-2 w-72 rounded-lg overflow-hidden z-50"
                       style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)', boxShadow: '0 16px 48px rgba(0,0,0,0.5)' }}
                     >
-                      <div className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--axis-text-tertiary)' }}>
-                        Sort by
-                      </div>
-                      {SORT_OPTIONS.map(option => (
+                      <div className="px-4 py-3 flex items-center justify-between border-b border-white/10">
+                        <span className="text-sm font-semibold text-white">Free to me</span>
                         <button
-                          key={option.value}
-                          onClick={() => { setSortBy(option.value); setIsSortOpen(false); }}
-                          className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-left transition-colors hover:bg-white/5"
-                          style={{ color: sortBy === option.value ? '#fff' : 'hsla(0, 0%, 100%, 0.7)' }}
+                          onClick={() => setFreeToMe(!freeToMe)}
+                          className="w-10 h-6 rounded-full transition-colors relative"
+                          style={{ background: freeToMe ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.15)' }}
                         >
-                          <span className="w-4 h-4 flex items-center justify-center">
-                            {sortBy === option.value && <Check className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} />}
-                          </span>
-                          {option.label}
+                          <div
+                            className="absolute top-1 w-4 h-4 rounded-full bg-white transition-transform"
+                            style={{ left: freeToMe ? '22px' : '4px' }}
+                          />
                         </button>
+                      </div>
+
+                      {[
+                        { key: 'genres', label: 'Genres', items: FILTER_GENRES, selected: selectedGenres, setSelected: setSelectedGenres },
+                        { key: 'subtitles', label: 'Subtitles', items: FILTER_SUBTITLES, selected: selectedSubtitles, setSelected: setSelectedSubtitles },
+                        { key: 'channels', label: 'Channels', items: FILTER_CHANNELS, selected: selectedChannels, setSelected: setSelectedChannels },
+                      ].map(section => (
+                        <div key={section.key} className="border-b border-white/5 last:border-b-0">
+                          <button
+                            onClick={() => setOpenAccordion(openAccordion === section.key ? null : section.key)}
+                            className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-white/90 hover:bg-white/5 transition-colors"
+                          >
+                            <span>
+                              {section.label}
+                              {section.selected.length > 0 && (
+                                <span className="ml-2 text-xs px-1.5 py-0.5 rounded-full" style={{ background: 'var(--axis-brand)', color: '#fff' }}>
+                                  {section.selected.length}
+                                </span>
+                              )}
+                            </span>
+                            <ChevronDown className={`w-4 h-4 transition-transform text-white/50 ${openAccordion === section.key ? 'rotate-180' : ''}`} />
+                          </button>
+                          <AnimatePresence>
+                            {openAccordion === section.key && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="overflow-hidden"
+                              >
+                                <div className="px-2 pb-2">
+                                  {section.items.map(item => (
+                                    <button
+                                      key={item}
+                                      onClick={() => toggleFilter(item, section.selected, section.setSelected)}
+                                      className="w-full flex items-center gap-3 px-3 py-2 text-sm text-left rounded hover:bg-white/5 transition-colors"
+                                      style={{ color: section.selected.includes(item) ? '#fff' : 'hsla(0, 0%, 100%, 0.7)' }}
+                                    >
+                                      <div
+                                        className="w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors"
+                                        style={{
+                                          borderColor: section.selected.includes(item) ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.3)',
+                                          background: section.selected.includes(item) ? 'var(--axis-brand)' : 'transparent',
+                                        }}
+                                      >
+                                        {section.selected.includes(item) && <Check className="w-3 h-3 text-white" />}
+                                      </div>
+                                      {item}
+                                    </button>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
                       ))}
                     </motion.div>
                   )}
@@ -306,7 +344,7 @@ export default function SearchResults() {
                 ) : (
                   <section>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                      {sortedItems.map((item, i) => (
+                      {results.items.map((item, i) => (
                         <motion.div 
                           key={item.id}
                           initial={{ opacity: 0, y: 20 }}
