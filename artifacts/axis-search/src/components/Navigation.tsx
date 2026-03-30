@@ -70,7 +70,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
 
           <Link href="/" className="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center cursor-pointer">
             <img
-              src={`${import.meta.env.BASE_URL}axis-logo.png`}
+              src={`${import.meta.env.BASE_URL}axis-logo.svg`}
               alt="AXIS"
               className="h-6"
             />
@@ -89,7 +89,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           <div className="hidden md:flex items-center gap-10">
             <Link href="/" className="flex items-center cursor-pointer">
               <img
-                src={`${import.meta.env.BASE_URL}axis-logo.png`}
+                src={`${import.meta.env.BASE_URL}axis-logo.svg`}
                 alt="AXIS"
                 className="h-6"
               />
@@ -168,7 +168,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             >
               <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
                 <img
-                  src={`${import.meta.env.BASE_URL}axis-logo.png`}
+                  src={`${import.meta.env.BASE_URL}axis-logo.svg`}
                   alt="AXIS"
                   className="h-5"
                 />
