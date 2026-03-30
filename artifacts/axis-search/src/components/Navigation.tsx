@@ -9,10 +9,10 @@ interface NavigationProps {
 
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
-  { label: 'Sports', href: '#' },
   { label: 'Movies', href: '#' },
-  { label: 'Series', href: '#' },
+  { label: 'TV', href: '#' },
   { label: 'Live', href: '#' },
+  { label: 'Sports', href: '#' },
 ];
 
 export function Navigation({ onOpenSearch }: NavigationProps) {
