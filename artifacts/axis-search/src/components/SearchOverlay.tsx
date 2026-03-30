@@ -235,10 +235,10 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       <p className="text-white/30 text-sm">Try asking differently or exploring categories.</p>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                      <div className="lg:col-span-2 space-y-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
+                      <div className="space-y-4">
                         <h3 className="text-xs font-bold tracking-wider uppercase" style={{ color: 'hsla(0, 0%, 100%, 0.5)' }}>Top Matches</h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 gap-3">
                           {results.items.slice(0, 6).map(item => (
                             <button 
                               key={item.id}
