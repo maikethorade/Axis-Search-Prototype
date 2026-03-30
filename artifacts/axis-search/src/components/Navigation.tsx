@@ -69,12 +69,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           </div>
 
           <Link href="/" className="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center cursor-pointer">
-            <img
-              src="https://images.deltatre.com/image/private/t_q_best/v1711553662/prd/assets/products/logos/axis-logo.png"
-              alt="AXIS"
-              className="h-6"
-              style={{ filter: 'brightness(0) invert(1)' }}
-            />
+            <span className="text-white font-bold text-lg tracking-wide">AXIS</span>
           </Link>
 
           <div className="md:hidden flex items-center">
