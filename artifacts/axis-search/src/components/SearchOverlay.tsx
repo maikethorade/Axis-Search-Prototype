@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Mic, Clock, TrendingUp, Flame, PlayCircle, Film, Tv, Trophy } from 'lucide-react';
+import { Search, X, Mic, Clock, TrendingUp, Flame, PlayCircle, Play, Film, Tv, Trophy } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { VoiceSearch } from './VoiceSearch';
 import { useSearch } from '../hooks/use-search';
@@ -50,7 +50,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
       case 'Sports': return <Trophy className="w-4 h-4" />;
       case 'Movies': return <Film className="w-4 h-4" />;
       case 'TV': return <Tv className="w-4 h-4" />;
-      case 'Live': return <PlayCircle className="w-4 h-4" style={{ color: 'var(--axis-live)' }} />;
+      case 'Live': return <Play className="w-4 h-4 text-white" fill="white" />;
       default: return null;
     }
   };
