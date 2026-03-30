@@ -69,7 +69,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           </div>
 
           <Link href="/" className="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center cursor-pointer">
-            <span className="text-white font-bold text-lg tracking-wide">AXIS</span>
+            <img src="/axis-logo.svg" alt="AXIS" className="h-6" />
           </Link>
 
           <div className="md:hidden flex items-center">
@@ -84,12 +84,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
 
           <div className="hidden md:flex items-center gap-10">
             <Link href="/" className="flex items-center cursor-pointer">
-              <img
-                src="https://images.deltatre.com/image/private/t_q_best/v1711553662/prd/assets/products/logos/axis-logo.png"
-                alt="AXIS"
-                className="h-6"
-                style={{ filter: 'brightness(0) invert(1)' }}
-              />
+              <img src="/axis-logo.svg" alt="AXIS" className="h-6" />
             </Link>
 
             <nav className="hidden lg:flex items-center gap-7">
@@ -164,12 +159,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
               style={{ background: '#1a1a1a' }}
             >
               <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
-                <img
-                  src="https://images.deltatre.com/image/private/t_q_best/v1711553662/prd/assets/products/logos/axis-logo.png"
-                  alt="AXIS"
-                  className="h-5"
-                  style={{ filter: 'brightness(0) invert(1)' }}
-                />
+                <img src="/axis-logo.svg" alt="AXIS" className="h-5" />
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-white/70 hover:text-white transition-colors p-1"
