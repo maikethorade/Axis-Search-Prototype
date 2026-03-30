@@ -81,8 +81,33 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
               <Menu className="w-6 h-6" />
             </button>
           </div>
+        </div>
 
-          <div className="hidden md:flex items-center gap-10">
+        <nav className="md:hidden flex items-center justify-center gap-6 px-6 pt-1 pb-2">
+          {NAV_ITEMS.slice(0, 3).map((item) => (
+            item.active ? (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="text-white text-xs font-semibold tracking-wide uppercase pb-1"
+                style={{ borderBottom: '2px solid white' }}
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <span
+                key={item.label}
+                className="text-white/70 text-xs font-medium tracking-wide uppercase pb-1 cursor-pointer hover:text-white transition-colors"
+                style={{ borderBottom: '2px solid transparent' }}
+              >
+                {item.label}
+              </span>
+            )
+          ))}
+        </nav>
+
+        <div className="hidden md:flex max-w-7xl mx-auto px-6 md:px-12 items-center justify-between relative">
+          <div className="flex items-center gap-10">
             <Link href="/" className="flex items-center cursor-pointer">
               <img src="/axis-logo.svg" alt="AXIS" className="h-6" />
             </Link>
@@ -104,7 +129,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             </nav>
           </div>
 
-          <nav className="hidden md:flex lg:hidden items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2">
+          <nav className="flex lg:hidden items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2">
             {NAV_ITEMS.slice(0, 3).map((item) => (
               item.active ? (
                 <Link
@@ -120,7 +145,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-5">
+          <div className="flex items-center gap-5">
             <button 
               onClick={onOpenSearch}
               className="text-white/90 hover:text-white transition-colors hover:scale-105 active:scale-95 flex items-center justify-center w-8 h-8 rounded-full border border-white/30 cursor-pointer"
