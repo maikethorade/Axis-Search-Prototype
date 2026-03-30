@@ -31,7 +31,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const addRecentSearch = (term: string) => {
     setRecentSearches(prev => {
       const filtered = prev.filter(s => s.toLowerCase() !== term.toLowerCase());
-      return [term, ...filtered].slice(0, 10);
+      return [term, ...filtered].slice(0, 6);
     });
   };
 
