@@ -16,6 +16,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isVoiceOpen, setIsVoiceOpen] = useState(false);
   const { query, setQuery, results, isSearching, debouncedQuery } = useSearch();
+  const [recentSearches, setRecentSearches] = useState([...RECENT_SEARCHES]);
 
   useEffect(() => {
     if (isOpen) {
@@ -27,10 +28,18 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     }
   }, [isOpen]);
 
+  const addRecentSearch = (term: string) => {
+    setRecentSearches(prev => {
+      const filtered = prev.filter(s => s.toLowerCase() !== term.toLowerCase());
+      return [term, ...filtered].slice(0, 10);
+    });
+  };
+
   const handleSearchSubmit = (e?: React.FormEvent, overrideQuery?: string) => {
     e?.preventDefault();
     const q = overrideQuery ?? query;
     if (q.trim()) {
+      addRecentSearch(q.trim());
       onClose();
       setLocation(`/search?q=${encodeURIComponent(q)}`);
     }
@@ -39,6 +48,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const handleVoiceResult = (text: string) => {
     setQuery(text);
     setIsVoiceOpen(false);
+    addRecentSearch(text.trim());
     setTimeout(() => {
       onClose();
       setLocation(`/search?q=${encodeURIComponent(text)}`);
@@ -54,8 +64,6 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
       default: return null;
     }
   };
-
-  const [recentSearches, setRecentSearches] = useState([...RECENT_SEARCHES]);
 
   const removeRecentSearch = (search: string) => {
     setRecentSearches(prev => prev.filter(s => s !== search));
