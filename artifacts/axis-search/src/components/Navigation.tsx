@@ -57,7 +57,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           borderBottom: (isMobile || scrolled) ? '1px solid hsla(0, 0%, 100%, 0.15)' : '1px solid transparent',
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative h-12 md:h-auto">
           <div className="md:hidden flex items-center">
             <button
               onClick={onOpenSearch}
