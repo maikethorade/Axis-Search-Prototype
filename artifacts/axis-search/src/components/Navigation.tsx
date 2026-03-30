@@ -50,7 +50,36 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
         }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative">
-          <div className="flex items-center gap-10">
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={onOpenSearch}
+              className="text-white/90 hover:text-white transition-colors flex items-center justify-center w-8 h-8 cursor-pointer"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+          </div>
+
+          <Link href="/" className="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center cursor-pointer">
+            <img
+              src="https://images.deltatre.com/image/private/t_q_best/v1711553662/prd/assets/products/logos/axis-logo.png"
+              alt="AXIS"
+              className="h-6"
+              style={{ filter: 'brightness(0) invert(1)' }}
+            />
+          </Link>
+
+          <div className="md:hidden flex items-center">
+            <button
+              className="text-white/90 hover:text-white transition-colors"
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+
+          <div className="hidden md:flex items-center gap-10">
             <Link href="/" className="flex items-center cursor-pointer">
               <img
                 src="https://images.deltatre.com/image/private/t_q_best/v1711553662/prd/assets/products/logos/axis-logo.png"
@@ -93,7 +122,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             ))}
           </nav>
 
-          <div className="flex items-center gap-5">
+          <div className="hidden md:flex items-center gap-5">
             <button 
               onClick={onOpenSearch}
               className="text-white/90 hover:text-white transition-colors hover:scale-105 active:scale-95 flex items-center justify-center w-8 h-8 rounded-full border border-white/30 cursor-pointer"
@@ -106,14 +135,6 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden hidden md:flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
               <User className="w-full h-full p-1.5 text-white/90" />
             </div>
-
-            <button
-              className="md:hidden text-white/90 hover:text-white transition-colors"
-              onClick={() => setMobileMenuOpen(true)}
-              aria-label="Open menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
           </div>
         </div>
       </motion.header>
