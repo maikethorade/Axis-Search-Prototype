@@ -89,7 +89,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-white text-xs font-bold tracking-wide uppercase pb-2"
+                className="text-white text-xs font-bold tracking-wide uppercase pb-3"
                 style={{ borderBottom: '2px solid white' }}
               >
                 {item.label}
@@ -97,7 +97,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             ) : (
               <span
                 key={item.label}
-                className="text-white/70 text-xs font-bold tracking-wide uppercase pb-2 cursor-pointer hover:text-white transition-colors"
+                className="text-white/70 text-xs font-bold tracking-wide uppercase pb-3 cursor-pointer hover:text-white transition-colors"
                 style={{ borderBottom: '2px solid transparent' }}
               >
                 {item.label}
