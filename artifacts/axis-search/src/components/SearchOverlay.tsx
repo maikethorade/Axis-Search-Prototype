@@ -174,7 +174,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                             <li key={s}>
                               <button 
                                 onClick={() => { setQuery(s); handleSearchSubmit(undefined, s); }}
-                                className="w-full text-left px-4 py-3 rounded hover:bg-white/5 text-white/80 transition-colors flex items-center gap-4 group"
+                                className="w-full text-left px-4 py-3 rounded hover:bg-white/5 text-white/80 transition-colors flex items-center gap-4 group pl-[0px] pr-[0px]"
                               >
                                 <span className="w-7 h-7 flex items-center justify-center rounded-full text-sm font-bold shrink-0" style={{ border: '1px solid hsla(0, 0%, 100%, 0.15)', color: 'hsla(0, 0%, 100%, 0.4)' }}>{i + 1}</span>
                                 <span className="group-hover:text-white transition-colors">{s}</span>
