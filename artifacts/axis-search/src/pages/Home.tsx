@@ -98,12 +98,40 @@ export default function Home() {
 
   const hero = heroItems[activeHeroIndex];
 
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) {
+        setActiveHeroIndex(prev => (prev + 1) % heroItems.length);
+      } else {
+        setActiveHeroIndex(prev => (prev - 1 + heroItems.length) % heroItems.length);
+      }
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+  }, [heroItems.length]);
+
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
       <Navigation onOpenSearch={() => setIsSearchOpen(true)} />
       
       {hero && (
-        <section className="relative w-full h-[80vh] lg:h-[576px] flex items-end pb-12 cursor-pointer group/hero lg:overflow-visible" onClick={() => setSelectedItem(hero)}>
+        <section
+          className="relative w-full h-[80vh] lg:h-[576px] flex items-end pb-12 cursor-pointer group/hero lg:overflow-visible"
+          onClick={() => setSelectedItem(hero)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={hero.id}
