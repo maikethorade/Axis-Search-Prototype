@@ -160,7 +160,13 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             </div>
           </div>
         </div>
-        <div className="absolute left-0 right-0 top-full h-8 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.6), transparent)' }} />
+        <div
+          className="absolute left-0 right-0 top-full h-8 pointer-events-none transition-opacity duration-300"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.6), transparent)',
+            opacity: (isMobile || scrolled) ? 1 : 0,
+          }}
+        />
       </motion.header>
 
       <AnimatePresence>
