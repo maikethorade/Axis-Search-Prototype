@@ -58,7 +58,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
         }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative">
-          <div className="md:hidden flex items-center justify-start w-10">
+          <div className="md:hidden flex-1 flex items-center justify-start">
             <button
               onClick={onOpenSearch}
               className="text-white/90 hover:text-white transition-colors flex items-center justify-center w-8 h-8 cursor-pointer"
@@ -68,7 +68,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             </button>
           </div>
 
-          <Link href="/" className="md:hidden flex items-center justify-center flex-1 cursor-pointer">
+          <Link href="/" className="md:hidden flex items-center justify-center cursor-pointer">
             <img
               src="https://images.deltatre.com/image/private/t_q_best/v1711553662/prd/assets/products/logos/axis-logo.png"
               alt="AXIS"
@@ -77,7 +77,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             />
           </Link>
 
-          <div className="md:hidden flex items-center justify-end w-10">
+          <div className="md:hidden flex-1 flex items-center justify-end">
             <button
               className="text-white/90 hover:text-white transition-colors"
               onClick={() => setMobileMenuOpen(true)}
