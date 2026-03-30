@@ -50,8 +50,8 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
         initial={{ y: -96 }}
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-out ${
-          scrolled ? 'py-2.5' : 'py-4'
-        }`}
+          scrolled ? 'py-2.5' : 'pt-0 pb-0 md:py-4'
+        } ${isMobile ? 'pt-2 pb-0' : ''}`}
         style={{
           background: (isMobile || scrolled) ? '#4A6AF7' : 'transparent',
           borderBottom: (isMobile || scrolled) ? '1px solid hsla(0, 0%, 100%, 0.15)' : '1px solid transparent',
