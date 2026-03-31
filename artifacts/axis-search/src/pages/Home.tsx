@@ -8,7 +8,7 @@ import { ContentItem } from '../lib/mock-data';
 import { Play, ChevronRight, ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-function ContentRail({ title, items, onSelect, aspectRatio = 'video' as const, featured = false }: {
+function ContentRail({ title, items, onSelect, aspectRatio = 'poster' as const, featured = false }: {
   title: string;
   items: ContentItem[];
   onSelect: (item: ContentItem) => void;

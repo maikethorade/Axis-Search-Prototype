@@ -13,7 +13,7 @@ const FILTER_GENRES = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Thrille
 const FILTER_SUBTITLES = ['English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese'];
 const FILTER_CHANNELS = ['AXIS Originals', 'Sky Sports', 'BBC', 'ITV', 'Channel 4', 'HBO', 'Showtime', 'Paramount+', 'Discovery', 'Eurosport'];
 
-function ResultsRail({ items, onSelect, aspectRatio = 'video' as const }: {
+function ResultsRail({ items, onSelect, aspectRatio = 'poster' as const }: {
   items: ContentItem[];
   onSelect: (item: ContentItem) => void;
   aspectRatio?: 'video' | 'poster';
