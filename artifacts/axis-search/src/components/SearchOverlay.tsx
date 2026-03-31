@@ -77,7 +77,15 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     setRecentSearches(prev => prev.filter(s => s !== search));
   };
 
-  const showPredictive = debouncedQuery.length > 0;
+  useEffect(() => {
+    if (isOpen && debouncedQuery.trim().length > 0) {
+      addRecentSearch(debouncedQuery.trim());
+      onClose();
+      setLocation(`/search?q=${encodeURIComponent(debouncedQuery.trim())}`);
+    }
+  }, [debouncedQuery]);
+
+  const showPredictive = false;
 
   return (
     <>

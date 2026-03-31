@@ -136,6 +136,15 @@ export default function SearchResults() {
     }
   }, [location]);
 
+  useEffect(() => {
+    if (debouncedQuery.trim()) {
+      const currentUrl = new URLSearchParams(window.location.search).get('q') || '';
+      if (currentUrl !== debouncedQuery.trim()) {
+        window.history.replaceState(null, '', `/search?q=${encodeURIComponent(debouncedQuery.trim())}`);
+      }
+    }
+  }, [debouncedQuery]);
+
   const hasQuery = debouncedQuery.trim().length > 0;
   const hasResults = results.items.length > 0;
 
