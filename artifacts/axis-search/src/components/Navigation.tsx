@@ -99,16 +99,16 @@ export function Navigation({ onOpenSearch, searchQuery, onSearchQueryChange }: N
               }}
               className="relative flex-1 flex items-center"
             >
-              <Search className={`absolute left-3 w-4 h-4 pointer-events-none transition-colors ${searchQuery ? 'text-[var(--axis-brand)]' : 'text-white/40'}`} />
+              <Search className="absolute left-3 w-4 h-4 text-white/50 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery || ''}
                 onChange={(e) => onSearchQueryChange?.(e.target.value)}
                 placeholder="Movies, shows, people, genres..."
-                className="w-full pl-9 pr-9 py-1.5 rounded-lg text-sm focus:outline-none transition-all"
+                className="w-full pl-9 pr-9 py-1.5 rounded-lg text-sm text-white placeholder-white/40 outline-none"
                 style={{
-                  background: searchQuery ? '#fff' : 'hsla(0, 0%, 100%, 0.15)',
-                  color: searchQuery ? '#000' : '#fff',
+                  background: 'hsla(0, 0%, 100%, 0.15)',
+                  border: '1px solid hsla(0, 0%, 100%, 0.2)',
                 }}
               />
               {searchQuery && (
@@ -118,8 +118,7 @@ export function Navigation({ onOpenSearch, searchQuery, onSearchQueryChange }: N
                     onSearchQueryChange?.('');
                     setLocation('/');
                   }}
-                  className="absolute right-3 transition-colors"
-                  style={{ color: 'var(--axis-brand)' }}
+                  className="absolute right-3 text-white/40 hover:text-white transition-colors"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -169,17 +168,25 @@ export function Navigation({ onOpenSearch, searchQuery, onSearchQueryChange }: N
                   }}
                   className="relative flex items-center"
                 >
-                  <Search className={`absolute left-4 w-5 h-5 pointer-events-none transition-colors ${searchQuery ? 'text-[var(--axis-brand)]' : 'text-white/40'}`} />
+                  <Search className="absolute left-3 w-4 h-4 text-white/50 pointer-events-none" />
                   <input
                     ref={searchInputRef}
                     type="text"
                     value={searchQuery || ''}
                     onChange={(e) => onSearchQueryChange?.(e.target.value)}
                     placeholder="Movies, shows, people, genres..."
-                    className="w-full pl-12 pr-12 py-2.5 rounded-lg text-sm focus:outline-none transition-all"
+                    className="w-full pl-10 pr-10 py-2 rounded-lg text-sm text-white placeholder-white/40 outline-none transition-colors"
                     style={{
-                      background: searchQuery ? '#fff' : 'hsla(0, 0%, 100%, 0.2)',
-                      color: searchQuery ? '#000' : '#fff',
+                      background: 'hsla(0, 0%, 100%, 0.1)',
+                      border: '1px solid hsla(0, 0%, 100%, 0.15)',
+                    }}
+                    onFocus={(e) => {
+                      (e.target as HTMLInputElement).style.borderColor = 'var(--axis-brand)';
+                      (e.target as HTMLInputElement).style.background = 'hsla(0, 0%, 100%, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      (e.target as HTMLInputElement).style.borderColor = 'hsla(0, 0%, 100%, 0.15)';
+                      (e.target as HTMLInputElement).style.background = 'hsla(0, 0%, 100%, 0.1)';
                     }}
                   />
                   {searchQuery && (
@@ -189,8 +196,7 @@ export function Navigation({ onOpenSearch, searchQuery, onSearchQueryChange }: N
                         onSearchQueryChange?.('');
                         setLocation('/');
                       }}
-                      className="absolute right-4 transition-colors"
-                      style={{ color: 'var(--axis-brand)' }}
+                      className="absolute right-3 text-white/40 hover:text-white transition-colors"
                     >
                       <X className="w-4 h-4" />
                     </button>
