@@ -167,41 +167,63 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   </div>
                 </div>
               </div>
-              <div className="md:hidden px-4 py-4">
-                <form onSubmit={handleSearchSubmit} className="relative flex items-center">
-                  <div className="absolute left-3 flex items-center pointer-events-none">
-                    <Search className="w-4 h-4 text-white/50" />
+              <div className="md:hidden">
+                <div className="flex items-center justify-between px-4 h-12" style={{ background: '#4A6AF7' }}>
+                  <Link href="/" onClick={onClose} className="flex items-center cursor-pointer">
+                    <img src="/axis-logo.svg" alt="AXIS" className="h-5" />
+                  </Link>
+                  <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
+                    <User className="w-full h-full p-1.5 text-white/90" />
                   </div>
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search"
-                    className="h-10 w-full rounded-full pl-10 pr-20 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
-                    style={{ background: 'var(--axis-overlay)' }}
-                  />
-                  <div className="absolute right-1.5 flex items-center gap-1">
-                    {query && (
+                </div>
+                <nav className="flex items-center justify-center gap-6 px-6 h-12" style={{ background: '#2544D0' }}>
+                  {NAV_ITEMS.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      onClick={onClose}
+                      className={`text-xs font-bold tracking-wide uppercase pb-0 transition-colors ${location === item.href ? 'text-white' : 'text-white/70 hover:text-white'}`}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </nav>
+                <div className="px-4 py-3" style={{ background: '#2544D0' }}>
+                  <form onSubmit={handleSearchSubmit} className="relative flex items-center">
+                    <div className="absolute left-3 flex items-center pointer-events-none">
+                      <Search className="w-4 h-4 text-white/50" />
+                    </div>
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Search"
+                      className="h-10 w-full rounded-full pl-10 pr-20 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
+                      style={{ background: 'var(--axis-overlay)' }}
+                    />
+                    <div className="absolute right-1.5 flex items-center gap-1">
+                      {query && (
+                        <button
+                          type="button"
+                          onClick={() => setQuery('')}
+                          aria-label="Clear search"
+                          className="w-7 h-7 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      )}
                       <button
                         type="button"
-                        onClick={() => setQuery('')}
-                        aria-label="Clear search"
+                        onClick={() => setIsVoiceOpen(true)}
+                        aria-label="Voice search"
                         className="w-7 h-7 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
                       >
-                        <X className="w-4 h-4" />
+                        <Mic className="w-4 h-4" />
                       </button>
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => setIsVoiceOpen(true)}
-                      aria-label="Voice search"
-                      className="w-7 h-7 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
-                    >
-                      <Mic className="w-4 h-4" />
-                    </button>
-                  </div>
-                </form>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
 
