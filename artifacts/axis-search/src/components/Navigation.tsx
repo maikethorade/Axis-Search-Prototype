@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
-import { Search, User, Menu, X } from 'lucide-react';
+import { Search, User, Menu, X, Mic } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavigationProps {
   onOpenSearch: () => void;
+  searchQuery?: string;
+  onSearchQueryChange?: (query: string) => void;
 }
 
 const NAV_ITEMS = [
@@ -15,11 +17,13 @@ const NAV_ITEMS = [
   { label: 'Sports', href: '#' },
 ];
 
-export function Navigation({ onOpenSearch }: NavigationProps) {
+export function Navigation({ onOpenSearch, searchQuery, onSearchQueryChange }: NavigationProps) {
   const [location] = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const hasExpandedSearch = searchQuery !== undefined;
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -60,53 +64,119 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative h-12 md:h-auto">
           <div className="md:hidden flex items-center">
-            <button
-              onClick={onOpenSearch}
-              className="text-white/90 hover:text-white transition-colors flex items-center justify-center w-8 h-8 cursor-pointer"
-              aria-label="Search"
-            >
-              <Search className="w-5 h-5" />
-            </button>
+            {hasExpandedSearch ? (
+              <Link href="/" className="flex items-center cursor-pointer">
+                <img src="/axis-logo.svg" alt="AXIS" className="h-5" />
+              </Link>
+            ) : (
+              <button
+                onClick={onOpenSearch}
+                className="text-white/90 hover:text-white transition-colors flex items-center justify-center w-8 h-8 cursor-pointer"
+                aria-label="Search"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+            )}
           </div>
 
-          <Link href="/" className="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center cursor-pointer">
-            <img src="/axis-logo.svg" alt="AXIS" className="h-6" />
-          </Link>
+          {!hasExpandedSearch && (
+            <Link href="/" className="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center cursor-pointer">
+              <img src="/axis-logo.svg" alt="AXIS" className="h-6" />
+            </Link>
+          )}
+
+          {hasExpandedSearch ? (
+            <nav className="md:hidden flex items-center gap-6">
+              {NAV_ITEMS.slice(0, 3).map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`text-xs font-bold tracking-wide uppercase transition-colors ${location === item.href ? 'text-white' : 'text-white/70 hover:text-white'}`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          ) : null}
 
           <div className="md:hidden flex items-center">
-            <button
-              className="text-white/90 hover:text-white transition-colors"
-              onClick={() => setMobileMenuOpen(true)}
-              aria-label="Open menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
+            {hasExpandedSearch ? (
+              <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
+                <User className="w-full h-full p-1.5 text-white/90" />
+              </div>
+            ) : (
+              <button
+                className="text-white/90 hover:text-white transition-colors"
+                onClick={() => setMobileMenuOpen(true)}
+                aria-label="Open menu"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+            )}
           </div>
         </div>
 
-        <nav className="md:hidden flex items-end justify-center gap-6 px-6 h-12" style={{ background: '#2544D0' }}>
-          {NAV_ITEMS.slice(0, 3).map((item) => {
-            const isActive = location === item.href;
-            return isActive ? (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-white text-xs font-bold tracking-wide uppercase pb-3"
-                style={{ borderBottom: '2px solid white' }}
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <span
-                key={item.label}
-                className="text-white/70 text-xs font-bold tracking-wide uppercase pb-3 cursor-pointer hover:text-white transition-colors"
-                style={{ borderBottom: '2px solid transparent' }}
-              >
-                {item.label}
-              </span>
-            );
-          })}
-        </nav>
+        {hasExpandedSearch ? (
+          <div className="md:hidden px-4 py-3" style={{ background: '#2544D0' }}>
+            <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
+              <div className="absolute left-3 flex items-center pointer-events-none">
+                <Search className="w-4 h-4 text-white/50" />
+              </div>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => onSearchQueryChange?.(e.target.value)}
+                placeholder="Search"
+                className="h-10 w-full rounded-full pl-10 pr-20 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
+                style={{ background: 'var(--axis-overlay)' }}
+              />
+              <div className="absolute right-1.5 flex items-center gap-1">
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => onSearchQueryChange?.('')}
+                    aria-label="Clear search"
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={onOpenSearch}
+                  aria-label="Voice search"
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
+                >
+                  <Mic className="w-4 h-4" />
+                </button>
+              </div>
+            </form>
+          </div>
+        ) : (
+          <nav className="md:hidden flex items-end justify-center gap-6 px-6 h-12" style={{ background: '#2544D0' }}>
+            {NAV_ITEMS.slice(0, 3).map((item) => {
+              const isActive = location === item.href;
+              return isActive ? (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-white text-xs font-bold tracking-wide uppercase pb-3"
+                  style={{ borderBottom: '2px solid white' }}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <span
+                  key={item.label}
+                  className="text-white/70 text-xs font-bold tracking-wide uppercase pb-3 cursor-pointer hover:text-white transition-colors"
+                  style={{ borderBottom: '2px solid transparent' }}
+                >
+                  {item.label}
+                </span>
+              );
+            })}
+          </nav>
+        )}
 
         <div className="hidden md:flex max-w-7xl mx-auto px-6 md:px-12 items-center justify-between relative h-16">
           <div className="flex items-center gap-10 h-full">
@@ -145,15 +215,52 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
             })}
           </nav>
 
-          <div className="flex items-center gap-5">
-            <button 
-              onClick={onOpenSearch}
-              className="text-white/90 hover:text-white transition-colors hover:scale-105 active:scale-95 flex items-center justify-center w-8 h-8 rounded-full border border-white/30 cursor-pointer"
-              style={{ background: 'var(--axis-overlay)' }}
-              aria-label="Search"
-            >
-              <Search className="w-4 h-4" />
-            </button>
+          <div className="flex items-center gap-3">
+            {hasExpandedSearch ? (
+              <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
+                <div className="absolute left-2.5 flex items-center pointer-events-none">
+                  <Search className="w-3.5 h-3.5 text-white/50" />
+                </div>
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => onSearchQueryChange?.(e.target.value)}
+                  placeholder="Search"
+                  className="h-8 w-52 lg:w-64 rounded-full pl-8 pr-16 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
+                  style={{ background: 'var(--axis-overlay)' }}
+                />
+                <div className="absolute right-1 flex items-center gap-0.5">
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => onSearchQueryChange?.('')}
+                      aria-label="Clear search"
+                      className="w-6 h-6 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={onOpenSearch}
+                    aria-label="Voice search"
+                    className="w-6 h-6 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
+                  >
+                    <Mic className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <button 
+                onClick={onOpenSearch}
+                className="text-white/90 hover:text-white transition-colors hover:scale-105 active:scale-95 flex items-center justify-center w-8 h-8 rounded-full border border-white/30 cursor-pointer"
+                style={{ background: 'var(--axis-overlay)' }}
+                aria-label="Search"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+            )}
             
             <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden hidden md:flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
               <User className="w-full h-full p-1.5 text-white/90" />
