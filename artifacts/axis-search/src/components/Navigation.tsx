@@ -114,7 +114,10 @@ export function Navigation({ onOpenSearch, searchQuery, onSearchQueryChange }: N
               {searchQuery && (
                 <button
                   type="button"
-                  onClick={() => onSearchQueryChange?.('')}
+                  onClick={() => {
+                    onSearchQueryChange?.('');
+                    setLocation('/');
+                  }}
                   className="absolute right-3 text-white/40 hover:text-white transition-colors"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -191,7 +194,7 @@ export function Navigation({ onOpenSearch, searchQuery, onSearchQueryChange }: N
                       type="button"
                       onClick={() => {
                         onSearchQueryChange?.('');
-                        searchInputRef.current?.focus();
+                        setLocation('/');
                       }}
                       className="absolute right-3 text-white/40 hover:text-white transition-colors"
                     >
