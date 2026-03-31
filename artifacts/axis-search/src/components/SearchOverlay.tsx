@@ -172,22 +172,22 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   <Link href="/" onClick={onClose} className="flex items-center cursor-pointer">
                     <img src="/axis-logo.svg" alt="AXIS" className="h-5" />
                   </Link>
+                  <nav className="flex items-center gap-6">
+                    {NAV_ITEMS.slice(0, 3).map((item) => (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={onClose}
+                        className={`text-xs font-bold tracking-wide uppercase transition-colors ${location === item.href ? 'text-white' : 'text-white/70 hover:text-white'}`}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </nav>
                   <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
                     <User className="w-full h-full p-1.5 text-white/90" />
                   </div>
                 </div>
-                <nav className="flex items-center justify-center gap-6 px-6 h-12" style={{ background: '#2544D0' }}>
-                  {NAV_ITEMS.slice(0, 3).map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      onClick={onClose}
-                      className={`text-xs font-bold tracking-wide uppercase pb-0 transition-colors ${location === item.href ? 'text-white' : 'text-white/70 hover:text-white'}`}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </nav>
                 <div className="px-4 py-3" style={{ background: '#2544D0' }}>
                   <form onSubmit={handleSearchSubmit} className="relative flex items-center">
                     <div className="absolute left-3 flex items-center pointer-events-none">
