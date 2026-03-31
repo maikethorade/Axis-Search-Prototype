@@ -137,7 +137,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search"
-                        className="h-8 w-52 lg:w-64 rounded-full pl-8 pr-16 text-xs text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
+                        className="h-8 w-52 lg:w-64 rounded-full pl-8 pr-16 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
                         style={{ background: 'var(--axis-overlay)' }}
                       />
                       <div className="absolute right-1 flex items-center gap-0.5">
