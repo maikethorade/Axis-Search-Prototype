@@ -90,9 +90,9 @@ const FILTER_LABELS: Record<string, string> = {
   documentary: 'Documentaries',
 };
 
-const CATEGORY_CONFIG: { type: string; label: string; icon: React.ReactNode }[] = [
+const CATEGORY_CONFIG: { type: string; label: string; tagline?: string; icon: React.ReactNode }[] = [
   { type: 'movie', label: 'Top results', icon: <Film className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} /> },
-  { type: 'series', label: 'Series', icon: <Tv className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} /> },
+  { type: 'series', label: 'Just for you', tagline: 'Movies we think you might like', icon: <Tv className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} /> },
   { type: 'documentary', label: 'Documentaries', icon: <BookOpen className="w-5 h-5" style={{ color: 'var(--axis-gold)' }} /> },
 ];
 
@@ -318,7 +318,7 @@ export default function SearchResults() {
                 )}
 
                 {activeFilter === 'all' && categorizedResults ? (
-                  CATEGORY_CONFIG.map(({ type, label, icon }) => {
+                  CATEGORY_CONFIG.map(({ type, label, tagline, icon }) => {
                     const items = categorizedResults[type];
                     if (!items || items.length === 0) return null;
                     return (
@@ -327,10 +327,11 @@ export default function SearchResults() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                       >
-                        <div className="flex items-center gap-3 mb-5">
+                        <div className="flex items-center gap-3 mb-1">
                           <h2 className="text-lg md:text-xl font-bold text-white">{label}</h2>
                           <span className="text-xs ml-auto pr-6 md:pr-12" style={{ color: 'var(--axis-text-tertiary)' }}>{items.length} result{items.length !== 1 ? 's' : ''}</span>
                         </div>
+                        {tagline && <p className="text-sm mb-4" style={{ color: 'var(--axis-text-secondary)' }}>{tagline}</p>}
                         <ResultsRail
                           items={items}
                           onSelect={setSelectedItem}
