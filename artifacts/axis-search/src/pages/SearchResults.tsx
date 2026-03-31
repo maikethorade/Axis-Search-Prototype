@@ -91,7 +91,6 @@ const FILTER_LABELS: Record<string, string> = {
 };
 
 const CATEGORY_CONFIG: { type: string; label: string; icon: React.ReactNode }[] = [
-  { type: 'sport', label: 'Sports', icon: <Trophy className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} /> },
   { type: 'live', label: 'Live Events', icon: <Radio className="w-5 h-5" style={{ color: 'var(--axis-live)' }} /> },
   { type: 'movie', label: 'Movies', icon: <Film className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} /> },
   { type: 'series', label: 'Series', icon: <Tv className="w-5 h-5" style={{ color: 'var(--axis-brand)' }} /> },
