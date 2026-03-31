@@ -542,7 +542,18 @@ export default function SearchResults() {
               <div className="flex items-center gap-3 mb-5">
                 <h2 className="text-lg font-bold text-white">Recommended for You</h2>
               </div>
-              <ResultsRail items={personalizedSuggestions} onSelect={setSelectedItem} />
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                {personalizedSuggestions.map((item, i) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <ContentCard item={item} onClick={setSelectedItem} fillWidth />
+                  </motion.div>
+                ))}
+              </div>
             </section>
           </motion.div>
         )}
