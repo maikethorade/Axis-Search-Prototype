@@ -136,7 +136,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         type="text"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        placeholder="Movies, shows, people, genres..."
+                        placeholder="Search"
                         className="h-8 w-52 lg:w-64 rounded-full pl-8 pr-16 text-xs text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
                         style={{ background: 'var(--axis-overlay)' }}
                       />
@@ -177,7 +177,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Movies, shows, people, genres..."
+                    placeholder="Search"
                     className="h-10 w-full rounded-full pl-10 pr-20 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
                     style={{ background: 'var(--axis-overlay)' }}
                   />
