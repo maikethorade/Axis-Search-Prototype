@@ -137,8 +137,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Movies, shows, people, genres..."
-                        className="h-8 w-52 lg:w-64 rounded-full pl-8 pr-16 text-xs text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all"
-                        style={{ background: 'hsla(0, 0%, 100%, 0.15)' }}
+                        className="h-8 w-52 lg:w-64 rounded-full pl-8 pr-16 text-xs text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
+                        style={{ background: 'var(--axis-overlay)' }}
                       />
                       <div className="absolute right-1 flex items-center gap-0.5">
                         {query && (
@@ -178,8 +178,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Movies, shows, people, genres..."
-                    className="h-10 w-full rounded-full pl-10 pr-20 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all"
-                    style={{ background: 'hsla(0, 0%, 100%, 0.15)' }}
+                    className="h-10 w-full rounded-full pl-10 pr-20 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
+                    style={{ background: 'var(--axis-overlay)' }}
                   />
                   <div className="absolute right-1.5 flex items-center gap-1">
                     {query && (
