@@ -363,6 +363,30 @@ export default function SearchResults() {
 
             {hasResults ? (
               <div className="space-y-14">
+                {activeFilter === 'all' && categorizedResults && (() => {
+                  const topResults = CATEGORY_CONFIG[0];
+                  const items = categorizedResults[topResults.type];
+                  if (!items || items.length === 0) return null;
+                  return (
+                    <motion.section
+                      key={topResults.type}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
+                      <div className="flex items-center gap-3 mb-1">
+                        <h2 className="text-lg md:text-xl font-bold text-white">{topResults.label}</h2>
+                        <span className="text-xs ml-auto pr-6 md:pr-12" style={{ color: 'var(--axis-text-tertiary)' }}>{items.length} result{items.length !== 1 ? 's' : ''}</span>
+                      </div>
+                      {topResults.tagline && <p className="text-sm mb-4" style={{ color: 'var(--axis-text-secondary)' }}>{topResults.tagline}</p>}
+                      <ResultsRail
+                        items={items}
+                        onSelect={setSelectedItem}
+                        aspectRatio={topResults.type === 'movie' || topResults.type === 'series' || topResults.type === 'documentary' ? 'poster' : 'video'}
+                      />
+                    </motion.section>
+                  );
+                })()}
+
                 {results.moments.length > 0 && activeFilter === 'all' && (
                   <motion.section 
                     initial={{ opacity: 0, y: 20 }}
@@ -392,7 +416,7 @@ export default function SearchResults() {
                 )}
 
                 {activeFilter === 'all' && categorizedResults ? (
-                  CATEGORY_CONFIG.map(({ type, label, tagline, icon }) => {
+                  CATEGORY_CONFIG.slice(1).map(({ type, label, tagline, icon }) => {
                     const items = categorizedResults[type];
                     if (!items || items.length === 0) return null;
                     return (
