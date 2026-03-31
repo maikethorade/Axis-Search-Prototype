@@ -538,7 +538,7 @@ export default function SearchResults() {
               </div>
             </section>
 
-            <section className="pr-6 md:pr-12">
+            <section style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}>
               <div className="flex items-center gap-3 mb-5">
                 <h2 className="text-lg font-bold text-white">Recommended for You</h2>
               </div>
