@@ -10,7 +10,7 @@ interface ContentCardProps {
   fillWidth?: boolean;
 }
 
-export function ContentCard({ item, onClick, aspectRatio = 'video', featured = false, fillWidth = false }: ContentCardProps) {
+export function ContentCard({ item, onClick, aspectRatio = 'poster', featured = false, fillWidth = false }: ContentCardProps) {
   const isPoster = aspectRatio === 'poster';
   
   if (featured) {
