@@ -133,7 +133,7 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           </div>
 
           <nav className="flex lg:hidden items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2 h-full">
-            {NAV_ITEMS.slice(0, 3).map((item) => {
+            {NAV_ITEMS.map((item) => {
               const isActive = location === item.href;
               return isActive ? (
                 <Link
