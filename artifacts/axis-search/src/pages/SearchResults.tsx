@@ -162,6 +162,15 @@ export default function SearchResults() {
       <div className="pt-28 rails-container">
         {hasQuery ? (
           <>
+            <div className="mb-8 pr-6 md:pr-12">
+              <h1 className="text-2xl md:text-4xl font-bold text-white mb-3">
+                Search Results
+              </h1>
+              <p className="text-base" style={{ color: 'var(--axis-text-secondary)' }}>
+                Showing {results.totalCount} results for <span className="text-white font-medium">"{debouncedQuery}"</span>
+              </p>
+            </div>
+
             <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-5 border-b border-white/10 pr-6 md:pr-12">
               <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
                 {(['all', 'movie', 'series', 'sport', 'live', 'documentary'] as const).map(filter => (

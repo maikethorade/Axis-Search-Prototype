@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Mic, Clock, TrendingUp, Play, Film, Tv, Trophy } from 'lucide-react';
+import { Search, X, Mic, Clock, TrendingUp, Flame, PlayCircle, Play, Film, Tv, Trophy } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { VoiceSearch } from './VoiceSearch';
 import { useSearch } from '../hooks/use-search';
@@ -15,7 +15,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const [_, setLocation] = useLocation();
   const inputRef = useRef<HTMLInputElement>(null);
   const [isVoiceOpen, setIsVoiceOpen] = useState(false);
-  const { query, setQuery, debouncedQuery } = useSearch();
+  const { query, setQuery, results, isSearching, debouncedQuery } = useSearch();
   const [recentSearches, setRecentSearches] = useState([...RECENT_SEARCHES]);
 
   useEffect(() => {
@@ -69,13 +69,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     setRecentSearches(prev => prev.filter(s => s !== search));
   };
 
-  useEffect(() => {
-    if (debouncedQuery.trim().length > 0 && isOpen) {
-      addRecentSearch(debouncedQuery.trim());
-      onClose();
-      setLocation(`/search?q=${encodeURIComponent(debouncedQuery.trim())}`);
-    }
-  }, [debouncedQuery]);
+  const showPredictive = debouncedQuery.length > 0;
 
   return (
     <>
@@ -120,6 +114,9 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     <Mic className="w-5 h-5" />
                   </button>
                   
+                  {query && !showPredictive && (
+                    <div className="absolute inset-0 rounded-lg ring-2 animate-pulse pointer-events-none" style={{ ringColor: 'var(--axis-brand)' }} />
+                  )}
                 </form>
                 
                 <button 
@@ -135,7 +132,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
             <div className="max-w-4xl mx-auto px-4 md:px-12 md:pr-[108px] py-10 pb-24">
               
-              <motion.div 
+              {!showPredictive && (
+                <motion.div 
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   className="space-y-12"
                 >
@@ -209,6 +207,83 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     </div>
                   </div>
                 </motion.div>
+              )}
+
+              {showPredictive && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  className="space-y-8"
+                >
+                  <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                    <h2 className="text-xl font-bold text-white flex items-center gap-3">
+                      {isSearching ? (
+                        <span className="flex items-center gap-2">
+                          <svg className="w-5 h-5 animate-spin text-white" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" /><path className="opacity-100" fill="currentColor" d="M4 12a8 8 0 018-8v3a5 5 0 00-5 5H4z" /></svg> Thinking...
+                        </span>
+                      ) : (
+                        <span>Results for "{query}"</span>
+                      )}
+                    </h2>
+                    <button onClick={() => handleSearchSubmit()} className="font-normal text-sm transition-colors hover:opacity-80" style={{ color: 'var(--axis-brand)' }}>
+                      View all results &rarr;
+                    </button>
+                  </div>
+
+                  {results.items.length === 0 && !isSearching ? (
+                    <div className="py-20 text-center">
+                      <p className="text-white/50 text-lg mb-2">No direct matches found.</p>
+                      <p className="text-white/30 text-sm">Try asking differently or exploring categories.</p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
+                      <div className="space-y-4">
+                        <h3 className="text-xs font-bold tracking-wider uppercase" style={{ color: 'hsla(0, 0%, 100%, 0.5)' }}>Top Matches</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                          {results.items.slice(0, 4).map(item => (
+                            <button 
+                              key={item.id}
+                              onClick={() => { onClose(); }}
+                              className="relative group text-left overflow-hidden"
+                            >
+                              <div className="w-full aspect-[2/3] overflow-hidden" style={{ background: 'var(--axis-surface)' }}>
+                                <img src={item.thumbnailUrl} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                {item.type === 'live' && <div className="absolute top-2 left-2 w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--axis-live)' }} />}
+                              </div>
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
+                                <h4 className="text-white font-bold text-sm line-clamp-1 mb-1">{item.title}</h4>
+                                <p className="text-xs line-clamp-2" style={{ color: 'var(--axis-text-secondary)' }}>{item.description}</p>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="space-y-8">
+                        {results.moments.length > 0 && (
+                          <div className="p-4 space-y-4" style={{ background: 'hsla(0, 0%, 100%, 0.05)', borderRadius: '16px', border: '1px solid hsla(0, 0%, 100%, 0.05)' }}>
+                            <h3 className="text-xs font-bold tracking-wider uppercase flex items-center gap-2" style={{ color: 'hsla(0, 0%, 100%, 0.5)' }}>
+                              Moments inside videos
+                            </h3>
+                            <div className="space-y-3">
+                              {results.moments.map(m => (
+                                <button key={m.id} className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-left group">
+                                  <div className="w-16 aspect-video overflow-hidden relative shrink-0" style={{ background: 'var(--axis-surface)' }}>
+                                     <img src={m.thumbnailUrl} className="w-full h-full object-cover" />
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-medium text-white/90 group-hover:text-white">{m.title}</p>
+                                    <p className="text-xs" style={{ color: 'var(--axis-text-tertiary)' }}>{m.episode || m.parentTitle} · {m.timestamp}</p>
+                                  </div>
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              )}
 
             </div>
           </motion.div>
