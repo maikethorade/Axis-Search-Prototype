@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Mic, Clock, TrendingUp, Flame, PlayCircle, Play, Film, Tv, Trophy } from 'lucide-react';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { VoiceSearch } from './VoiceSearch';
 import { useSearch } from '../hooks/use-search';
 import { RECENT_SEARCHES, TRENDING_SEARCHES, SEARCH_CATEGORIES } from '../lib/mock-data';
@@ -11,8 +11,16 @@ interface SearchOverlayProps {
   onClose: () => void;
 }
 
+const NAV_ITEMS = [
+  { label: 'Home', href: '/' },
+  { label: 'Movies', href: '#' },
+  { label: 'TV', href: '#' },
+  { label: 'Live', href: '#' },
+  { label: 'Sports', href: '#' },
+];
+
 export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
-  const [_, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   const inputRef = useRef<HTMLInputElement>(null);
   const [isVoiceOpen, setIsVoiceOpen] = useState(false);
   const { query, setQuery, results, isSearching, debouncedQuery } = useSearch();
@@ -86,7 +94,32 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             className="fixed inset-0 z-50 overflow-y-auto"
             style={{ background: 'rgba(0, 0, 0, 0.98)' }}
           >
-            <div className="sticky top-0 z-10 backdrop-blur-md border-b border-white/10 pt-6 pb-6" style={{ background: 'rgba(26, 26, 26, 0.9)' }}>
+            <div className="sticky top-0 z-10">
+              <div className="flex items-center justify-between px-6 md:px-12 h-14" style={{ background: '#4A6AF7' }}>
+                <div className="flex items-center gap-10">
+                  <Link href="/" onClick={onClose} className="flex items-center cursor-pointer">
+                    <img src="/axis-logo.svg" alt="AXIS" className="h-5" />
+                  </Link>
+                  <nav className="hidden md:flex items-center gap-7">
+                    {NAV_ITEMS.map((item) => (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={onClose}
+                        className={`axis-nav-item${location === item.href ? ' axis-nav-item--active' : ''}`}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </nav>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
+                    <span className="text-white text-xs font-bold">JD</span>
+                  </div>
+                </div>
+              </div>
+              <div className="backdrop-blur-md border-b border-white/10 pt-6 pb-6" style={{ background: 'rgba(26, 26, 26, 0.9)' }}>
               <div className="max-w-4xl mx-auto px-4 md:px-12 flex items-center gap-4">
                 <form onSubmit={handleSearchSubmit} className="flex-1 relative group">
                   <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
@@ -127,6 +160,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                 >
                   <X className="w-5 h-5" />
                 </button>
+              </div>
               </div>
             </div>
 
