@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Search, User, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavigationProps {
   onOpenSearch: () => void;
+  searchQuery?: string;
+  onSearchQueryChange?: (query: string) => void;
 }
 
 const NAV_ITEMS = [
@@ -15,11 +17,13 @@ const NAV_ITEMS = [
   { label: 'Sports', href: '#' },
 ];
 
-export function Navigation({ onOpenSearch }: NavigationProps) {
-  const [location] = useLocation();
+export function Navigation({ onOpenSearch, searchQuery, onSearchQueryChange }: NavigationProps) {
+  const [location, setLocation] = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const isSearchPage = location.startsWith('/search');
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -84,37 +88,138 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
           </div>
         </div>
 
-        <nav className="md:hidden flex items-end justify-center gap-6 px-6 h-12" style={{ background: '#2544D0' }}>
-          {NAV_ITEMS.slice(0, 3).map((item) => {
-            const isActive = location === item.href;
-            return isActive ? (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-white text-xs font-bold tracking-wide uppercase pb-3"
-                style={{ borderBottom: '2px solid white' }}
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <span
-                key={item.label}
-                className="text-white/70 text-xs font-bold tracking-wide uppercase pb-3 cursor-pointer hover:text-white transition-colors"
-                style={{ borderBottom: '2px solid transparent' }}
-              >
-                {item.label}
-              </span>
-            );
-          })}
-        </nav>
+        {isSearchPage ? (
+          <div className="md:hidden flex items-center gap-2 px-4 h-12" style={{ background: '#2544D0' }}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (searchQuery?.trim()) {
+                  setLocation(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+                }
+              }}
+              className="relative flex-1 flex items-center"
+            >
+              <Search className="absolute left-3 w-4 h-4 text-white/50 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery || ''}
+                onChange={(e) => onSearchQueryChange?.(e.target.value)}
+                placeholder="Movies, shows, people, genres..."
+                className="w-full pl-9 pr-9 py-1.5 rounded-lg text-sm text-white placeholder-white/40 outline-none"
+                style={{
+                  background: 'hsla(0, 0%, 100%, 0.15)',
+                  border: '1px solid hsla(0, 0%, 100%, 0.2)',
+                }}
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => onSearchQueryChange?.('')}
+                  className="absolute right-3 text-white/40 hover:text-white transition-colors"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </form>
+          </div>
+        ) : (
+          <nav className="md:hidden flex items-end justify-center gap-6 px-6 h-12" style={{ background: '#2544D0' }}>
+            {NAV_ITEMS.slice(0, 3).map((item) => {
+              const isActive = location === item.href;
+              return isActive ? (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-white text-xs font-bold tracking-wide uppercase pb-3"
+                  style={{ borderBottom: '2px solid white' }}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <span
+                  key={item.label}
+                  className="text-white/70 text-xs font-bold tracking-wide uppercase pb-3 cursor-pointer hover:text-white transition-colors"
+                  style={{ borderBottom: '2px solid transparent' }}
+                >
+                  {item.label}
+                </span>
+              );
+            })}
+          </nav>
+        )}
 
         <div className="hidden md:flex max-w-7xl mx-auto px-6 md:px-12 items-center justify-between relative h-16">
           <div className="flex items-center gap-10 h-full">
-            <Link href="/" className="flex items-center cursor-pointer">
+            <Link href="/" className="flex items-center cursor-pointer shrink-0">
               <img src="/axis-logo.svg" alt="AXIS" className="h-6" />
             </Link>
 
-            <nav className="hidden lg:flex items-center gap-7 h-full">
+            {isSearchPage ? (
+              <div className="flex-1 max-w-2xl">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (searchQuery?.trim()) {
+                      setLocation(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+                    }
+                  }}
+                  className="relative flex items-center"
+                >
+                  <Search className="absolute left-3 w-4 h-4 text-white/50 pointer-events-none" />
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    value={searchQuery || ''}
+                    onChange={(e) => onSearchQueryChange?.(e.target.value)}
+                    placeholder="Movies, shows, people, genres..."
+                    className="w-full pl-10 pr-10 py-2 rounded-lg text-sm text-white placeholder-white/40 outline-none transition-colors"
+                    style={{
+                      background: 'hsla(0, 0%, 100%, 0.1)',
+                      border: '1px solid hsla(0, 0%, 100%, 0.15)',
+                    }}
+                    onFocus={(e) => {
+                      (e.target as HTMLInputElement).style.borderColor = 'var(--axis-brand)';
+                      (e.target as HTMLInputElement).style.background = 'hsla(0, 0%, 100%, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      (e.target as HTMLInputElement).style.borderColor = 'hsla(0, 0%, 100%, 0.15)';
+                      (e.target as HTMLInputElement).style.background = 'hsla(0, 0%, 100%, 0.1)';
+                    }}
+                  />
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onSearchQueryChange?.('');
+                        searchInputRef.current?.focus();
+                      }}
+                      className="absolute right-3 text-white/40 hover:text-white transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </form>
+              </div>
+            ) : (
+              <nav className="hidden lg:flex items-center gap-7 h-full">
+                {NAV_ITEMS.map((item) => {
+                  const isActive = location === item.href;
+                  return (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className={`axis-nav-item${isActive ? ' axis-nav-item--active' : ''}`}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </nav>
+            )}
+          </div>
+
+          {!isSearchPage && (
+            <nav className="flex lg:hidden items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2 h-full">
               {NAV_ITEMS.map((item) => {
                 const isActive = location === item.href;
                 return (
@@ -128,32 +233,19 @@ export function Navigation({ onOpenSearch }: NavigationProps) {
                 );
               })}
             </nav>
-          </div>
-
-          <nav className="flex lg:hidden items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2 h-full">
-            {NAV_ITEMS.map((item) => {
-              const isActive = location === item.href;
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`axis-nav-item${isActive ? ' axis-nav-item--active' : ''}`}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+          )}
 
           <div className="flex items-center gap-5">
-            <button 
-              onClick={onOpenSearch}
-              className="text-white/90 hover:text-white transition-colors hover:scale-105 active:scale-95 flex items-center justify-center w-8 h-8 rounded-full border border-white/30 cursor-pointer"
-              style={{ background: 'var(--axis-overlay)' }}
-              aria-label="Search"
-            >
-              <Search className="w-4 h-4" />
-            </button>
+            {!isSearchPage && (
+              <button 
+                onClick={onOpenSearch}
+                className="text-white/90 hover:text-white transition-colors hover:scale-105 active:scale-95 flex items-center justify-center w-8 h-8 rounded-full border border-white/30 cursor-pointer"
+                style={{ background: 'var(--axis-overlay)' }}
+                aria-label="Search"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+            )}
             
             <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden hidden md:flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
               <User className="w-full h-full p-1.5 text-white/90" />

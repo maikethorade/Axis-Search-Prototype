@@ -157,7 +157,7 @@ export default function SearchResults() {
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-24">
-      <Navigation onOpenSearch={() => setIsSearchOpen(true)} />
+      <Navigation onOpenSearch={() => setIsSearchOpen(true)} searchQuery={query} onSearchQueryChange={setQuery} />
       
       <div className="pt-28 rails-container">
         {hasQuery ? (
