@@ -94,8 +94,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             className="fixed inset-0 z-50 overflow-y-auto"
             style={{ background: 'rgba(0, 0, 0, 0.98)' }}
           >
-            <div className="sticky top-0 z-10">
-              <div className="hidden md:block" style={{ background: '#4A6AF7' }}>
+            <div className="sticky top-0 z-10" style={{ background: 'linear-gradient(135deg, #4A6AF7 0%, #2544D0 100%)' }}>
+              <div className="hidden md:block">
                 <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative h-16">
                   <div className="flex items-center gap-10 h-full">
                     <Link href="/" onClick={onClose} className="flex items-center cursor-pointer">
@@ -126,18 +126,49 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       </Link>
                     ))}
                   </nav>
-                  <div className="flex items-center gap-5">
+                  <div className="flex items-center gap-3">
+                    <form onSubmit={handleSearchSubmit} className="relative flex items-center">
+                      <div className="absolute left-2.5 flex items-center pointer-events-none">
+                        <Search className="w-3.5 h-3.5 text-white/50" />
+                      </div>
+                      <input
+                        ref={inputRef}
+                        type="text"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="Movies, shows, people, genres..."
+                        className="h-8 w-52 lg:w-64 rounded-full pl-8 pr-16 text-xs text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all"
+                        style={{ background: 'hsla(0, 0%, 100%, 0.15)' }}
+                      />
+                      <div className="absolute right-1 flex items-center gap-0.5">
+                        <button
+                          type="button"
+                          onClick={onClose}
+                          aria-label="Close search"
+                          className="w-6 h-6 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setIsVoiceOpen(true)}
+                          aria-label="Voice search"
+                          className="w-6 h-6 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
+                        >
+                          <Mic className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </form>
                     <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
                       <User className="w-full h-full p-1.5 text-white/90" />
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="backdrop-blur-md border-b border-white/10 pt-6 pb-6" style={{ background: 'rgba(26, 26, 26, 0.9)' }}>
-              <div className="max-w-4xl mx-auto px-4 md:px-12 flex items-center gap-4">
-                <form onSubmit={handleSearchSubmit} className="flex-1 relative group">
-                  <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                    <Search className={`w-5 h-5 transition-colors ${query ? 'text-[var(--axis-brand)]' : 'text-white/40'}`} />
+              <div className="md:hidden px-4 py-4">
+                <form onSubmit={handleSearchSubmit} className="relative flex items-center">
+                  <div className="absolute left-3 flex items-center pointer-events-none">
+                    <Search className="w-4 h-4 text-white/50" />
                   </div>
                   <input
                     ref={inputRef}
@@ -145,36 +176,28 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Movies, shows, people, genres..."
-                    className="w-full rounded-lg py-4 pl-12 pr-14 text-lg text-white placeholder:text-white/30 focus:outline-none transition-all"
-                    style={{
-                      background: query ? '#fff' : 'hsla(0, 0%, 100%, 0.2)',
-                      color: query ? '#000' : '#fff',
-                    }}
+                    className="h-10 w-full rounded-full pl-10 pr-20 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all"
+                    style={{ background: 'hsla(0, 0%, 100%, 0.15)' }}
                   />
-                  <button 
-                    type="button"
-                    onClick={() => setIsVoiceOpen(true)}
-                    aria-label="Voice search"
-                    className="absolute inset-y-0 right-4 flex items-center transition-colors"
-                    style={{ color: query ? 'var(--axis-brand)' : 'white' }}
-                  >
-                    <Mic className="w-5 h-5" />
-                  </button>
-                  
-                  {query && !showPredictive && (
-                    <div className="absolute inset-0 rounded-lg ring-2 animate-pulse pointer-events-none" style={{ ringColor: 'var(--axis-brand)' }} />
-                  )}
+                  <div className="absolute right-1.5 flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      aria-label="Close search"
+                      className="w-7 h-7 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsVoiceOpen(true)}
+                      aria-label="Voice search"
+                      className="w-7 h-7 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
+                    >
+                      <Mic className="w-4 h-4" />
+                    </button>
+                  </div>
                 </form>
-                
-                <button 
-                  onClick={onClose}
-                  aria-label="Close search"
-                  className="p-3 rounded-lg text-white/70 hover:text-white transition-colors"
-                  style={{ background: 'hsla(0, 0%, 100%, 0.1)' }}
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
               </div>
             </div>
 
