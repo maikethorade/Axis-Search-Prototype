@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Mic, Clock, TrendingUp, Flame, PlayCircle, Play, Film, Tv, Trophy } from 'lucide-react';
+import { Search, X, Mic, Clock, TrendingUp, Flame, PlayCircle, Play, Film, Tv, Trophy, User } from 'lucide-react';
 import { Link, useLocation } from 'wouter';
 import { VoiceSearch } from './VoiceSearch';
 import { useSearch } from '../hooks/use-search';
@@ -95,12 +95,26 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             style={{ background: 'rgba(0, 0, 0, 0.98)' }}
           >
             <div className="sticky top-0 z-10">
-              <div className="flex items-center justify-between px-6 md:px-12 h-14" style={{ background: '#4A6AF7' }}>
-                <div className="flex items-center gap-10">
-                  <Link href="/" onClick={onClose} className="flex items-center cursor-pointer">
-                    <img src="/axis-logo.svg" alt="AXIS" className="h-5" />
-                  </Link>
-                  <nav className="hidden md:flex items-center gap-7">
+              <div className="hidden md:block" style={{ background: '#4A6AF7' }}>
+                <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative h-16">
+                  <div className="flex items-center gap-10 h-full">
+                    <Link href="/" onClick={onClose} className="flex items-center cursor-pointer">
+                      <img src="/axis-logo.svg" alt="AXIS" className="h-6" />
+                    </Link>
+                    <nav className="hidden lg:flex items-center gap-7 h-full">
+                      {NAV_ITEMS.map((item) => (
+                        <Link
+                          key={item.label}
+                          href={item.href}
+                          onClick={onClose}
+                          className={`axis-nav-item${location === item.href ? ' axis-nav-item--active' : ''}`}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </nav>
+                  </div>
+                  <nav className="flex lg:hidden items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2 h-full">
                     {NAV_ITEMS.map((item) => (
                       <Link
                         key={item.label}
@@ -112,10 +126,10 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       </Link>
                     ))}
                   </nav>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
-                    <span className="text-white text-xs font-bold">JD</span>
+                  <div className="flex items-center gap-5">
+                    <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
+                      <User className="w-full h-full p-1.5 text-white/90" />
+                    </div>
                   </div>
                 </div>
               </div>
