@@ -141,14 +141,16 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         style={{ background: 'hsla(0, 0%, 100%, 0.15)' }}
                       />
                       <div className="absolute right-1 flex items-center gap-0.5">
-                        <button
-                          type="button"
-                          onClick={onClose}
-                          aria-label="Close search"
-                          className="w-6 h-6 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
-                        >
-                          <X className="w-3.5 h-3.5" />
-                        </button>
+                        {query && (
+                          <button
+                            type="button"
+                            onClick={() => setQuery('')}
+                            aria-label="Clear search"
+                            className="w-6 h-6 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        )}
                         <button
                           type="button"
                           onClick={() => setIsVoiceOpen(true)}
@@ -180,14 +182,16 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     style={{ background: 'hsla(0, 0%, 100%, 0.15)' }}
                   />
                   <div className="absolute right-1.5 flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={onClose}
-                      aria-label="Close search"
-                      className="w-7 h-7 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
+                    {query && (
+                      <button
+                        type="button"
+                        onClick={() => setQuery('')}
+                        aria-label="Clear search"
+                        className="w-7 h-7 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
                     <button
                       type="button"
                       onClick={() => setIsVoiceOpen(true)}
