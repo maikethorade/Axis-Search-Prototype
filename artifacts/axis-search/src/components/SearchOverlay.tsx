@@ -240,20 +240,27 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         <h3 className="text-xs font-bold tracking-wider uppercase" style={{ color: 'hsla(0, 0%, 100%, 0.5)' }}>Top Matches</h3>
                         <div className="grid grid-cols-2 gap-4">
                           {results.items.slice(0, 4).map(item => (
-                            <button 
+                            <div 
                               key={item.id}
                               onClick={() => { onClose(); }}
-                              className="relative group text-left overflow-hidden"
+                              className="relative group cursor-pointer"
                             >
-                              <div className="w-full aspect-[2/3] overflow-hidden" style={{ background: 'var(--axis-surface)' }}>
-                                <img src={item.thumbnailUrl} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                                {item.type === 'live' && <div className="absolute top-2 left-2 w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--axis-live)' }} />}
+                              <div className="w-full aspect-[2/3] overflow-hidden bg-[var(--axis-surface)]">
+                                <img src={item.thumbnailUrl} alt={item.title} className="w-full h-full object-cover" loading="lazy" />
+                                {item.badge && (
+                                  <div className="absolute top-2 left-2 flex gap-1.5">
+                                    <span className="px-1.5 py-px rounded-sm text-[10px] font-bold uppercase tracking-wider shadow-lg" style={{ background: '#000', color: '#fff' }}>{item.badge}</span>
+                                  </div>
+                                )}
                               </div>
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
-                                <h4 className="text-white font-bold text-sm line-clamp-1 mb-1">{item.title}</h4>
-                                <p className="text-xs line-clamp-2" style={{ color: 'var(--axis-text-secondary)' }}>{item.description}</p>
+                              <div
+                                className="absolute bottom-[-32px] left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none p-4 pt-6"
+                                style={{ background: '#1a1a1a', zIndex: 20 }}
+                              >
+                                <h4 className="text-white font-bold text-sm line-clamp-1 leading-tight mb-1.5">{item.title}</h4>
+                                <p className="text-[12px] leading-relaxed line-clamp-3" style={{ color: 'var(--axis-text-secondary)' }}>{item.description}</p>
                               </div>
-                            </button>
+                            </div>
                           ))}
                         </div>
                       </div>
