@@ -163,9 +163,6 @@ export default function SearchResults() {
         {hasQuery ? (
           <>
             <div className="mb-8 pr-6 md:pr-12">
-              <h1 className="text-2xl md:text-4xl font-bold text-white mb-3">
-                Search Results
-              </h1>
               <p className="text-base" style={{ color: 'var(--axis-text-secondary)' }}>
                 Showing {results.totalCount} results for <span className="text-white font-medium">"{debouncedQuery}"</span>
               </p>
