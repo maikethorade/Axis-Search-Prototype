@@ -238,23 +238,20 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
                       <div className="space-y-4">
                         <h3 className="text-xs font-bold tracking-wider uppercase" style={{ color: 'hsla(0, 0%, 100%, 0.5)' }}>Top Matches</h3>
-                        <div className="grid grid-cols-1 gap-3">
-                          {results.items.slice(0, 6).map(item => (
+                        <div className="grid grid-cols-2 gap-3">
+                          {results.items.slice(0, 4).map(item => (
                             <button 
                               key={item.id}
                               onClick={() => { onClose(); }}
-                              className="flex gap-3 p-3 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-left group rounded-tl-[0px] rounded-tr-[0px] rounded-br-[0px] rounded-bl-[0px] border-t-[0px] border-r-[0px] border-b-[0px] border-l-[0px] pl-[0px] pr-[0px] pt-[0px] pb-[0px]"
+                              className="relative group text-left overflow-hidden"
                             >
-                              <div className="overflow-hidden shrink-0 relative" style={{ background: 'var(--axis-surface)', height: '117px', aspectRatio: '16/9' }}>
-                                <img src={item.thumbnailUrl} alt={item.title} className="w-full h-full object-cover" />
-                                {item.type === 'live' && <div className="absolute top-1 left-1 w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--axis-live)' }} />}
+                              <div className="w-full aspect-[2/3] overflow-hidden" style={{ background: 'var(--axis-surface)' }}>
+                                <img src={item.thumbnailUrl} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                {item.type === 'live' && <div className="absolute top-2 left-2 w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--axis-live)' }} />}
                               </div>
-                              <div className="flex flex-col justify-center min-w-0">
-                                <span className="font-bold text-white/90 line-clamp-1 group-hover:text-[var(--axis-brand)] transition-colors text-sm">{item.title}</span>
-                                <span className="text-xs mt-1 flex items-center gap-2" style={{ color: 'var(--axis-text-secondary)' }}>
-                                  <span className="axis-metadata-badge">{item.type}</span>
-                                  {item.year && <span>{item.year}</span>}
-                                </span>
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
+                                <h4 className="text-white font-bold text-sm line-clamp-1 mb-1">{item.title}</h4>
+                                <p className="text-xs line-clamp-2" style={{ color: 'var(--axis-text-secondary)' }}>{item.description}</p>
                               </div>
                             </button>
                           ))}
