@@ -177,7 +177,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   </div>
                 </div>
                 <nav className="flex items-center justify-center gap-6 px-6 h-12" style={{ background: '#2544D0' }}>
-                  {NAV_ITEMS.map((item) => (
+                  {NAV_ITEMS.slice(0, 3).map((item) => (
                     <Link
                       key={item.label}
                       href={item.href}
