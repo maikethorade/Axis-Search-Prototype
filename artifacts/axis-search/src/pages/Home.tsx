@@ -202,7 +202,7 @@ export default function Home() {
                 </p>
                 
                 <div className="flex items-center gap-5" onClick={(e) => e.stopPropagation()}>
-                  <button className="cta-btn cta-btn--primary cta-btn--large">
+                  <button className="cta-btn cta-btn--primary cta-btn--large" style={{ backgroundColor: '#E91E63' }}>
                     <span className="cta-btn__icon">
                       <Play className="w-5 h-5 fill-white stroke-white" />
                     </span>
