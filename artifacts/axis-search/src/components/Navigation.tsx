@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavigationProps {
   onOpenSearch: () => void;
+  onOpenVoice?: () => void;
   searchQuery?: string;
   onSearchQueryChange?: (query: string) => void;
 }
@@ -17,7 +18,7 @@ const NAV_ITEMS = [
   { label: 'Sports', href: '#' },
 ];
 
-export function Navigation({ onOpenSearch, searchQuery, onSearchQueryChange }: NavigationProps) {
+export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQueryChange }: NavigationProps) {
   const [location] = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -143,7 +144,7 @@ export function Navigation({ onOpenSearch, searchQuery, onSearchQueryChange }: N
                 )}
                 <button
                   type="button"
-                  onClick={onOpenSearch}
+                  onClick={onOpenVoice || onOpenSearch}
                   aria-label="Voice search"
                   className="w-7 h-7 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
                 >
@@ -243,7 +244,7 @@ export function Navigation({ onOpenSearch, searchQuery, onSearchQueryChange }: N
                   )}
                   <button
                     type="button"
-                    onClick={onOpenSearch}
+                    onClick={onOpenVoice || onOpenSearch}
                     aria-label="Voice search"
                     className="w-6 h-6 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors hover:bg-white/10"
                   >

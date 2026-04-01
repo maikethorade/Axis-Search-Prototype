@@ -4,6 +4,7 @@ import { Navigation } from '../components/Navigation';
 import { ContentCard } from '../components/ContentCard';
 import { ContentModal } from '../components/ContentModal';
 import { SearchOverlay } from '../components/SearchOverlay';
+import { VoiceSearch } from '../components/VoiceSearch';
 import { useSearch } from '../hooks/use-search';
 import { ContentItem, MOCK_CONTENT, TRENDING_SEARCHES, RECENT_SEARCHES } from '../lib/mock-data';
 import { PlayCircle, Search, Filter, Film, Tv, Trophy, Radio, BookOpen, Clock, TrendingUp, Sparkles, ChevronLeft, ChevronRight, ChevronDown, Check, ArrowUpDown } from 'lucide-react';
@@ -142,6 +143,7 @@ export default function SearchResults() {
   const initialQuery = new URLSearchParams(window.location.search).get('q') || '';
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isVoiceOpen, setIsVoiceOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [freeToMe, setFreeToMe] = useState(false);
@@ -345,7 +347,7 @@ export default function SearchResults() {
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-24 overflow-x-hidden">
-      <Navigation onOpenSearch={() => setIsSearchOpen(true)} searchQuery={query} onSearchQueryChange={setQuery} />
+      <Navigation onOpenSearch={() => setIsSearchOpen(true)} onOpenVoice={() => setIsVoiceOpen(true)} searchQuery={query} onSearchQueryChange={setQuery} />
       
       <div className="pt-28 rails-container">
         {hasQuery ? (
@@ -869,6 +871,15 @@ export default function SearchResults() {
       </div>
 
       <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <VoiceSearch
+        isOpen={isVoiceOpen}
+        onClose={() => setIsVoiceOpen(false)}
+        onResult={(text: string) => {
+          setIsVoiceOpen(false);
+          setQuery(text);
+          window.history.replaceState(null, '', `/search?q=${encodeURIComponent(text)}`);
+        }}
+      />
       <ContentModal item={selectedItem} onClose={() => setSelectedItem(null)} />
     </div>
   );
