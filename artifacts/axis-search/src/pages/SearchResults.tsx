@@ -442,8 +442,8 @@ export default function SearchResults() {
                   <motion.section 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-6 md:p-8 rounded-2xl"
-                    style={{ background: 'hsla(0, 0%, 100%, 0.05)', border: '1px solid hsla(0, 0%, 100%, 0.05)', marginRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}
+                    className="p-6 md:p-8 -mx-6 md:-mx-12"
+                    style={{ background: 'hsla(0, 0%, 100%, 0.05)' }}
                   >
                     <div className="flex items-center gap-3 mb-6">
                       <h2 className="text-lg md:text-xl font-bold text-white">Moments inside videos</h2>
