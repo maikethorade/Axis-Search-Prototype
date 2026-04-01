@@ -30,3 +30,9 @@ id = "xuUFm2uCIWmGerA1x1j4G"
 uri = "file://exports/filter-modal-columns.jpg"
 type = "image"
 title = "Filter Modal (Columns) - AXIS Search"
+
+[[outputs]]
+id = "7Tt1BPAxqGOwsB_NTkWjJ"
+uri = "file://exports/filter-modal-columns-full.jpg"
+type = "image"
+title = "Filter Modal (Columns) - Full View"
