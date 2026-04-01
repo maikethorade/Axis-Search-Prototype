@@ -280,9 +280,16 @@ export function useSearch(initialQuery: string = '') {
       filteredItems = filteredItems.filter(item => item.type === activeFilter);
     }
 
-    const matchedMoments = filteredItems.flatMap(item => {
-      if (!item.moments) return [];
-      return item.moments.map(moment => ({
+    const topScoredWithMoments = scoredItems
+      .filter(x => x.item.moments && x.item.moments.length > 0 && x.score >= 20)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3);
+
+    const matchedMoments = topScoredWithMoments.flatMap(({ item, score }) => {
+      const titleLower = item.title.toLowerCase();
+      const hasStrongMatch = titleLower.includes(lowerQuery) || queryWords.some(w => titleLower.includes(w)) || score >= 40;
+      if (!hasStrongMatch) return [];
+      return (item.moments || []).map(moment => ({
         ...moment,
         parentTitle: item.title,
         parentId: item.id
