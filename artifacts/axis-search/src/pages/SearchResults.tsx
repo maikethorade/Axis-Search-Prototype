@@ -659,7 +659,8 @@ export default function SearchResults() {
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="flex flex-col items-center justify-center py-16 text-center px-4"
+                    className="flex flex-col items-center justify-center py-16 text-center"
+                    style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}
                   >
                     <div className="w-16 h-16 rounded-full flex items-center justify-center mb-5" style={{ background: 'var(--axis-surface)' }}>
                       {activeTab === 'unwatched' && <Sparkles className="w-7 h-7 text-white/20" />}
