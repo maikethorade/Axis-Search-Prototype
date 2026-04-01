@@ -119,6 +119,12 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             aria-label="Search"
             className="fixed inset-0 z-50 overflow-y-auto"
             style={{ background: 'rgba(0, 0, 0, 0.98)' }}
+            onClick={(e) => {
+              const target = e.target as HTMLElement;
+              if (target.closest('input, button, a, [role="button"], form')) return;
+              onClose();
+              setLocation('/');
+            }}
           >
             <div className="sticky top-0 z-10" style={{ background: 'linear-gradient(135deg, #4A6AF7 0%, #2544D0 100%)' }}>
               <div className="hidden md:block">
