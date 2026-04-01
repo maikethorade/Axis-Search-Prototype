@@ -704,7 +704,7 @@ export default function SearchResults() {
                 </p>
                 
                 <div className="w-full max-w-2xl p-8 text-left" style={{ background: 'hsla(0, 0%, 100%, 0.05)', border: '1px solid hsla(0, 0%, 100%, 0.05)', borderRadius: '16px' }}>
-                  <h3 className="text-base font-bold text-white mb-4">Did you mean to search for...</h3>
+                  <h3 className="text-base font-bold text-white mb-4">Trending now</h3>
                   <div className="flex flex-wrap gap-3">
                     {TRENDING_SEARCHES.map(s => (
                       <button 
