@@ -331,7 +331,7 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
                   </div>
                   <div>
                     <p className="text-white text-sm font-medium">Maike Thorade</p>
-                    <p className="text-white/50 text-xs">My Account</p>
+                    <p className="text-white/50 text-xs">SWITCH</p>
                   </div>
                 </div>
               </div>
