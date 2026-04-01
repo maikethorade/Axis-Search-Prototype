@@ -1,4 +1,4 @@
-import { Play, Plus, ThumbsUp } from 'lucide-react';
+import { Play, Plus, ThumbsUp, Lock } from 'lucide-react';
 import { ContentItem } from '../lib/mock-data';
 import { motion } from 'framer-motion';
 
@@ -36,6 +36,12 @@ export function ContentCard({ item, onClick, aspectRatio = 'poster', featured = 
               <span className="px-1.5 py-px rounded-sm text-[10px] font-bold uppercase tracking-wider shadow-lg" style={{ background: '#000', color: '#fff' }}>
                 {item.badge}
               </span>
+            </div>
+          )}
+
+          {item.locked && (
+            <div className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center" style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}>
+              <Lock className="w-3.5 h-3.5 text-white" />
             </div>
           )}
 
@@ -103,6 +109,12 @@ export function ContentCard({ item, onClick, aspectRatio = 'poster', featured = 
             <span className="px-1.5 py-px rounded-sm text-[10px] font-bold uppercase tracking-wider shadow-lg" style={{ background: '#000', color: '#fff' }}>
               {item.badge}
             </span>
+          </div>
+        )}
+
+        {item.locked && (
+          <div className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center" style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}>
+            <Lock className="w-3.5 h-3.5 text-white" />
           </div>
         )}
       </div>

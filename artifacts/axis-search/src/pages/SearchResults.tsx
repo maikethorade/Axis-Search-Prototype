@@ -258,6 +258,9 @@ export default function SearchResults() {
     }
     items = items.filter(item => matchesDuration(item, selectedDuration));
     items = items.filter(item => matchesUploadDate(item, selectedUploadDate));
+    if (freeToMe) {
+      items = items.filter(item => !item.locked);
+    }
     return items;
   };
 

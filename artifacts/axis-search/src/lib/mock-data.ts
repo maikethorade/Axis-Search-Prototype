@@ -25,6 +25,7 @@ export interface ContentItem {
   trending?: boolean;
   personalizedScore?: number;
   badge?: string;
+  locked?: boolean;
 }
 
 const bbc16x9 = (id: string) => `https://ichef.bbci.co.uk/images/ic/960x540/${id}.jpg`;
@@ -35,6 +36,7 @@ const tmdbHero = (path: string) => `https://image.tmdb.org/t/p/original/${path}`
 export const MOCK_CONTENT: ContentItem[] = [
   {
     id: "hero_marty",
+    locked: true,
     title: "Marty Supreme",
     description: "Set in 1950s New York, a shoe salesman and table tennis hustler pursues his obsessive dream of becoming world champion. Based on the extraordinary life of legendary ping-pong player Marty Reisman.",
     type: "movie",
@@ -74,6 +76,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "m1",
+    locked: true,
     title: "Spider-Man: Across the Spider-Verse",
     description: "Miles Morales catapults across the multiverse, where he encounters a team of Spider-People charged with protecting its very existence. But when the heroes clash on how to handle a new threat, Miles must redefine what it means to be a hero.",
     type: "movie",
@@ -156,6 +159,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "tv_broadchurch",
+    locked: true,
     title: "Broadchurch",
     description: "The murder of a young boy in a small coastal town has a devastating effect on the community. DI Hardy and DS Miller must find the killer while the town falls apart under media scrutiny.",
     type: "series",
@@ -223,6 +227,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "tv_the_night_manager",
+    locked: true,
     title: "The Night Manager",
     description: "Pine's past resurfaces as he's pulled into a deadly conspiracy that takes him to Colombia. A night manager at a luxury hotel is recruited by intelligence operatives to infiltrate an arms dealer's network.",
     type: "series",
@@ -254,6 +259,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "tv_killing_eve",
+    locked: true,
     title: "Killing Eve",
     description: "A bored MI5 security officer becomes obsessed with a psychopathic assassin. An exhilarating cat-and-mouse game unfolds across Europe.",
     type: "series",
@@ -299,6 +305,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "tv_the_crown",
+    locked: true,
     title: "The Crown",
     description: "The inside story of Queen Elizabeth II's reign. Political rivalries, romance, and personal dramas play out against the backdrop of great events shaping the second half of the 20th century.",
     type: "series",
@@ -329,6 +336,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "tv_sherlock",
+    locked: true,
     title: "Sherlock",
     description: "A modern update of Sir Arthur Conan Doyle's detective stories. Sherlock Holmes and Doctor John Watson solve crimes in 21st-century London.",
     type: "series",
@@ -361,6 +369,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "tv_downton_abbey",
+    locked: true,
     title: "Downton Abbey",
     description: "The lives of the aristocratic Crawley family and their servants unfold in the grand country house during the early 20th century, from the sinking of the Titanic to the interwar period.",
     type: "series",
@@ -392,6 +401,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "tv_fleabag",
+    locked: true,
     title: "Fleabag",
     description: "A dry-witted woman, known only as Fleabag, navigates life in London while breaking the fourth wall to share her observations on love, loss, and family dysfunction.",
     type: "series",
@@ -438,6 +448,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "tv_shetland",
+    locked: true,
     title: "Shetland",
     description: "DI Jimmy Perez investigates crime in the remote and starkly beautiful Shetland Islands, where small-town tensions mask deep secrets.",
     type: "series",
@@ -483,6 +494,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "tv_the_long_shadow",
+    locked: true,
     title: "The Long Shadow",
     description: "The story of Peter Sutcliffe's crimes and the police investigation to catch the Yorkshire Ripper, told through the eyes of the women whose lives were affected.",
     type: "series",
@@ -562,6 +574,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   // --- Movies ---
   {
     id: "mov_oppenheimer",
+    locked: true,
     title: "Oppenheimer",
     description: "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb during World War II.",
     type: "movie",
@@ -579,6 +592,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "mov_dune2",
+    locked: true,
     title: "Dune: Part Two",
     description: "Paul Atreides unites with the Fremen to wage war against House Harkonnen while trying to prevent a terrible future only he can foresee.",
     type: "movie",
@@ -625,6 +639,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "mov_inside_out_2",
+    locked: true,
     title: "Inside Out 2",
     description: "As Riley enters her teenage years, a new set of emotions joins the mix — including Anxiety — creating chaos in the headquarters of her mind.",
     type: "movie",
@@ -640,6 +655,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "mov_kung_fu_panda_4",
+    locked: true,
     title: "Kung Fu Panda 4",
     description: "Po must train a new warrior to become the next Dragon Warrior while facing the powerful sorceress known as the Chameleon.",
     type: "movie",
@@ -686,6 +702,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "ip_sport_live2",
+    locked: true,
     title: "Six Nations Rugby Live",
     description: "Live Six Nations Rugby Championship coverage. The biggest teams in European rugby compete for the coveted title.",
     type: "live",
@@ -796,6 +813,7 @@ export const MOCK_CONTENT: ContentItem[] = [
   },
   {
     id: "ip_sport_wsl_highlights",
+    locked: true,
     title: "WSL Highlights",
     description: "Catch up on all the goals and drama from the Barclays Women's Super League. Every week's best action.",
     type: "sport",
