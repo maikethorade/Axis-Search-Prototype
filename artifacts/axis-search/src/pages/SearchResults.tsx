@@ -231,7 +231,7 @@ export default function SearchResults() {
   }, [sortedItems]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-24">
+    <div className="min-h-screen bg-background text-foreground pb-24 overflow-x-hidden">
       <Navigation onOpenSearch={() => setIsSearchOpen(true)} searchQuery={query} onSearchQueryChange={setQuery} />
       
       <div className="pt-28 rails-container">
@@ -445,10 +445,10 @@ export default function SearchResults() {
                     className="py-8"
                     style={{
                       background: 'hsla(0, 0%, 100%, 0.05)',
-                      marginLeft: 'calc(-1 * max(24px, calc((100vw - 1280px) / 2 + 48px)))',
-                      marginRight: 'calc(-1 * max(24px, calc((100vw - 1280px) / 2 + 48px)))',
-                      paddingLeft: 'max(24px, calc((100vw - 1280px) / 2 + 48px))',
-                      paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))',
+                      marginLeft: '-100vw',
+                      marginRight: '-100vw',
+                      paddingLeft: '100vw',
+                      paddingRight: '100vw',
                     }}
                   >
                     <div className="flex items-center gap-3 mb-6">
