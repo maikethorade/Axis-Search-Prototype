@@ -566,34 +566,39 @@ export default function SearchResults() {
                 </p>
                 <div className="flex flex-wrap gap-2 justify-center mb-6 max-w-md">
                   {selectedTypes.map(t => (
-                    <span key={t} className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                    <button key={t} onClick={() => setSelectedTypes(prev => prev.filter(x => x !== t))} className="px-3 py-1.5 rounded text-xs font-medium text-white/80 hover:bg-white/15 hover:text-white transition-colors cursor-pointer" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
                       {t} ✕
-                    </span>
+                    </button>
                   ))}
                   {selectedGenres.map(g => (
-                    <span key={g} className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                    <button key={g} onClick={() => setSelectedGenres(prev => prev.filter(x => x !== g))} className="px-3 py-1.5 rounded text-xs font-medium text-white/80 hover:bg-white/15 hover:text-white transition-colors cursor-pointer" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
                       {g} ✕
-                    </span>
+                    </button>
                   ))}
                   {selectedChannels.map(c => (
-                    <span key={c} className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                    <button key={c} onClick={() => setSelectedChannels(prev => prev.filter(x => x !== c))} className="px-3 py-1.5 rounded text-xs font-medium text-white/80 hover:bg-white/15 hover:text-white transition-colors cursor-pointer" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
                       {c} ✕
-                    </span>
+                    </button>
                   ))}
                   {selectedSubtitles.map(s => (
-                    <span key={s} className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                    <button key={s} onClick={() => setSelectedSubtitles(prev => prev.filter(x => x !== s))} className="px-3 py-1.5 rounded text-xs font-medium text-white/80 hover:bg-white/15 hover:text-white transition-colors cursor-pointer" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
                       {s} ✕
-                    </span>
+                    </button>
                   ))}
                   {selectedDuration && (
-                    <span className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                    <button onClick={() => setSelectedDuration(null)} className="px-3 py-1.5 rounded text-xs font-medium text-white/80 hover:bg-white/15 hover:text-white transition-colors cursor-pointer" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
                       {selectedDuration} ✕
-                    </span>
+                    </button>
                   )}
                   {selectedUploadDate && (
-                    <span className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                    <button onClick={() => setSelectedUploadDate(null)} className="px-3 py-1.5 rounded text-xs font-medium text-white/80 hover:bg-white/15 hover:text-white transition-colors cursor-pointer" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
                       {selectedUploadDate} ✕
-                    </span>
+                    </button>
+                  )}
+                  {freeToMe && (
+                    <button onClick={() => setFreeToMe(false)} className="px-3 py-1.5 rounded text-xs font-medium text-white/80 hover:bg-white/15 hover:text-white transition-colors cursor-pointer" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                      Free to me ✕
+                    </button>
                   )}
                 </div>
                 <button
