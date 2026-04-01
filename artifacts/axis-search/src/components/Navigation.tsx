@@ -330,8 +330,8 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
                     <span className="text-white text-sm" style={{ fontWeight: 700 }}>M</span>
                   </div>
                   <div>
-                    <p className="text-white text-sm font-medium">My Account</p>
-                    <p className="text-white/50 text-xs">Sign in</p>
+                    <p className="text-white text-sm font-medium">Maike Thorade</p>
+                    <p className="text-white/50 text-xs">My Account</p>
                   </div>
                 </div>
               </div>
