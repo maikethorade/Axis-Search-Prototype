@@ -261,26 +261,10 @@ export default function SearchResults() {
 
     items = applyFilters(items);
 
-    if (hasActiveFilters && items.length < 5) {
-      const existingIds = new Set(items.map(i => i.id));
-      let pool = [...MOCK_CONTENT].filter(i => !existingIds.has(i.id));
-      pool = applyFilters(pool);
-      if (pool.length === 0 && (selectedGenres.length > 0 || selectedTypes.length > 0)) {
-        pool = [...MOCK_CONTENT].filter(i => !existingIds.has(i.id));
-        if (selectedTypes.length > 0) {
-          const allowedTypes = selectedTypes.flatMap(t => typeMap[t] || []);
-          if (allowedTypes.length > 0) {
-            pool = pool.filter(item => allowedTypes.includes(item.type));
-          }
-        }
-        if (pool.length === 0 && selectedGenres.length > 0) {
-          pool = [...MOCK_CONTENT].filter(i => !existingIds.has(i.id)).filter(item =>
-            item.genre.some(g => selectedGenres.some(sg => g.toLowerCase() === sg.toLowerCase()))
-          );
-        }
-      }
-      pool.sort((a, b) => (b.personalizedScore || 0) - (a.personalizedScore || 0));
-      items = [...items, ...pool.slice(0, 10 - items.length)];
+    const filterCount = selectedTypes.length + selectedGenres.length + selectedChannels.length + selectedSubtitles.length + (selectedDuration ? 1 : 0) + (selectedUploadDate ? 1 : 0) + (freeToMe ? 1 : 0);
+    if (filterCount > 0 && items.length > 0) {
+      const maxItems = Math.max(1, Math.ceil(items.length * Math.max(0.2, 1 - filterCount * 0.15)));
+      items = items.slice(0, maxItems);
     }
 
     if (prioritiseBy === 'popularity') {
@@ -566,7 +550,71 @@ export default function SearchResults() {
               </div>
             </div>
 
-            {hasResults ? (
+            {hasResults && sortedItems.length === 0 && hasActiveFilters && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex flex-col items-center justify-center py-16 text-center"
+                style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}
+              >
+                <div className="w-16 h-16 rounded-full flex items-center justify-center mb-5" style={{ background: 'var(--axis-surface)' }}>
+                  <Filter className="w-7 h-7 text-white/20" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">No matches for these filters</h3>
+                <p className="text-sm max-w-sm mb-6" style={{ color: 'var(--axis-text-tertiary)' }}>
+                  Your current filter combination is too narrow. Try removing some filters to see more results for "{debouncedQuery}".
+                </p>
+                <div className="flex flex-wrap gap-2 justify-center mb-6 max-w-md">
+                  {selectedTypes.map(t => (
+                    <span key={t} className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                      {t} ✕
+                    </span>
+                  ))}
+                  {selectedGenres.map(g => (
+                    <span key={g} className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                      {g} ✕
+                    </span>
+                  ))}
+                  {selectedChannels.map(c => (
+                    <span key={c} className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                      {c} ✕
+                    </span>
+                  ))}
+                  {selectedSubtitles.map(s => (
+                    <span key={s} className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                      {s} ✕
+                    </span>
+                  ))}
+                  {selectedDuration && (
+                    <span className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                      {selectedDuration} ✕
+                    </span>
+                  )}
+                  {selectedUploadDate && (
+                    <span className="px-3 py-1.5 rounded text-xs font-medium text-white/80" style={{ background: 'hsla(0, 0%, 100%, 0.08)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
+                      {selectedUploadDate} ✕
+                    </span>
+                  )}
+                </div>
+                <button
+                  onClick={() => {
+                    setSelectedTypes([]);
+                    setSelectedGenres([]);
+                    setSelectedChannels([]);
+                    setSelectedSubtitles([]);
+                    setSelectedDuration(null);
+                    setSelectedUploadDate(null);
+                    setFreeToMe(false);
+                  }}
+                  className="px-5 py-2 rounded text-sm font-medium transition-colors hover:opacity-90"
+                  style={{ background: 'var(--axis-brand)', color: '#fff' }}
+                >
+                  Clear all filters
+                </button>
+              </motion.div>
+            )}
+
+            {(sortedItems.length > 0 || (!hasActiveFilters && hasResults)) ? (
               <div className="space-y-14">
                 {activeTab === 'all' && sortedItems.length > 0 && (() => {
                   const topItems = sortedItems.slice(0, 5);
@@ -681,7 +729,7 @@ export default function SearchResults() {
                   </section>
                 )}
 
-                {activeTab !== 'all' && sortedItems.length === 0 && (
+                {activeTab !== 'all' && sortedItems.length === 0 && !hasActiveFilters && (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
