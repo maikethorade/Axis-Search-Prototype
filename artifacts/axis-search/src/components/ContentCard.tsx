@@ -1,4 +1,4 @@
-import { Play, Plus, ThumbsUp, Lock } from 'lucide-react';
+import { Play, Plus, ThumbsUp } from 'lucide-react';
 import { ContentItem } from '../lib/mock-data';
 import { motion } from 'framer-motion';
 
@@ -40,8 +40,11 @@ export function ContentCard({ item, onClick, aspectRatio = 'poster', featured = 
           )}
 
           {item.locked && (
-            <div className="absolute bottom-2 left-2 flex items-center justify-center">
-              <Lock className="w-4 h-4 text-white fill-white drop-shadow-lg" />
+            <div className="absolute bottom-2 left-2 flex items-center justify-center drop-shadow-lg">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                <rect x="3" y="11" width="18" height="11" rx="2" fill="white" />
+              </svg>
             </div>
           )}
 
@@ -113,8 +116,11 @@ export function ContentCard({ item, onClick, aspectRatio = 'poster', featured = 
         )}
 
         {item.locked && (
-          <div className="absolute bottom-2 left-2 flex items-center justify-center">
-            <Lock className="w-4 h-4 text-white fill-white drop-shadow-lg" />
+          <div className="absolute bottom-2 left-2 flex items-center justify-center drop-shadow-lg">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              <rect x="3" y="11" width="18" height="11" rx="2" fill="white" />
+            </svg>
           </div>
         )}
       </div>
