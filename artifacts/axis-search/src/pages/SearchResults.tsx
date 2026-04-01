@@ -207,6 +207,45 @@ export default function SearchResults() {
   const hasQuery = debouncedQuery.trim().length > 0;
   const hasResults = results.items.length > 0;
 
+  const hasActiveFilters = selectedTypes.length > 0 || selectedGenres.length > 0 || selectedChannels.length > 0 || selectedSubtitles.length > 0 || selectedDuration !== null || selectedUploadDate !== null || freeToMe;
+
+  const typeMap: Record<string, string[]> = {
+    'Movies': ['movie'],
+    'TV Shows': ['series'],
+    'Videos': ['sport'],
+    'Shorts': ['live'],
+    'Playlists': ['documentary'],
+    'Channels': [],
+  };
+
+  const applyFilters = (items: ContentItem[]) => {
+    if (selectedTypes.length > 0) {
+      const allowedTypes = selectedTypes.flatMap(t => typeMap[t] || []);
+      if (allowedTypes.length > 0) {
+        items = items.filter(item => allowedTypes.includes(item.type));
+      }
+    }
+    if (selectedGenres.length > 0) {
+      items = items.filter(item =>
+        item.genre.some(g => selectedGenres.some(sg => g.toLowerCase() === sg.toLowerCase()))
+      );
+    }
+    if (selectedChannels.length > 0) {
+      items = items.filter(item =>
+        item.tags.some(t => selectedChannels.some(sc => t.toLowerCase().includes(sc.toLowerCase()))) ||
+        selectedChannels.some(sc => item.description.toLowerCase().includes(sc.toLowerCase()))
+      );
+    }
+    if (selectedSubtitles.length > 0) {
+      items = items.filter(item =>
+        item.tags.some(t => selectedSubtitles.some(ss => t.toLowerCase().includes(ss.toLowerCase())))
+      );
+    }
+    items = items.filter(item => matchesDuration(item, selectedDuration));
+    items = items.filter(item => matchesUploadDate(item, selectedUploadDate));
+    return items;
+  };
+
   const sortedItems = useMemo(() => {
     let items = [...results.items];
 
@@ -220,42 +259,29 @@ export default function SearchResults() {
       items = items.filter(item => item.type === 'live');
     }
 
-    if (selectedTypes.length > 0) {
-      const typeMap: Record<string, string[]> = {
-        'Movies': ['movie'],
-        'TV Shows': ['series'],
-        'Videos': ['sport'],
-        'Shorts': ['live'],
-        'Playlists': ['documentary'],
-        'Channels': [],
-      };
-      const allowedTypes = selectedTypes.flatMap(t => typeMap[t] || []);
-      if (allowedTypes.length > 0) {
-        items = items.filter(item => allowedTypes.includes(item.type));
+    items = applyFilters(items);
+
+    if (hasActiveFilters && items.length < 5) {
+      const existingIds = new Set(items.map(i => i.id));
+      let pool = [...MOCK_CONTENT].filter(i => !existingIds.has(i.id));
+      pool = applyFilters(pool);
+      if (pool.length === 0 && (selectedGenres.length > 0 || selectedTypes.length > 0)) {
+        pool = [...MOCK_CONTENT].filter(i => !existingIds.has(i.id));
+        if (selectedTypes.length > 0) {
+          const allowedTypes = selectedTypes.flatMap(t => typeMap[t] || []);
+          if (allowedTypes.length > 0) {
+            pool = pool.filter(item => allowedTypes.includes(item.type));
+          }
+        }
+        if (pool.length === 0 && selectedGenres.length > 0) {
+          pool = [...MOCK_CONTENT].filter(i => !existingIds.has(i.id)).filter(item =>
+            item.genre.some(g => selectedGenres.some(sg => g.toLowerCase() === sg.toLowerCase()))
+          );
+        }
       }
+      pool.sort((a, b) => (b.personalizedScore || 0) - (a.personalizedScore || 0));
+      items = [...items, ...pool.slice(0, 10 - items.length)];
     }
-
-    if (selectedGenres.length > 0) {
-      items = items.filter(item =>
-        item.genre.some(g => selectedGenres.some(sg => g.toLowerCase() === sg.toLowerCase()))
-      );
-    }
-
-    if (selectedChannels.length > 0) {
-      items = items.filter(item =>
-        item.tags.some(t => selectedChannels.some(sc => t.toLowerCase().includes(sc.toLowerCase()))) ||
-        selectedChannels.some(sc => item.description.toLowerCase().includes(sc.toLowerCase()))
-      );
-    }
-
-    if (selectedSubtitles.length > 0) {
-      items = items.filter(item =>
-        item.tags.some(t => selectedSubtitles.some(ss => t.toLowerCase().includes(ss.toLowerCase())))
-      );
-    }
-
-    items = items.filter(item => matchesDuration(item, selectedDuration));
-    items = items.filter(item => matchesUploadDate(item, selectedUploadDate));
 
     if (prioritiseBy === 'popularity') {
       items.sort((a, b) => {
@@ -276,7 +302,7 @@ export default function SearchResults() {
     }
 
     return items;
-  }, [results.items, activeTab, prioritiseBy, sortBy, selectedDuration, selectedUploadDate, selectedTypes, selectedGenres, selectedChannels, selectedSubtitles]);
+  }, [results.items, activeTab, hasActiveFilters, prioritiseBy, sortBy, freeToMe, selectedDuration, selectedUploadDate, selectedTypes, selectedGenres, selectedChannels, selectedSubtitles]);
 
   const categorizedResults = useMemo(() => {
     if (activeTab !== 'all') return null;
