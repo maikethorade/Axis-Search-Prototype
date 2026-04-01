@@ -26,12 +26,6 @@ type = "image"
 title = "C. Hero Result + Masonry Search — Full Page"
 
 [[outputs]]
-id = "xuUFm2uCIWmGerA1x1j4G"
-uri = "file://exports/filter-modal-columns.jpg"
-type = "image"
-title = "Filter Modal (Columns) - AXIS Search"
-
-[[outputs]]
 id = "7Tt1BPAxqGOwsB_NTkWjJ"
 uri = "file://exports/filter-modal-columns-full.jpg"
 type = "image"

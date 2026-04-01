@@ -181,7 +181,7 @@ export function VoiceSearch({ isOpen, onClose, onResult }: VoiceSearchProps) {
             </h3>
             
             <p className="mt-4 text-center text-lg min-h-[2rem]" style={{ color: 'var(--axis-text-secondary)' }}>
-              {phase === 'listening' && !displayText && "Try saying 'The White Lotus' or 'Dune'"}
+              {phase === 'listening' && !displayText && "Try speaking to me now"}
               {phase === 'listening' && displayText && (
                 <span className="text-white font-medium">"{displayText}"</span>
               )}
