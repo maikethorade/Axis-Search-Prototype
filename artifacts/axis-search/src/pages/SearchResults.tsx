@@ -349,7 +349,7 @@ export default function SearchResults() {
     <div className="min-h-screen bg-background text-foreground pb-24 overflow-x-hidden">
       <Navigation onOpenSearch={() => setIsSearchOpen(true)} onOpenVoice={() => setIsVoiceOpen(true)} searchQuery={query} onSearchQueryChange={setQuery} />
       
-      <div className="pt-36 md:pt-28 rails-container">
+      <div className="pt-44 md:pt-32 rails-container">
         {hasQuery ? (
           <>
             <div className="mb-8" style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}>
