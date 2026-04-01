@@ -208,8 +208,44 @@ export default function SearchResults() {
 
   const sortedItems = useMemo(() => {
     let items = [...results.items];
+
+    if (selectedTypes.length > 0) {
+      const typeMap: Record<string, string[]> = {
+        'Movies': ['movie'],
+        'TV Shows': ['series'],
+        'Videos': ['sport'],
+        'Shorts': ['live'],
+        'Playlists': ['documentary'],
+        'Channels': [],
+      };
+      const allowedTypes = selectedTypes.flatMap(t => typeMap[t] || []);
+      if (allowedTypes.length > 0) {
+        items = items.filter(item => allowedTypes.includes(item.type));
+      }
+    }
+
+    if (selectedGenres.length > 0) {
+      items = items.filter(item =>
+        item.genre.some(g => selectedGenres.some(sg => g.toLowerCase() === sg.toLowerCase()))
+      );
+    }
+
+    if (selectedChannels.length > 0) {
+      items = items.filter(item =>
+        item.tags.some(t => selectedChannels.some(sc => t.toLowerCase().includes(sc.toLowerCase()))) ||
+        selectedChannels.some(sc => item.description.toLowerCase().includes(sc.toLowerCase()))
+      );
+    }
+
+    if (selectedSubtitles.length > 0) {
+      items = items.filter(item =>
+        item.tags.some(t => selectedSubtitles.some(ss => t.toLowerCase().includes(ss.toLowerCase())))
+      );
+    }
+
     items = items.filter(item => matchesDuration(item, selectedDuration));
     items = items.filter(item => matchesUploadDate(item, selectedUploadDate));
+
     if (prioritiseBy === 'popularity') {
       items.sort((a, b) => {
         const aScore = (a.personalizedScore || 0) + (a.trending ? 10 : 0);
@@ -218,7 +254,7 @@ export default function SearchResults() {
       });
     }
     return items;
-  }, [results.items, prioritiseBy, selectedDuration, selectedUploadDate]);
+  }, [results.items, prioritiseBy, selectedDuration, selectedUploadDate, selectedTypes, selectedGenres, selectedChannels, selectedSubtitles]);
 
   const categorizedResults = useMemo(() => {
     if (activeFilter !== 'all') return null;
