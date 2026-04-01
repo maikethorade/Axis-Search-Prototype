@@ -630,7 +630,7 @@ export default function SearchResults() {
                   </motion.section>
                 )}
 
-                {activeTab !== 'all' && (
+                {activeTab !== 'all' && sortedItems.length > 0 && (
                   <section style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}>
                     <div className={activeTab === 'live'
                       ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
@@ -653,6 +653,40 @@ export default function SearchResults() {
                       ))}
                     </div>
                   </section>
+                )}
+
+                {activeTab !== 'all' && sortedItems.length === 0 && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex flex-col items-center justify-center py-16 text-center px-4"
+                  >
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-5" style={{ background: 'var(--axis-surface)' }}>
+                      {activeTab === 'unwatched' && <Sparkles className="w-7 h-7 text-white/20" />}
+                      {activeTab === 'watched' && <Clock className="w-7 h-7 text-white/20" />}
+                      {activeTab === 'recent' && <TrendingUp className="w-7 h-7 text-white/20" />}
+                      {activeTab === 'live' && <Radio className="w-7 h-7 text-white/20" />}
+                    </div>
+                    <h3 className="text-lg font-semibold text-white mb-2">
+                      {activeTab === 'unwatched' && 'Nothing new to discover here'}
+                      {activeTab === 'watched' && "You haven't watched anything matching this search"}
+                      {activeTab === 'recent' && 'No recent uploads match your search'}
+                      {activeTab === 'live' && 'No live content right now'}
+                    </h3>
+                    <p className="text-sm max-w-sm" style={{ color: 'var(--axis-text-tertiary)' }}>
+                      {activeTab === 'unwatched' && 'All matching results have already been viewed. Try a different search to find fresh content.'}
+                      {activeTab === 'watched' && 'Search for something you\'ve seen before, or switch to All to browse everything.'}
+                      {activeTab === 'recent' && 'Nothing has been uploaded recently for this search. Check back soon or broaden your query.'}
+                      {activeTab === 'live' && 'There are no live streams matching your search at the moment. Try again later or explore other tabs.'}
+                    </p>
+                    <button
+                      onClick={() => setActiveTab('all')}
+                      className="mt-6 px-5 py-2 rounded text-sm font-medium transition-colors hover:opacity-90"
+                      style={{ background: 'var(--axis-brand)', color: '#fff' }}
+                    >
+                      View all results
+                    </button>
+                  </motion.div>
                 )}
               </div>
             ) : (
