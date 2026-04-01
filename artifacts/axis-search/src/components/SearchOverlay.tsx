@@ -235,7 +235,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
               </div>
             </div>
 
-            <div className="max-w-4xl mx-auto px-4 md:px-12 md:pr-[108px] py-10 pb-24">
+            <div className="max-w-4xl mx-auto px-4 md:px-12 md:pr-[108px] py-10 md:pt-20 pb-24">
               
               {!showPredictive && (
                 <motion.div 
