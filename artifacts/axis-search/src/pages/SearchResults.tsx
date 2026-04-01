@@ -219,6 +219,10 @@ export default function SearchResults() {
     }
   }, [debouncedQuery]);
 
+  useEffect(() => {
+    setFreeToMe(false);
+  }, [debouncedQuery]);
+
   const hasQuery = debouncedQuery.trim().length > 0;
   const hasResults = results.items.length > 0;
 
