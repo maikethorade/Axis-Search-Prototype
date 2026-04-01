@@ -837,9 +837,9 @@ export const SEARCH_CATEGORIES = [
 ];
 
 export const RECENT_SEARCHES = [
-  "Champions League", "F1 highlights", "Action movies", "Sci-fi series"
+  "The White Lotus", "Dune", "Match of the Day", "Peaky Blinders"
 ];
 
 export const TRENDING_SEARCHES = [
-  "Premier League Live", "Trigger Point", "Match of the Day", "Line of Duty", "Broadchurch", "Planet Earth"
+  "Oppenheimer", "Trigger Point", "Planet Earth", "Line of Duty", "Broadchurch", "Spider-Man"
 ];
