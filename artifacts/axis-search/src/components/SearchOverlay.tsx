@@ -268,22 +268,22 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         </h3>
                         <div className="flex flex-wrap gap-2">
                           {recentSearches.map(s => (
-                            <div
+                            <button
                               key={s}
-                              className="flex items-center gap-1 pl-4 pr-2 py-2 rounded text-white/80 transition-colors text-sm hover:text-white"
+                              onClick={() => { setQuery(s); handleSearchSubmit(undefined, s); }}
+                              className="flex items-center gap-1 pl-4 pr-2 py-2 rounded text-white/80 transition-colors text-sm hover:text-white cursor-pointer"
                               style={{ background: 'hsla(0, 0%, 100%, 0.05)', border: '1px solid hsla(0, 0%, 100%, 0.1)' }}
                             >
-                              <button onClick={() => { setQuery(s); handleSearchSubmit(undefined, s); }}>
-                                {s}
-                              </button>
-                              <button
+                              <span>{s}</span>
+                              <span
+                                role="button"
                                 onClick={(e) => { e.stopPropagation(); removeRecentSearch(s); }}
                                 className="ml-1 p-0.5 rounded-full hover:bg-white/10 transition-colors text-white/40 hover:text-white"
                                 aria-label={`Remove ${s}`}
                               >
                                 <X className="w-3 h-3" />
-                              </button>
-                            </div>
+                              </span>
+                            </button>
                           ))}
                         </div>
                       </div>
