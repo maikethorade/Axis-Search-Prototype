@@ -154,7 +154,7 @@ export default function SearchResults() {
   const [selectedUploadDate, setSelectedUploadDate] = useState<string | null>(null);
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
   const [prioritiseBy, setPrioritiseBy] = useState<'relevance' | 'popularity'>('relevance');
-  const [sortBy, setSortBy] = useState<'none' | 'a-z' | 'recency'>('none');
+  const [sortBy, setSortBy] = useState<'none' | 'a-z' | 'z-a' | 'recency' | 'oldest'>('none');
   const [isSortOpen, setIsSortOpen] = useState(false);
   const filtersRef = useRef<HTMLDivElement>(null);
   const sortRef = useRef<HTMLDivElement>(null);
@@ -257,8 +257,12 @@ export default function SearchResults() {
 
     if (sortBy === 'a-z') {
       items.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortBy === 'z-a') {
+      items.sort((a, b) => b.title.localeCompare(a.title));
     } else if (sortBy === 'recency') {
       items.sort((a, b) => (b.year || 0) - (a.year || 0));
+    } else if (sortBy === 'oldest') {
+      items.sort((a, b) => (a.year || 0) - (b.year || 0));
     }
 
     return items;
@@ -364,7 +368,7 @@ export default function SearchResults() {
                   }}
                 >
                   <ArrowUpDown className="w-4 h-4" />
-                  Sorting{sortBy !== 'none' ? ` · ${sortBy === 'a-z' ? 'A–Z' : 'Recency'}` : ''}
+                  Sorting{sortBy !== 'none' ? ` · ${{ 'a-z': 'A–Z', 'z-a': 'Z–A', 'recency': 'Newest', 'oldest': 'Oldest' }[sortBy]}` : ''}
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isSortOpen ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
@@ -380,7 +384,9 @@ export default function SearchResults() {
                       {([
                         { value: 'none' as const, label: 'None' },
                         { value: 'a-z' as const, label: 'A–Z' },
-                        { value: 'recency' as const, label: 'Recency' },
+                        { value: 'z-a' as const, label: 'Z–A' },
+                        { value: 'recency' as const, label: 'Newest first' },
+                        { value: 'oldest' as const, label: 'Oldest first' },
                       ]).map(option => (
                         <button
                           key={option.value}
