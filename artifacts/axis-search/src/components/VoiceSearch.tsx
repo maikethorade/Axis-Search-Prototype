@@ -144,8 +144,8 @@ export function VoiceSearch({ isOpen, onClose, onResult }: VoiceSearchProps) {
             <button 
               onClick={onClose}
               aria-label="Close voice search"
-              className="absolute -top-16 right-0 w-12 h-12 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-              style={{ background: 'hsla(0, 0%, 100%, 0.1)' }}
+              className="absolute -top-16 w-12 h-12 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+              style={{ background: 'hsla(0, 0%, 100%, 0.1)', right: '-20px' }}
             >
               <X className="w-6 h-6" />
             </button>
