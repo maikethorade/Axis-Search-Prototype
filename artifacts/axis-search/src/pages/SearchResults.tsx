@@ -12,6 +12,47 @@ import { motion, AnimatePresence } from 'framer-motion';
 const FILTER_GENRES = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Thriller', 'Romance', 'Documentary', 'Animation', 'Crime'];
 const FILTER_SUBTITLES = ['English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese'];
 const FILTER_CHANNELS = ['AXIS Originals', 'Sky Sports', 'BBC', 'ITV', 'Channel 4', 'HBO', 'Showtime', 'Paramount+', 'Discovery', 'Eurosport'];
+const FILTER_DURATIONS = ['Under 30 minutes', '30-60 minutes', 'Over 60 minutes'];
+const FILTER_UPLOAD_DATES = ['Today', 'This week', 'This month', 'This year'];
+
+function parseDurationMinutes(duration?: string): number {
+  if (!duration) return 45;
+  const parts = duration.match(/(\d+)\s*h/);
+  const minParts = duration.match(/(\d+)\s*m/);
+  let total = 0;
+  if (parts) total += parseInt(parts[1]) * 60;
+  if (minParts) total += parseInt(minParts[1]);
+  if (total === 0) {
+    const num = parseInt(duration);
+    if (!isNaN(num)) total = num;
+    else total = 45;
+  }
+  return total;
+}
+
+function matchesDuration(item: ContentItem, selected: string | null): boolean {
+  if (!selected) return true;
+  const mins = parseDurationMinutes(item.duration);
+  switch (selected) {
+    case 'Under 30 minutes': return mins < 30;
+    case '30-60 minutes': return mins >= 30 && mins <= 60;
+    case 'Over 60 minutes': return mins > 60;
+    default: return true;
+  }
+}
+
+function matchesUploadDate(item: ContentItem, selected: string | null): boolean {
+  if (!selected) return true;
+  const year = parseInt(item.year || '0');
+  const currentYear = new Date().getFullYear();
+  switch (selected) {
+    case 'Today': return year >= currentYear;
+    case 'This week': return year >= currentYear;
+    case 'This month': return year >= currentYear;
+    case 'This year': return year >= currentYear - 1;
+    default: return true;
+  }
+}
 
 function ResultsRail({ items, onSelect, aspectRatio = 'poster' as const }: {
   items: ContentItem[];
@@ -107,11 +148,13 @@ export default function SearchResults() {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [selectedSubtitles, setSelectedSubtitles] = useState<string[]>([]);
   const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
+  const [selectedDuration, setSelectedDuration] = useState<string | null>(null);
+  const [selectedUploadDate, setSelectedUploadDate] = useState<string | null>(null);
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState<'relevance' | 'recent' | 'a-z'>('relevance');
-  const [isSortOpen, setIsSortOpen] = useState(false);
+  const [prioritiseBy, setPrioritiseBy] = useState<'relevance' | 'popularity'>('relevance');
+  const [isPrioritiseOpen, setIsPrioritiseOpen] = useState(false);
   const filtersRef = useRef<HTMLDivElement>(null);
-  const sortRef = useRef<HTMLDivElement>(null);
+  const prioritiseRef = useRef<HTMLDivElement>(null);
   
   const { query, setQuery, results, activeFilter, setActiveFilter, debouncedQuery } = useSearch(initialQuery);
 
@@ -120,8 +163,8 @@ export default function SearchResults() {
       if (filtersRef.current && !filtersRef.current.contains(e.target as Node)) {
         setIsFiltersOpen(false);
       }
-      if (sortRef.current && !sortRef.current.contains(e.target as Node)) {
-        setIsSortOpen(false);
+      if (prioritiseRef.current && !prioritiseRef.current.contains(e.target as Node)) {
+        setIsPrioritiseOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -132,7 +175,7 @@ export default function SearchResults() {
     setSelected(prev => prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]);
   };
 
-  const activeFilterCount = selectedGenres.length + selectedSubtitles.length + selectedChannels.length + (freeToMe ? 1 : 0);
+  const activeFilterCount = selectedGenres.length + selectedSubtitles.length + selectedChannels.length + (freeToMe ? 1 : 0) + (selectedDuration ? 1 : 0) + (selectedUploadDate ? 1 : 0);
 
   useEffect(() => {
     const urlQuery = new URLSearchParams(window.location.search).get('q') || '';
@@ -162,18 +205,18 @@ export default function SearchResults() {
   const hasResults = results.items.length > 0;
 
   const sortedItems = useMemo(() => {
-    const items = [...results.items];
-    if (sortBy === 'a-z') {
-      items.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (sortBy === 'recent') {
+    let items = [...results.items];
+    items = items.filter(item => matchesDuration(item, selectedDuration));
+    items = items.filter(item => matchesUploadDate(item, selectedUploadDate));
+    if (prioritiseBy === 'popularity') {
       items.sort((a, b) => {
-        const yearA = parseInt(a.year || '0');
-        const yearB = parseInt(b.year || '0');
-        return yearB - yearA;
+        const aScore = (a.personalizedScore || 0) + (a.trending ? 10 : 0);
+        const bScore = (b.personalizedScore || 0) + (b.trending ? 10 : 0);
+        return bScore - aScore;
       });
     }
     return items;
-  }, [results.items, sortBy]);
+  }, [results.items, prioritiseBy, selectedDuration, selectedUploadDate]);
 
   const categorizedResults = useMemo(() => {
     if (activeFilter !== 'all') return null;
@@ -264,22 +307,22 @@ export default function SearchResults() {
               </div>
               
               <div className="flex items-center gap-2">
-              <div className="relative" ref={sortRef}>
+              <div className="relative" ref={prioritiseRef}>
                 <button
-                  onClick={() => setIsSortOpen(!isSortOpen)}
+                  onClick={() => setIsPrioritiseOpen(!isPrioritiseOpen)}
                   className="flex items-center gap-2 px-4 py-2 rounded text-sm transition-colors"
                   style={{
-                    border: `1px solid ${isSortOpen || sortBy !== 'relevance' ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.1)'}`,
-                    color: isSortOpen || sortBy !== 'relevance' ? '#fff' : 'hsla(0, 0%, 100%, 0.8)',
-                    background: isSortOpen ? 'hsla(0, 0%, 100%, 0.05)' : 'transparent',
+                    border: `1px solid ${isPrioritiseOpen || prioritiseBy !== 'relevance' ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.1)'}`,
+                    color: isPrioritiseOpen || prioritiseBy !== 'relevance' ? '#fff' : 'hsla(0, 0%, 100%, 0.8)',
+                    background: isPrioritiseOpen ? 'hsla(0, 0%, 100%, 0.05)' : 'transparent',
                   }}
                 >
                   <ArrowUpDown className="w-4 h-4" />
-                  {sortBy === 'relevance' ? 'Sort' : sortBy === 'recent' ? 'Recent' : 'A–Z'}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isSortOpen ? 'rotate-180' : ''}`} />
+                  {prioritiseBy === 'relevance' ? 'Relevance' : 'Popularity'}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isPrioritiseOpen ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
-                  {isSortOpen && (
+                  {isPrioritiseOpen && (
                     <motion.div
                       initial={{ opacity: 0, y: -8, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -290,17 +333,16 @@ export default function SearchResults() {
                     >
                       {([
                         { value: 'relevance' as const, label: 'Relevance' },
-                        { value: 'recent' as const, label: 'Most Recent' },
-                        { value: 'a-z' as const, label: 'A–Z' },
+                        { value: 'popularity' as const, label: 'Popularity' },
                       ]).map(option => (
                         <button
                           key={option.value}
-                          onClick={() => { setSortBy(option.value); setIsSortOpen(false); }}
+                          onClick={() => { setPrioritiseBy(option.value); setIsPrioritiseOpen(false); }}
                           className="w-full flex items-center justify-between px-4 py-3 text-sm text-left hover:bg-white/5 transition-colors"
-                          style={{ color: sortBy === option.value ? '#fff' : 'hsla(0, 0%, 100%, 0.7)' }}
+                          style={{ color: prioritiseBy === option.value ? '#fff' : 'hsla(0, 0%, 100%, 0.7)' }}
                         >
                           {option.label}
-                          {sortBy === option.value && <Check className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} />}
+                          {prioritiseBy === option.value && <Check className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} />}
                         </button>
                       ))}
                     </motion.div>
@@ -346,9 +388,11 @@ export default function SearchResults() {
                       </div>
 
                       {[
-                        { key: 'genres', label: 'Genres', items: FILTER_GENRES, selected: selectedGenres, setSelected: setSelectedGenres },
-                        { key: 'subtitles', label: 'Subtitles', items: FILTER_SUBTITLES, selected: selectedSubtitles, setSelected: setSelectedSubtitles },
-                        { key: 'channels', label: 'Channels', items: FILTER_CHANNELS, selected: selectedChannels, setSelected: setSelectedChannels },
+                        { key: 'duration', label: 'Duration', items: FILTER_DURATIONS, type: 'radio' as const, selectedValue: selectedDuration, onSelect: (v: string) => setSelectedDuration(selectedDuration === v ? null : v) },
+                        { key: 'uploadDate', label: 'Upload date', items: FILTER_UPLOAD_DATES, type: 'radio' as const, selectedValue: selectedUploadDate, onSelect: (v: string) => setSelectedUploadDate(selectedUploadDate === v ? null : v) },
+                        { key: 'genres', label: 'Genres', items: FILTER_GENRES, type: 'multi' as const, selected: selectedGenres, setSelected: setSelectedGenres },
+                        { key: 'subtitles', label: 'Subtitles', items: FILTER_SUBTITLES, type: 'multi' as const, selected: selectedSubtitles, setSelected: setSelectedSubtitles },
+                        { key: 'channels', label: 'Channels', items: FILTER_CHANNELS, type: 'multi' as const, selected: selectedChannels, setSelected: setSelectedChannels },
                       ].map(section => (
                         <div key={section.key} className="border-b border-white/5 last:border-b-0">
                           <button
@@ -357,7 +401,10 @@ export default function SearchResults() {
                           >
                             <span>
                               {section.label}
-                              {section.selected.length > 0 && (
+                              {section.type === 'radio' && section.selectedValue && (
+                                <span className="ml-2 text-xs px-1.5 py-0.5 rounded-full" style={{ background: 'var(--axis-brand)', color: '#fff' }}>1</span>
+                              )}
+                              {section.type === 'multi' && section.selected && section.selected.length > 0 && (
                                 <span className="ml-2 text-xs px-1.5 py-0.5 rounded-full" style={{ background: 'var(--axis-brand)', color: '#fff' }}>
                                   {section.selected.length}
                                 </span>
@@ -375,25 +422,46 @@ export default function SearchResults() {
                                 className="overflow-hidden"
                               >
                                 <div className="px-2 pb-2">
-                                  {section.items.map(item => (
-                                    <button
-                                      key={item}
-                                      onClick={() => toggleFilter(item, section.selected, section.setSelected)}
-                                      className="w-full flex items-center gap-3 px-3 py-2 text-sm text-left rounded hover:bg-white/5 transition-colors"
-                                      style={{ color: section.selected.includes(item) ? '#fff' : 'hsla(0, 0%, 100%, 0.7)' }}
-                                    >
-                                      <div
-                                        className="w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors"
-                                        style={{
-                                          borderColor: section.selected.includes(item) ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.3)',
-                                          background: section.selected.includes(item) ? 'var(--axis-brand)' : 'transparent',
-                                        }}
+                                  {section.type === 'radio' ? (
+                                    section.items.map(item => (
+                                      <button
+                                        key={item}
+                                        onClick={() => section.onSelect(item)}
+                                        className="w-full flex items-center gap-3 px-3 py-2 text-sm text-left rounded hover:bg-white/5 transition-colors"
+                                        style={{ color: section.selectedValue === item ? '#fff' : 'hsla(0, 0%, 100%, 0.7)' }}
                                       >
-                                        {section.selected.includes(item) && <Check className="w-3 h-3 text-white" />}
-                                      </div>
-                                      {item}
-                                    </button>
-                                  ))}
+                                        <div
+                                          className="w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-colors"
+                                          style={{
+                                            borderColor: section.selectedValue === item ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.3)',
+                                          }}
+                                        >
+                                          {section.selectedValue === item && <div className="w-2 h-2 rounded-full" style={{ background: 'var(--axis-brand)' }} />}
+                                        </div>
+                                        {item}
+                                      </button>
+                                    ))
+                                  ) : (
+                                    section.items.map(item => (
+                                      <button
+                                        key={item}
+                                        onClick={() => toggleFilter(item, section.selected!, section.setSelected!)}
+                                        className="w-full flex items-center gap-3 px-3 py-2 text-sm text-left rounded hover:bg-white/5 transition-colors"
+                                        style={{ color: section.selected!.includes(item) ? '#fff' : 'hsla(0, 0%, 100%, 0.7)' }}
+                                      >
+                                        <div
+                                          className="w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors"
+                                          style={{
+                                            borderColor: section.selected!.includes(item) ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.3)',
+                                            background: section.selected!.includes(item) ? 'var(--axis-brand)' : 'transparent',
+                                          }}
+                                        >
+                                          {section.selected!.includes(item) && <Check className="w-3 h-3 text-white" />}
+                                        </div>
+                                        {item}
+                                      </button>
+                                    ))
+                                  )}
                                 </div>
                               </motion.div>
                             )}
