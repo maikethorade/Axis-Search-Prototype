@@ -740,7 +740,7 @@ export default function SearchResults() {
                 {RECENT_SEARCHES.map(s => (
                   <button
                     key={s}
-                    onClick={() => setLocation(`/search?q=${encodeURIComponent(s)}`)}
+                    onClick={() => { setQuery(s); window.history.replaceState(null, '', `/search?q=${encodeURIComponent(s)}`); }}
                     className="px-4 py-2.5 rounded text-white/80 transition-colors text-sm font-medium hover:text-white"
                     style={{ background: 'hsla(0, 0%, 100%, 0.05)', border: '1px solid hsla(0, 0%, 100%, 0.05)' }}
                   >
@@ -758,7 +758,7 @@ export default function SearchResults() {
                 {TRENDING_SEARCHES.map(s => (
                   <button
                     key={s}
-                    onClick={() => setLocation(`/search?q=${encodeURIComponent(s)}`)}
+                    onClick={() => { setQuery(s); window.history.replaceState(null, '', `/search?q=${encodeURIComponent(s)}`); }}
                     className="px-4 py-2.5 rounded text-white/80 transition-colors text-sm font-medium hover:text-white"
                     style={{ background: 'hsla(0, 0%, 100%, 0.05)', border: '1px solid hsla(0, 0%, 100%, 0.05)' }}
                   >
