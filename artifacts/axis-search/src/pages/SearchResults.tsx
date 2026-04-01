@@ -706,10 +706,10 @@ export default function SearchResults() {
                 <div className="w-full max-w-2xl p-8 text-left" style={{ background: 'hsla(0, 0%, 100%, 0.05)', border: '1px solid hsla(0, 0%, 100%, 0.05)', borderRadius: '16px' }}>
                   <h3 className="text-base font-bold text-white mb-4">Did you mean to search for...</h3>
                   <div className="flex flex-wrap gap-3">
-                    {['Action Thrillers', 'Live Sports', 'Documentaries'].map(s => (
+                    {TRENDING_SEARCHES.map(s => (
                       <button 
                         key={s}
-                        onClick={() => { setLocation(`/search?q=${encodeURIComponent(s)}`); }}
+                        onClick={() => { setQuery(s); window.history.replaceState(null, '', `/search?q=${encodeURIComponent(s)}`); }}
                         className="px-4 py-2 rounded text-white text-sm transition-colors hover:opacity-80"
                         style={{ background: 'var(--axis-brand)' }}
                       >
