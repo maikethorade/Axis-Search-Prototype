@@ -370,24 +370,21 @@ export default function SearchResults() {
 
             {hasResults ? (
               <div className="space-y-14">
-                {activeFilter === 'all' && categorizedResults && (() => {
-                  const topResults = CATEGORY_CONFIG[0];
-                  const items = categorizedResults[topResults.type];
-                  if (!items || items.length === 0) return null;
-                  const gridItems = items.slice(0, 5);
+                {activeFilter === 'all' && sortedItems.length > 0 && (() => {
+                  const topItems = sortedItems.slice(0, 5);
                   return (
                     <motion.section
-                      key={topResults.type}
+                      key="top-results"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}
                     >
                       <div className="flex items-center gap-3 mb-4">
-                        <h2 className="text-lg md:text-xl font-bold text-white">{topResults.label}</h2>
-                        <span className="text-xs ml-auto" style={{ color: 'var(--axis-text-tertiary)' }}>{items.length} result{items.length !== 1 ? 's' : ''}</span>
+                        <h2 className="text-lg md:text-xl font-bold text-white">Top results</h2>
+                        <span className="text-xs ml-auto" style={{ color: 'var(--axis-text-tertiary)' }}>{sortedItems.length} result{sortedItems.length !== 1 ? 's' : ''}</span>
                       </div>
                       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                        {gridItems.map((item, i) => (
+                        {topItems.map((item, i) => (
                           <motion.div
                             key={item.id}
                             initial={{ opacity: 0, y: 20 }}
@@ -430,8 +427,8 @@ export default function SearchResults() {
                   </motion.section>
                 )}
 
-                {activeFilter === 'all' && categorizedResults && (() => {
-                  const moreItems = CATEGORY_CONFIG.slice(1).flatMap(({ type }) => categorizedResults[type] || []);
+                {activeFilter === 'all' && sortedItems.length > 5 && (() => {
+                  const moreItems = sortedItems.slice(5);
                   if (moreItems.length === 0) return null;
                   return (
                     <motion.section
