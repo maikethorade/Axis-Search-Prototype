@@ -170,6 +170,13 @@ export default function SearchResults() {
   const [activeTab, setActiveTab] = useState<string>('all');
 
   useEffect(() => {
+    const urlQuery = new URLSearchParams(window.location.search).get('q') || '';
+    if (urlQuery && urlQuery !== query) {
+      setQuery(urlQuery);
+    }
+  }, [location]);
+
+  useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (filtersRef.current && !filtersRef.current.contains(e.target as Node)) {
         setIsFiltersOpen(false);
@@ -796,7 +803,7 @@ export default function SearchResults() {
                     {TRENDING_SEARCHES.map(s => (
                       <button 
                         key={s}
-                        onClick={() => { setQuery(s); window.history.replaceState(null, '', `/search?q=${encodeURIComponent(s)}`); }}
+                        onClick={() => { setQuery(s); setLocation(`/search?q=${encodeURIComponent(s)}`); }}
                         className="px-4 py-2 rounded text-white text-sm transition-colors hover:opacity-80"
                         style={{ background: 'var(--axis-brand)' }}
                       >
@@ -828,7 +835,7 @@ export default function SearchResults() {
                 {(recentSearches.length > 0 ? recentSearches : RECENT_SEARCHES).map(s => (
                   <button
                     key={s}
-                    onClick={() => { setQuery(s); window.history.replaceState(null, '', `/search?q=${encodeURIComponent(s)}`); }}
+                    onClick={() => { setQuery(s); setLocation(`/search?q=${encodeURIComponent(s)}`); }}
                     className="px-4 py-2.5 rounded text-white/80 transition-colors text-sm font-medium hover:text-white"
                     style={{ background: 'hsla(0, 0%, 100%, 0.05)', border: '1px solid hsla(0, 0%, 100%, 0.05)' }}
                   >
@@ -847,7 +854,7 @@ export default function SearchResults() {
                 {TRENDING_SEARCHES.map(s => (
                   <button
                     key={s}
-                    onClick={() => { setQuery(s); window.history.replaceState(null, '', `/search?q=${encodeURIComponent(s)}`); }}
+                    onClick={() => { setQuery(s); setLocation(`/search?q=${encodeURIComponent(s)}`); }}
                     className="px-4 py-2.5 rounded text-white/80 transition-colors text-sm font-medium hover:text-white"
                     style={{ background: 'hsla(0, 0%, 100%, 0.05)', border: '1px solid hsla(0, 0%, 100%, 0.05)' }}
                   >
