@@ -442,32 +442,33 @@ export default function SearchResults() {
                   <motion.section 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="py-8"
-                    style={{
-                      background: 'hsla(0, 0%, 100%, 0.05)',
-                      marginLeft: '-100vw',
-                      marginRight: '-100vw',
-                      paddingLeft: '100vw',
-                      paddingRight: '100vw',
-                    }}
+                    className="relative py-8"
+                    style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}
                   >
-                    <div className="flex items-center gap-3 mb-6">
-                      <h2 className="text-lg md:text-xl font-bold text-white">Moments inside videos</h2>
-                    </div>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                      {results.moments.map(m => (
-                        <div key={m.id} className="group cursor-pointer">
-                          <div className="relative aspect-video overflow-hidden mb-3 transition-colors">
-                            <img src={m.thumbnailUrl} alt={m.title} className="w-full h-full object-cover" />
-                            <div className="absolute inset-0 group-hover:bg-black/20 transition-colors" style={{ background: 'var(--axis-overlay)' }} />
-                            <div className="absolute bottom-2 right-2 px-2 py-1 text-xs font-mono text-white" style={{ background: 'rgba(0,0,0,0.8)' }}>
-                              {m.timestamp}
+                    <div className="absolute inset-0" style={{
+                      background: 'hsla(0, 0%, 100%, 0.05)',
+                      left: 'calc(-1 * max(24px, calc((100vw - 1280px) / 2 + 48px)))',
+                      right: 'calc(-1 * max(24px, calc((100vw - 1280px) / 2 + 48px)))',
+                    }} />
+                    <div className="relative">
+                      <div className="flex items-center gap-3 mb-6">
+                        <h2 className="text-lg md:text-xl font-bold text-white">Moments inside videos</h2>
+                      </div>
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                        {results.moments.map(m => (
+                          <div key={m.id} className="group cursor-pointer">
+                            <div className="relative aspect-video overflow-hidden mb-3 transition-colors">
+                              <img src={m.thumbnailUrl} alt={m.title} className="w-full h-full object-cover" />
+                              <div className="absolute inset-0 group-hover:bg-black/20 transition-colors" style={{ background: 'var(--axis-overlay)' }} />
+                              <div className="absolute bottom-2 right-2 px-2 py-1 text-xs font-mono text-white" style={{ background: 'rgba(0,0,0,0.8)' }}>
+                                {m.timestamp}
+                              </div>
                             </div>
+                            <h4 className="font-bold text-sm text-white/90 group-hover:text-[var(--axis-brand)] transition-colors">{m.title}</h4>
+                            <p className="text-xs truncate" style={{ color: 'var(--axis-text-tertiary)' }}>{m.episode ? `${m.episode} · ${m.timestamp}` : `Found in: ${m.parentTitle}`}</p>
                           </div>
-                          <h4 className="font-bold text-sm text-white/90 group-hover:text-[var(--axis-brand)] transition-colors">{m.title}</h4>
-                          <p className="text-xs truncate" style={{ color: 'var(--axis-text-tertiary)' }}>{m.episode ? `${m.episode} · ${m.timestamp}` : `Found in: ${m.parentTitle}`}</p>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </motion.section>
                 )}
