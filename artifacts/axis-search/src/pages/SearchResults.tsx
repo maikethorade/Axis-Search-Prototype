@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const FILTER_GENRES = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Thriller', 'Romance', 'Documentary', 'Animation', 'Crime'];
 const FILTER_SUBTITLES = ['English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese'];
 const FILTER_CHANNELS = ['AXIS Originals', 'Sky Sports', 'BBC', 'ITV', 'Channel 4', 'HBO', 'Showtime', 'Paramount+', 'Discovery', 'Eurosport'];
-const FILTER_TYPES = ['Videos', 'Shorts', 'Channels', 'Playlists', 'Movies'];
+const FILTER_TYPES = ['Movies', 'TV Shows', 'Videos', 'Shorts', 'Playlists', 'Channels'];
 const FILTER_DURATIONS = ['Under 30 minutes', '30-60 minutes', 'Over 60 minutes'];
 const FILTER_UPLOAD_DATES = ['Today', 'This week', 'This month', 'This year'];
 
