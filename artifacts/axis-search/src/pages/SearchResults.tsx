@@ -191,6 +191,45 @@ export default function SearchResults() {
       .slice(0, 10);
   }, []);
 
+  const moreToExplore = useMemo(() => {
+    const topIds = new Set(sortedItems.slice(0, 5).map(i => i.id));
+    const remaining = sortedItems.slice(5);
+
+    const recentYear = (item: ContentItem) => {
+      const y = parseInt(item.year || '0');
+      return y >= 2024 ? 3 : y >= 2022 ? 2 : y >= 2020 ? 1 : 0;
+    };
+
+    const seen = new Set(remaining.map(i => i.id));
+    topIds.forEach(id => seen.add(id));
+
+    const fillers = [...MOCK_CONTENT]
+      .filter(item => !seen.has(item.id))
+      .map(item => {
+        let score = 0;
+        score += (item.personalizedScore || 0) * 2;
+        score += recentYear(item) * 3;
+        score += item.trending ? 5 : 0;
+        const searchTypes = new Set(sortedItems.map(i => i.type));
+        if (searchTypes.has(item.type)) score += 4;
+        const searchGenres = new Set(sortedItems.flatMap(i => i.genre.map(g => g.toLowerCase())));
+        item.genre.forEach(g => { if (searchGenres.has(g.toLowerCase())) score += 3; });
+        const searchTags = new Set(sortedItems.flatMap(i => i.tags.map(t => t.toLowerCase())));
+        item.tags.forEach(t => { if (searchTags.has(t.toLowerCase())) score += 2; });
+        return { item, score };
+      })
+      .sort((a, b) => b.score - a.score)
+      .map(x => x.item);
+
+    const combined = [...remaining, ...fillers];
+    const uniqueIds = new Set<string>();
+    return combined.filter(item => {
+      if (uniqueIds.has(item.id) || topIds.has(item.id)) return false;
+      uniqueIds.add(item.id);
+      return true;
+    }).slice(0, 10);
+  }, [sortedItems]);
+
   return (
     <div className="min-h-screen bg-background text-foreground pb-24">
       <Navigation onOpenSearch={() => setIsSearchOpen(true)} searchQuery={query} onSearchQueryChange={setQuery} />
@@ -427,34 +466,29 @@ export default function SearchResults() {
                   </motion.section>
                 )}
 
-                {activeFilter === 'all' && sortedItems.length > 5 && (() => {
-                  const moreItems = sortedItems.slice(5);
-                  if (moreItems.length === 0) return null;
-                  return (
-                    <motion.section
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}
-                    >
-                      <div className="flex items-center gap-3 mb-4">
-                        <h2 className="text-lg md:text-xl font-bold text-white">More to explore</h2>
-                        <span className="text-xs ml-auto" style={{ color: 'var(--axis-text-tertiary)' }}>{moreItems.length} result{moreItems.length !== 1 ? 's' : ''}</span>
-                      </div>
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                        {moreItems.map((item, i) => (
-                          <motion.div
-                            key={item.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.05 }}
-                          >
-                            <ContentCard item={item} onClick={setSelectedItem} fillWidth />
-                          </motion.div>
-                        ))}
-                      </div>
-                    </motion.section>
-                  );
-                })()}
+                {activeFilter === 'all' && moreToExplore.length > 0 && (
+                  <motion.section
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <h2 className="text-lg md:text-xl font-bold text-white">More to explore</h2>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                      {moreToExplore.map((item, i) => (
+                        <motion.div
+                          key={item.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: i * 0.05 }}
+                        >
+                          <ContentCard item={item} onClick={setSelectedItem} fillWidth />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.section>
+                )}
 
                 {activeFilter !== 'all' && (
                   <section style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}>
