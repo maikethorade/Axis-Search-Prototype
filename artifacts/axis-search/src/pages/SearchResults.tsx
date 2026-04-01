@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const FILTER_GENRES = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Thriller', 'Romance', 'Documentary', 'Animation', 'Crime'];
 const FILTER_SUBTITLES = ['English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese'];
 const FILTER_CHANNELS = ['AXIS Originals', 'Sky Sports', 'BBC', 'ITV', 'Channel 4', 'HBO', 'Showtime', 'Paramount+', 'Discovery', 'Eurosport'];
+const FILTER_TYPES = ['Videos', 'Shorts', 'Channels', 'Playlists', 'Movies'];
 const FILTER_DURATIONS = ['Under 30 minutes', '30-60 minutes', 'Over 60 minutes'];
 const FILTER_UPLOAD_DATES = ['Today', 'This week', 'This month', 'This year'];
 
@@ -148,6 +149,7 @@ export default function SearchResults() {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [selectedSubtitles, setSelectedSubtitles] = useState<string[]>([]);
   const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedDuration, setSelectedDuration] = useState<string | null>(null);
   const [selectedUploadDate, setSelectedUploadDate] = useState<string | null>(null);
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
@@ -175,7 +177,7 @@ export default function SearchResults() {
     setSelected(prev => prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]);
   };
 
-  const activeFilterCount = selectedGenres.length + selectedSubtitles.length + selectedChannels.length + (freeToMe ? 1 : 0) + (selectedDuration ? 1 : 0) + (selectedUploadDate ? 1 : 0);
+  const activeFilterCount = selectedGenres.length + selectedSubtitles.length + selectedChannels.length + selectedTypes.length + (freeToMe ? 1 : 0) + (selectedDuration ? 1 : 0) + (selectedUploadDate ? 1 : 0);
 
   useEffect(() => {
     const urlQuery = new URLSearchParams(window.location.search).get('q') || '';
@@ -388,11 +390,12 @@ export default function SearchResults() {
                       </div>
 
                       {[
+                        { key: 'type', label: 'Type', items: FILTER_TYPES, type: 'multi' as const, selected: selectedTypes, setSelected: setSelectedTypes },
+                        { key: 'genres', label: 'Genres', items: FILTER_GENRES, type: 'multi' as const, selected: selectedGenres, setSelected: setSelectedGenres },
+                        { key: 'channels', label: 'Channels', items: FILTER_CHANNELS, type: 'multi' as const, selected: selectedChannels, setSelected: setSelectedChannels },
+                        { key: 'subtitles', label: 'Subtitles', items: FILTER_SUBTITLES, type: 'multi' as const, selected: selectedSubtitles, setSelected: setSelectedSubtitles },
                         { key: 'duration', label: 'Duration', items: FILTER_DURATIONS, type: 'radio' as const, selectedValue: selectedDuration, onSelect: (v: string) => setSelectedDuration(selectedDuration === v ? null : v) },
                         { key: 'uploadDate', label: 'Upload date', items: FILTER_UPLOAD_DATES, type: 'radio' as const, selectedValue: selectedUploadDate, onSelect: (v: string) => setSelectedUploadDate(selectedUploadDate === v ? null : v) },
-                        { key: 'genres', label: 'Genres', items: FILTER_GENRES, type: 'multi' as const, selected: selectedGenres, setSelected: setSelectedGenres },
-                        { key: 'subtitles', label: 'Subtitles', items: FILTER_SUBTITLES, type: 'multi' as const, selected: selectedSubtitles, setSelected: setSelectedSubtitles },
-                        { key: 'channels', label: 'Channels', items: FILTER_CHANNELS, type: 'multi' as const, selected: selectedChannels, setSelected: setSelectedChannels },
                       ].map(section => (
                         <div key={section.key} className="border-b border-white/5 last:border-b-0">
                           <button
