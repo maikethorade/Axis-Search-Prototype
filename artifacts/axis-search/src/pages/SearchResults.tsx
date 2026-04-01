@@ -632,7 +632,10 @@ export default function SearchResults() {
 
                 {activeTab !== 'all' && (
                   <section style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                    <div className={activeTab === 'live'
+                      ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                      : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+                    }>
                       {sortedItems.map((item, i) => (
                         <motion.div 
                           key={item.id}
@@ -643,7 +646,7 @@ export default function SearchResults() {
                           <ContentCard 
                             item={item} 
                             onClick={setSelectedItem} 
-                            aspectRatio={item.type === 'movie' || item.type === 'series' ? 'poster' : 'video'}
+                            aspectRatio={activeTab === 'live' ? 'video' : 'poster'}
                             fillWidth
                           />
                         </motion.div>
