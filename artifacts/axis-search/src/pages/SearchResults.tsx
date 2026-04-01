@@ -123,13 +123,12 @@ function ResultsRail({ items, onSelect, aspectRatio = 'poster' as const }: {
   );
 }
 
-const FILTER_LABELS: Record<string, string> = {
-  all: 'All Content',
-  movie: 'Movies',
-  series: 'Series',
-  sport: 'Sports',
+const TAB_LABELS: Record<string, string> = {
+  all: 'All',
+  unwatched: 'Unwatched',
+  watched: 'Watched',
+  recent: 'Recently uploaded',
   live: 'Live',
-  documentary: 'Documentaries',
 };
 
 const CATEGORY_CONFIG: { type: string; label: string; tagline?: string; icon: React.ReactNode }[] = [
@@ -159,7 +158,8 @@ export default function SearchResults() {
   const filtersRef = useRef<HTMLDivElement>(null);
   const sortRef = useRef<HTMLDivElement>(null);
   
-  const { query, setQuery, results, activeFilter, setActiveFilter, debouncedQuery } = useSearch(initialQuery);
+  const { query, setQuery, results, debouncedQuery } = useSearch(initialQuery);
+  const [activeTab, setActiveTab] = useState<string>('all');
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -184,7 +184,7 @@ export default function SearchResults() {
     const urlQuery = new URLSearchParams(window.location.search).get('q') || '';
     if (urlQuery && urlQuery !== query) {
       setQuery(urlQuery);
-      setActiveFilter('all');
+      setActiveTab('all');
     }
   }, [location]);
 
@@ -209,6 +209,16 @@ export default function SearchResults() {
 
   const sortedItems = useMemo(() => {
     let items = [...results.items];
+
+    if (activeTab === 'unwatched') {
+      items = items.filter(item => !item.personalizedScore || item.personalizedScore < 50);
+    } else if (activeTab === 'watched') {
+      items = items.filter(item => item.personalizedScore && item.personalizedScore >= 50);
+    } else if (activeTab === 'recent') {
+      items = items.filter(item => item.year && item.year >= 2024);
+    } else if (activeTab === 'live') {
+      items = items.filter(item => item.type === 'live');
+    }
 
     if (selectedTypes.length > 0) {
       const typeMap: Record<string, string[]> = {
@@ -266,17 +276,17 @@ export default function SearchResults() {
     }
 
     return items;
-  }, [results.items, prioritiseBy, sortBy, selectedDuration, selectedUploadDate, selectedTypes, selectedGenres, selectedChannels, selectedSubtitles]);
+  }, [results.items, activeTab, prioritiseBy, sortBy, selectedDuration, selectedUploadDate, selectedTypes, selectedGenres, selectedChannels, selectedSubtitles]);
 
   const categorizedResults = useMemo(() => {
-    if (activeFilter !== 'all') return null;
+    if (activeTab !== 'all') return null;
     const groups: Record<string, ContentItem[]> = {};
     sortedItems.forEach(item => {
       if (!groups[item.type]) groups[item.type] = [];
       groups[item.type].push(item);
     });
     return groups;
-  }, [sortedItems, activeFilter]);
+  }, [sortedItems, activeTab]);
 
   const personalizedSuggestions = useMemo(() => {
     return [...MOCK_CONTENT]
@@ -341,17 +351,17 @@ export default function SearchResults() {
 
             <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-5 border-b border-white/10" style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}>
               <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
-                {(['all', 'movie', 'series', 'sport', 'live', 'documentary'] as const).map(filter => (
+                {(['all', 'unwatched', 'watched', 'recent', 'live'] as const).map(tab => (
                   <button
-                    key={filter}
-                    onClick={() => setActiveFilter(filter)}
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
                     className="px-5 py-2 rounded-sm text-sm font-medium whitespace-nowrap transition-colors"
-                    style={activeFilter === filter 
+                    style={activeTab === tab 
                       ? { background: 'var(--axis-brand)', color: '#fff' } 
                       : { background: 'hsla(0, 0%, 100%, 0.05)', color: 'hsla(0, 0%, 100%, 0.7)' }
                     }
                   >
-                    {FILTER_LABELS[filter]}
+                    {TAB_LABELS[tab]}
                   </button>
                 ))}
               </div>
@@ -532,7 +542,7 @@ export default function SearchResults() {
 
             {hasResults ? (
               <div className="space-y-14">
-                {activeFilter === 'all' && sortedItems.length > 0 && (() => {
+                {activeTab === 'all' && sortedItems.length > 0 && (() => {
                   const topItems = sortedItems.slice(0, 5);
                   return (
                     <motion.section
@@ -561,7 +571,7 @@ export default function SearchResults() {
                   );
                 })()}
 
-                {results.moments.length > 0 && activeFilter === 'all' && (
+                {results.moments.length > 0 && activeTab === 'all' && (
                   <motion.section 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -596,7 +606,7 @@ export default function SearchResults() {
                   </motion.section>
                 )}
 
-                {activeFilter === 'all' && moreToExplore.length > 0 && (
+                {activeTab === 'all' && moreToExplore.length > 0 && (
                   <motion.section
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -620,7 +630,7 @@ export default function SearchResults() {
                   </motion.section>
                 )}
 
-                {activeFilter !== 'all' && (
+                {activeTab !== 'all' && (
                   <section style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                       {sortedItems.map((item, i) => (
