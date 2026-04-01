@@ -442,16 +442,22 @@ export default function SearchResults() {
                   <motion.section 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-6 md:p-8 -mx-6 md:-mx-12"
-                    style={{ background: 'hsla(0, 0%, 100%, 0.05)' }}
+                    className="py-8"
+                    style={{
+                      background: 'hsla(0, 0%, 100%, 0.05)',
+                      marginLeft: 'calc(-1 * max(24px, calc((100vw - 1280px) / 2 + 48px)))',
+                      marginRight: 'calc(-1 * max(24px, calc((100vw - 1280px) / 2 + 48px)))',
+                      paddingLeft: 'max(24px, calc((100vw - 1280px) / 2 + 48px))',
+                      paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))',
+                    }}
                   >
                     <div className="flex items-center gap-3 mb-6">
                       <h2 className="text-lg md:text-xl font-bold text-white">Moments inside videos</h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                       {results.moments.map(m => (
                         <div key={m.id} className="group cursor-pointer">
-                          <div className="relative aspect-video overflow-hidden mb-3 border border-white/10 transition-colors">
+                          <div className="relative aspect-video overflow-hidden mb-3 transition-colors">
                             <img src={m.thumbnailUrl} alt={m.title} className="w-full h-full object-cover" />
                             <div className="absolute inset-0 group-hover:bg-black/20 transition-colors" style={{ background: 'var(--axis-overlay)' }} />
                             <div className="absolute bottom-2 right-2 px-2 py-1 text-xs font-mono text-white" style={{ background: 'rgba(0,0,0,0.8)' }}>
