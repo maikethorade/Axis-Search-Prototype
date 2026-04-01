@@ -619,7 +619,7 @@ export default function SearchResults() {
               </motion.div>
             )}
 
-            {(sortedItems.length > 0 || (!hasActiveFilters && hasResults)) ? (
+            {(sortedItems.length > 0 || (!hasActiveFilters && hasResults)) && !(hasResults && sortedItems.length === 0 && hasActiveFilters) ? (
               <div className="space-y-14">
                 {activeTab === 'all' && sortedItems.length > 0 && (() => {
                   const topItems = sortedItems.slice(0, 5);
