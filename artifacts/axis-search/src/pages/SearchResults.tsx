@@ -352,14 +352,17 @@ export default function SearchResults() {
       .sort((a, b) => b.score - a.score)
       .map(x => x.item);
 
-    const combined = [...remaining, ...fillers];
+    let combined = [...remaining, ...fillers];
+    if (freeToMe) {
+      combined = combined.filter(item => !item.locked);
+    }
     const uniqueIds = new Set<string>();
     return combined.filter(item => {
       if (uniqueIds.has(item.id) || topIds.has(item.id)) return false;
       uniqueIds.add(item.id);
       return true;
     }).slice(0, 10);
-  }, [sortedItems]);
+  }, [sortedItems, freeToMe]);
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-24 overflow-x-hidden">
