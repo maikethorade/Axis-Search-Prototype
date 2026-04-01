@@ -24,7 +24,13 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isVoiceOpen, setIsVoiceOpen] = useState(false);
   const { query, setQuery, results, isSearching, debouncedQuery } = useSearch();
-  const [recentSearches, setRecentSearches] = useState([...RECENT_SEARCHES]);
+  const [recentSearches, setRecentSearches] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('axis-recent-searches');
+      if (stored) return JSON.parse(stored);
+    } catch {}
+    return [...RECENT_SEARCHES];
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -38,8 +44,9 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
   const addRecentSearch = (term: string) => {
     setRecentSearches(prev => {
-      const filtered = prev.filter(s => s.toLowerCase() !== term.toLowerCase());
-      return [term, ...filtered].slice(0, 6);
+      const updated = [term, ...prev.filter(s => s.toLowerCase() !== term.toLowerCase())].slice(0, 6);
+      try { localStorage.setItem('axis-recent-searches', JSON.stringify(updated)); } catch {}
+      return updated;
     });
   };
 
@@ -74,7 +81,11 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   };
 
   const removeRecentSearch = (search: string) => {
-    setRecentSearches(prev => prev.filter(s => s !== search));
+    setRecentSearches(prev => {
+      const updated = prev.filter(s => s !== search);
+      try { localStorage.setItem('axis-recent-searches', JSON.stringify(updated)); } catch {}
+      return updated;
+    });
   };
 
   useEffect(() => {
