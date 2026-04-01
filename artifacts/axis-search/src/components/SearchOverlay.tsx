@@ -193,8 +193,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         </button>
                       </div>
                     </form>
-                    <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
-                      <User className="w-full h-full p-1.5 text-white/90" />
+                    <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: '#F57C00' }}>
+                      <span className="text-white text-sm" style={{ fontWeight: 700 }}>M</span>
                     </div>
                   </div>
                 </div>
@@ -216,8 +216,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       </Link>
                     ))}
                   </nav>
-                  <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
-                    <User className="w-full h-full p-1.5 text-white/90" />
+                  <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: '#F57C00' }}>
+                    <span className="text-white text-sm" style={{ fontWeight: 700 }}>M</span>
                   </div>
                 </div>
                 <div className="px-4 py-3" style={{ background: '#2544D0' }}>
