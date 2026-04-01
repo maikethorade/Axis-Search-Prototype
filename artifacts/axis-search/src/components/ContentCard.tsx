@@ -40,8 +40,8 @@ export function ContentCard({ item, onClick, aspectRatio = 'poster', featured = 
           )}
 
           {item.locked && (
-            <div className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center" style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}>
-              <Lock className="w-3.5 h-3.5 text-white" />
+            <div className="absolute bottom-2 left-2 flex items-center justify-center">
+              <Lock className="w-4 h-4 text-white fill-white drop-shadow-lg" />
             </div>
           )}
 
@@ -113,8 +113,8 @@ export function ContentCard({ item, onClick, aspectRatio = 'poster', featured = 
         )}
 
         {item.locked && (
-          <div className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center" style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}>
-            <Lock className="w-3.5 h-3.5 text-white" />
+          <div className="absolute bottom-2 left-2 flex items-center justify-center">
+            <Lock className="w-4 h-4 text-white fill-white drop-shadow-lg" />
           </div>
         )}
       </div>
