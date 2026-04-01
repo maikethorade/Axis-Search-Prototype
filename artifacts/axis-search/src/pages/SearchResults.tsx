@@ -148,6 +148,13 @@ export default function SearchResults() {
       if (currentUrl !== debouncedQuery.trim()) {
         window.history.replaceState(null, '', `/search?q=${encodeURIComponent(debouncedQuery.trim())}`);
       }
+      try {
+        const stored = localStorage.getItem('axis-recent-searches');
+        const recent: string[] = stored ? JSON.parse(stored) : [];
+        const term = debouncedQuery.trim();
+        const updated = [term, ...recent.filter(s => s.toLowerCase() !== term.toLowerCase())].slice(0, 6);
+        localStorage.setItem('axis-recent-searches', JSON.stringify(updated));
+      } catch {}
     }
   }, [debouncedQuery]);
 
