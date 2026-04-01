@@ -6,7 +6,7 @@ import { ContentModal } from '../components/ContentModal';
 import { SearchOverlay } from '../components/SearchOverlay';
 import { useSearch } from '../hooks/use-search';
 import { ContentItem, MOCK_CONTENT, TRENDING_SEARCHES, RECENT_SEARCHES } from '../lib/mock-data';
-import { PlayCircle, Search, Filter, Film, Tv, Trophy, Radio, BookOpen, Clock, TrendingUp, Sparkles, ChevronLeft, ChevronRight, ChevronDown, Check, ArrowUpDown } from 'lucide-react';
+import { PlayCircle, Search, Filter, Film, Tv, Trophy, Radio, BookOpen, Clock, TrendingUp, Sparkles, ChevronLeft, ChevronRight, ChevronDown, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const FILTER_GENRES = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Thriller', 'Romance', 'Documentary', 'Animation', 'Crime'];
@@ -154,9 +154,7 @@ export default function SearchResults() {
   const [selectedUploadDate, setSelectedUploadDate] = useState<string | null>(null);
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
   const [prioritiseBy, setPrioritiseBy] = useState<'relevance' | 'popularity'>('relevance');
-  const [isPrioritiseOpen, setIsPrioritiseOpen] = useState(false);
   const filtersRef = useRef<HTMLDivElement>(null);
-  const prioritiseRef = useRef<HTMLDivElement>(null);
   
   const { query, setQuery, results, activeFilter, setActiveFilter, debouncedQuery } = useSearch(initialQuery);
 
@@ -164,9 +162,6 @@ export default function SearchResults() {
     function handleClickOutside(e: MouseEvent) {
       if (filtersRef.current && !filtersRef.current.contains(e.target as Node)) {
         setIsFiltersOpen(false);
-      }
-      if (prioritiseRef.current && !prioritiseRef.current.contains(e.target as Node)) {
-        setIsPrioritiseOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -345,48 +340,6 @@ export default function SearchResults() {
               </div>
               
               <div className="flex items-center gap-2">
-              <div className="relative" ref={prioritiseRef}>
-                <button
-                  onClick={() => setIsPrioritiseOpen(!isPrioritiseOpen)}
-                  className="flex items-center gap-2 px-4 py-2 rounded text-sm transition-colors"
-                  style={{
-                    border: `1px solid ${isPrioritiseOpen || prioritiseBy !== 'relevance' ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.1)'}`,
-                    color: isPrioritiseOpen || prioritiseBy !== 'relevance' ? '#fff' : 'hsla(0, 0%, 100%, 0.8)',
-                    background: isPrioritiseOpen ? 'hsla(0, 0%, 100%, 0.05)' : 'transparent',
-                  }}
-                >
-                  <ArrowUpDown className="w-4 h-4" />
-                  {prioritiseBy === 'relevance' ? 'Relevance' : 'Popularity'}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isPrioritiseOpen ? 'rotate-180' : ''}`} />
-                </button>
-                <AnimatePresence>
-                  {isPrioritiseOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -8, scale: 0.96 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -8, scale: 0.96 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute right-0 top-full mt-2 w-48 rounded-lg overflow-hidden z-50"
-                      style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)', boxShadow: '0 16px 48px rgba(0,0,0,0.5)' }}
-                    >
-                      {([
-                        { value: 'relevance' as const, label: 'Relevance' },
-                        { value: 'popularity' as const, label: 'Popularity' },
-                      ]).map(option => (
-                        <button
-                          key={option.value}
-                          onClick={() => { setPrioritiseBy(option.value); setIsPrioritiseOpen(false); }}
-                          className="w-full flex items-center justify-between px-4 py-3 text-sm text-left hover:bg-white/5 transition-colors"
-                          style={{ color: prioritiseBy === option.value ? '#fff' : 'hsla(0, 0%, 100%, 0.7)' }}
-                        >
-                          {option.label}
-                          {prioritiseBy === option.value && <Check className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} />}
-                        </button>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
               <div className="relative" ref={filtersRef}>
                 <button
                   onClick={() => setIsFiltersOpen(!isFiltersOpen)}
@@ -432,6 +385,7 @@ export default function SearchResults() {
                         { key: 'subtitles', label: 'Subtitles', items: FILTER_SUBTITLES, type: 'multi' as const, selected: selectedSubtitles, setSelected: setSelectedSubtitles },
                         { key: 'duration', label: 'Duration', items: FILTER_DURATIONS, type: 'radio' as const, selectedValue: selectedDuration, onSelect: (v: string) => setSelectedDuration(selectedDuration === v ? null : v) },
                         { key: 'uploadDate', label: 'Upload date', items: FILTER_UPLOAD_DATES, type: 'radio' as const, selectedValue: selectedUploadDate, onSelect: (v: string) => setSelectedUploadDate(selectedUploadDate === v ? null : v) },
+                        { key: 'priority', label: 'Priority', items: ['Relevance', 'Popularity'], type: 'radio' as const, selectedValue: prioritiseBy === 'relevance' ? 'Relevance' : 'Popularity', onSelect: (v: string) => setPrioritiseBy(v === 'Relevance' ? 'relevance' : 'popularity') },
                       ].map(section => (
                         <div key={section.key} className="border-b border-white/5 last:border-b-0">
                           <button
