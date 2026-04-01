@@ -22,6 +22,7 @@ const NAV_ITEMS = [
 export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const [location, setLocation] = useLocation();
   const inputRef = useRef<HTMLInputElement>(null);
+  const mobileInputRef = useRef<HTMLInputElement>(null);
   const [isVoiceOpen, setIsVoiceOpen] = useState(false);
   const { query, setQuery, results, isSearching, debouncedQuery } = useSearch();
   const [recentSearches, setRecentSearches] = useState<string[]>(() => {
@@ -34,7 +35,13 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100);
+      const focusInput = () => {
+        const isMobile = window.innerWidth < 768;
+        const ref = isMobile ? mobileInputRef : inputRef;
+        ref.current?.focus();
+      };
+      setTimeout(focusInput, 50);
+      setTimeout(focusInput, 300);
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -213,7 +220,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       <Search className="w-4 h-4 text-white/50" />
                     </div>
                     <input
-                      ref={inputRef}
+                      ref={mobileInputRef}
                       type="text"
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
