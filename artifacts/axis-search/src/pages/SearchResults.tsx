@@ -6,7 +6,7 @@ import { ContentModal } from '../components/ContentModal';
 import { SearchOverlay } from '../components/SearchOverlay';
 import { useSearch } from '../hooks/use-search';
 import { ContentItem, MOCK_CONTENT, TRENDING_SEARCHES, RECENT_SEARCHES } from '../lib/mock-data';
-import { PlayCircle, Search, Filter, Film, Tv, Trophy, Radio, BookOpen, Clock, TrendingUp, Sparkles, ChevronLeft, ChevronRight, ChevronDown, Check } from 'lucide-react';
+import { PlayCircle, Search, Filter, Film, Tv, Trophy, Radio, BookOpen, Clock, TrendingUp, Sparkles, ChevronLeft, ChevronRight, ChevronDown, Check, ArrowUpDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const FILTER_GENRES = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Thriller', 'Romance', 'Documentary', 'Animation', 'Crime'];
@@ -154,7 +154,10 @@ export default function SearchResults() {
   const [selectedUploadDate, setSelectedUploadDate] = useState<string | null>(null);
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
   const [prioritiseBy, setPrioritiseBy] = useState<'relevance' | 'popularity'>('relevance');
+  const [sortBy, setSortBy] = useState<'none' | 'a-z' | 'recency'>('none');
+  const [isSortOpen, setIsSortOpen] = useState(false);
   const filtersRef = useRef<HTMLDivElement>(null);
+  const sortRef = useRef<HTMLDivElement>(null);
   
   const { query, setQuery, results, activeFilter, setActiveFilter, debouncedQuery } = useSearch(initialQuery);
 
@@ -162,6 +165,9 @@ export default function SearchResults() {
     function handleClickOutside(e: MouseEvent) {
       if (filtersRef.current && !filtersRef.current.contains(e.target as Node)) {
         setIsFiltersOpen(false);
+      }
+      if (sortRef.current && !sortRef.current.contains(e.target as Node)) {
+        setIsSortOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -248,8 +254,15 @@ export default function SearchResults() {
         return bScore - aScore;
       });
     }
+
+    if (sortBy === 'a-z') {
+      items.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortBy === 'recency') {
+      items.sort((a, b) => (b.year || 0) - (a.year || 0));
+    }
+
     return items;
-  }, [results.items, prioritiseBy, selectedDuration, selectedUploadDate, selectedTypes, selectedGenres, selectedChannels, selectedSubtitles]);
+  }, [results.items, prioritiseBy, sortBy, selectedDuration, selectedUploadDate, selectedTypes, selectedGenres, selectedChannels, selectedSubtitles]);
 
   const categorizedResults = useMemo(() => {
     if (activeFilter !== 'all') return null;
@@ -340,6 +353,49 @@ export default function SearchResults() {
               </div>
               
               <div className="flex items-center gap-2">
+              <div className="relative" ref={sortRef}>
+                <button
+                  onClick={() => setIsSortOpen(!isSortOpen)}
+                  className="flex items-center gap-2 px-4 py-2 rounded text-sm transition-colors"
+                  style={{
+                    border: `1px solid ${isSortOpen || sortBy !== 'none' ? 'var(--axis-brand)' : 'hsla(0, 0%, 100%, 0.1)'}`,
+                    color: isSortOpen || sortBy !== 'none' ? '#fff' : 'hsla(0, 0%, 100%, 0.8)',
+                    background: isSortOpen ? 'hsla(0, 0%, 100%, 0.05)' : 'transparent',
+                  }}
+                >
+                  <ArrowUpDown className="w-4 h-4" />
+                  Sorting{sortBy !== 'none' ? ` · ${sortBy === 'a-z' ? 'A–Z' : 'Recency'}` : ''}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isSortOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {isSortOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 top-full mt-2 w-48 rounded-lg overflow-hidden z-50"
+                      style={{ background: 'var(--axis-surface)', border: '1px solid hsla(0, 0%, 100%, 0.1)', boxShadow: '0 16px 48px rgba(0,0,0,0.5)' }}
+                    >
+                      {([
+                        { value: 'none' as const, label: 'None' },
+                        { value: 'a-z' as const, label: 'A–Z' },
+                        { value: 'recency' as const, label: 'Recency' },
+                      ]).map(option => (
+                        <button
+                          key={option.value}
+                          onClick={() => { setSortBy(option.value); setIsSortOpen(false); }}
+                          className="w-full flex items-center justify-between px-4 py-3 text-sm text-left hover:bg-white/5 transition-colors"
+                          style={{ color: sortBy === option.value ? '#fff' : 'hsla(0, 0%, 100%, 0.7)' }}
+                        >
+                          {option.label}
+                          {sortBy === option.value && <Check className="w-4 h-4" style={{ color: 'var(--axis-brand)' }} />}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
               <div className="relative" ref={filtersRef}>
                 <button
                   onClick={() => setIsFiltersOpen(!isFiltersOpen)}
