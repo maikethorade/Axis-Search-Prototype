@@ -144,6 +144,12 @@ export default function SearchResults() {
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isVoiceOpen, setIsVoiceOpen] = useState(false);
+  const [recentSearches, setRecentSearches] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('axis-recent-searches');
+      return stored ? JSON.parse(stored) : RECENT_SEARCHES;
+    } catch { return RECENT_SEARCHES; }
+  });
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [freeToMe, setFreeToMe] = useState(false);
@@ -819,7 +825,7 @@ export default function SearchResults() {
                 <h2 className="text-lg font-bold text-white">Recent Searches</h2>
               </div>
               <div className="flex flex-wrap gap-3">
-                {RECENT_SEARCHES.map(s => (
+                {(recentSearches.length > 0 ? recentSearches : RECENT_SEARCHES).map(s => (
                   <button
                     key={s}
                     onClick={() => { setQuery(s); window.history.replaceState(null, '', `/search?q=${encodeURIComponent(s)}`); }}
