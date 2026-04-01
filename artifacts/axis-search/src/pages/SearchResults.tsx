@@ -619,7 +619,7 @@ export default function SearchResults() {
               </motion.div>
             )}
 
-            {(sortedItems.length > 0 || (!hasActiveFilters && hasResults)) && !(hasResults && sortedItems.length === 0 && hasActiveFilters) ? (
+            {sortedItems.length > 0 ? (
               <div className="space-y-14">
                 {activeTab === 'all' && sortedItems.length > 0 && (() => {
                   const topItems = sortedItems.slice(0, 5);
@@ -769,7 +769,7 @@ export default function SearchResults() {
                   </motion.div>
                 )}
               </div>
-            ) : (
+            ) : !hasActiveFilters ? (
               <motion.div 
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                 className="flex flex-col items-center justify-center py-20 text-center px-4"
@@ -798,7 +798,7 @@ export default function SearchResults() {
                   </div>
                 </div>
               </motion.div>
-            )}
+            ) : null}
           </>
         ) : (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-14">
