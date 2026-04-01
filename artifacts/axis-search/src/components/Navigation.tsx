@@ -102,8 +102,8 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
 
           <div className="md:hidden flex items-center">
             {hasExpandedSearch ? (
-              <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
-                <User className="w-full h-full p-1.5 text-white/90" />
+              <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center cursor-pointer" style={{ background: '#F57C00' }}>
+                <span className="text-white text-sm" style={{ fontWeight: 700 }}>M</span>
               </div>
             ) : (
               <button
@@ -263,8 +263,8 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
               </button>
             )}
             
-            <div className="w-8 h-8 rounded-full border border-white/30 overflow-hidden hidden md:flex items-center justify-center cursor-pointer" style={{ background: 'var(--axis-overlay)' }}>
-              <User className="w-full h-full p-1.5 text-white/90" />
+            <div className="w-8 h-8 rounded-full overflow-hidden hidden md:flex items-center justify-center cursor-pointer" style={{ background: '#F57C00' }}>
+              <span className="text-white text-sm" style={{ fontWeight: 700 }}>M</span>
             </div>
           </div>
         </div>
@@ -326,8 +326,8 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
 
               <div className="px-5 py-5" style={{ borderTop: '1px solid hsla(0, 0%, 100%, 0.1)' }}>
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full border border-white/30 overflow-hidden flex items-center justify-center" style={{ background: 'var(--axis-overlay)' }}>
-                    <User className="w-full h-full p-2 text-white/90" />
+                  <div className="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center" style={{ background: '#F57C00' }}>
+                    <span className="text-white text-sm" style={{ fontWeight: 700 }}>M</span>
                   </div>
                   <div>
                     <p className="text-white text-sm font-medium">My Account</p>
