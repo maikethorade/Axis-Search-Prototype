@@ -24,3 +24,9 @@ id = "DxTU64miiV9VXksZZZ1HH"
 uri = "file://screenshots/hero-masonry-search-fullpage.jpg"
 type = "image"
 title = "C. Hero Result + Masonry Search — Full Page"
+
+[[outputs]]
+id = "xuUFm2uCIWmGerA1x1j4G"
+uri = "file://exports/filter-modal-columns.jpg"
+type = "image"
+title = "Filter Modal (Columns) - AXIS Search"
