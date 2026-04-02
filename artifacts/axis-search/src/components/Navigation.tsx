@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Link } from 'wouter';
 import { Search, User, Menu, X, Mic } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -24,7 +24,28 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const mobileSearchInputRef = useRef<HTMLInputElement>(null);
+  const inputHasFocusRef = useRef(false);
   const hasExpandedSearch = searchQuery !== undefined;
+
+  const handleSearchFocus = () => { inputHasFocusRef.current = true; };
+  const handleSearchBlur = () => {
+    setTimeout(() => {
+      if (!document.activeElement || document.activeElement === document.body) {
+        return;
+      }
+      inputHasFocusRef.current = false;
+    }, 0);
+  };
+
+  useLayoutEffect(() => {
+    if (inputHasFocusRef.current) {
+      const ref = isMobile ? mobileSearchInputRef : searchInputRef;
+      if (ref.current && document.activeElement !== ref.current) {
+        ref.current.focus();
+      }
+    }
+  });
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -124,9 +145,12 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
                 <Search className="w-4 h-4 text-white/50" />
               </div>
               <input
+                ref={mobileSearchInputRef}
                 type="text"
                 value={searchQuery}
                 onChange={(e) => onSearchQueryChange?.(e.target.value)}
+                onFocus={handleSearchFocus}
+                onBlur={handleSearchBlur}
                 placeholder="Search"
                 className="h-10 w-full rounded-full pl-10 pr-20 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
                 style={{ background: 'var(--axis-overlay)' }}
@@ -227,6 +251,8 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
                   type="text"
                   value={searchQuery}
                   onChange={(e) => onSearchQueryChange?.(e.target.value)}
+                  onFocus={handleSearchFocus}
+                  onBlur={handleSearchBlur}
                   placeholder="Search"
                   className="h-8 w-52 lg:w-64 rounded-full pl-8 pr-16 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30 transition-all border border-white/30"
                   style={{ background: 'var(--axis-overlay)' }}

@@ -202,7 +202,7 @@ export default function SearchResults() {
     if (debouncedQuery.trim()) {
       const currentUrl = new URLSearchParams(window.location.search).get('q') || '';
       if (currentUrl !== debouncedQuery.trim()) {
-        window.history.replaceState(null, '', `/search?q=${encodeURIComponent(debouncedQuery.trim())}`);
+        History.prototype.replaceState.call(window.history, null, '', `/search?q=${encodeURIComponent(debouncedQuery.trim())}`);
       }
       try {
         const stored = localStorage.getItem('axis-recent-searches');
@@ -211,6 +211,17 @@ export default function SearchResults() {
         const updated = [term, ...recent.filter(s => s.toLowerCase() !== term.toLowerCase())].slice(0, 6);
         localStorage.setItem('axis-recent-searches', JSON.stringify(updated));
       } catch {}
+      requestAnimationFrame(() => {
+        if (!document.activeElement || document.activeElement === document.body) {
+          const inputs = document.querySelectorAll('input[placeholder="Search"]') as NodeListOf<HTMLInputElement>;
+          for (const input of inputs) {
+            if (input.offsetParent !== null) {
+              input.focus();
+              break;
+            }
+          }
+        }
+      });
     }
   }, [debouncedQuery]);
 
@@ -897,7 +908,7 @@ export default function SearchResults() {
         onResult={(text: string) => {
           setIsVoiceOpen(false);
           setQuery(text);
-          window.history.replaceState(null, '', `/search?q=${encodeURIComponent(text)}`);
+          History.prototype.replaceState.call(window.history, null, '', `/search?q=${encodeURIComponent(text)}`);
         }}
       />
       <ContentModal item={selectedItem} onClose={() => setSelectedItem(null)} />
