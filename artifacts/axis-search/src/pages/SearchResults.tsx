@@ -139,7 +139,7 @@ const CATEGORY_CONFIG: { type: string; label: string; tagline?: string; icon: Re
 ];
 
 export default function SearchResults() {
-  const [location, setLocation] = useLocation();
+  const [, setLocation] = useLocation();
   const initialQuery = new URLSearchParams(window.location.search).get('q') || '';
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -170,11 +170,14 @@ export default function SearchResults() {
   const [activeTab, setActiveTab] = useState<string>('all');
 
   useEffect(() => {
-    const urlQuery = new URLSearchParams(window.location.search).get('q') || '';
-    if (urlQuery && urlQuery !== query) {
+    const handlePopState = () => {
+      const urlQuery = new URLSearchParams(window.location.search).get('q') || '';
       setQuery(urlQuery);
-    }
-  }, [location]);
+      setActiveTab('all');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [setQuery]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -194,14 +197,6 @@ export default function SearchResults() {
   };
 
   const activeFilterCount = selectedGenres.length + selectedSubtitles.length + selectedChannels.length + selectedTypes.length + (freeToMe ? 1 : 0) + (selectedDuration ? 1 : 0) + (selectedUploadDate ? 1 : 0);
-
-  useEffect(() => {
-    const urlQuery = new URLSearchParams(window.location.search).get('q') || '';
-    if (urlQuery && urlQuery !== query) {
-      setQuery(urlQuery);
-      setActiveTab('all');
-    }
-  }, [location]);
 
   useEffect(() => {
     if (debouncedQuery.trim()) {

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'wouter';
+import { Link } from 'wouter';
 import { Search, User, Menu, X, Mic } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,7 +19,7 @@ const NAV_ITEMS = [
 ];
 
 export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQueryChange }: NavigationProps) {
-  const [location] = useLocation();
+  const currentPath = window.location.pathname;
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -92,7 +92,7 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`text-xs font-bold tracking-wide uppercase transition-colors ${location === item.href ? 'text-white' : 'text-white/70 hover:text-white'}`}
+                  className={`text-xs font-bold tracking-wide uppercase transition-colors ${currentPath === item.href ? 'text-white' : 'text-white/70 hover:text-white'}`}
                 >
                   {item.label}
                 </Link>
@@ -156,7 +156,7 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
         ) : (
           <nav className="md:hidden flex items-end justify-center gap-6 px-6 h-12" style={{ background: '#2544D0' }}>
             {NAV_ITEMS.slice(0, 3).map((item) => {
-              const isActive = location === item.href;
+              const isActive = currentPath === item.href;
               return isActive ? (
                 <Link
                   key={item.label}
@@ -187,7 +187,7 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
 
             <nav className="hidden lg:flex items-center gap-7 h-full">
               {NAV_ITEMS.map((item) => {
-                const isActive = location === item.href;
+                const isActive = currentPath === item.href;
                 return (
                   <Link
                     key={item.label}
@@ -203,7 +203,7 @@ export function Navigation({ onOpenSearch, onOpenVoice, searchQuery, onSearchQue
 
           <nav className="flex lg:hidden items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2 h-full">
             {NAV_ITEMS.map((item) => {
-              const isActive = location === item.href;
+              const isActive = currentPath === item.href;
               return (
                 <Link
                   key={item.label}
