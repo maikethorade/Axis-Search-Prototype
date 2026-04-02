@@ -803,7 +803,8 @@ export default function SearchResults() {
             ) : !hasActiveFilters ? (
               <motion.div 
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                className="flex flex-col items-center justify-center py-20 text-center px-4"
+                className="flex flex-col items-center justify-center py-20 text-center"
+                style={{ paddingRight: 'max(24px, calc((100vw - 1280px) / 2 + 48px))' }}
               >
                 <div className="w-20 h-20 rounded-full flex items-center justify-center mb-6" style={{ background: 'var(--axis-surface)' }}>
                   <Search className="w-8 h-8 text-white/20" />
